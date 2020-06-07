@@ -1,0 +1,5 @@
+https://ubntwiki.com/products/software/edgeos/api
+https://caitiem.com/2013/12/02/a-websocket-primer/
+http://thesoftwarechef.blogspot.com/2013/09/websockets-in-net-45.html
+https://webcache.googleusercontent.com/search?q=cache:X7yi9rABZHkJ:https://itq.eu/net-4-5-websocket-client-without-a-browser/+
+https://gist.github.com/xamlmonkey/4737291

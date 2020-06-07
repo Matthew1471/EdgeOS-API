@@ -1,0 +1,1 @@
+App.ico = https://www.iconfinder.com/icons/1376009/chart_graph_infographic_investment_report_stocks_icon

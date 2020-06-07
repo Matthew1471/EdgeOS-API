@@ -1,0 +1,25 @@
+# Visual Studio 2015-2019 cache/options directory.
+.vs
+
+# The packages folder can be ignored because of NuGet Package Restore.
+/[Pp]ackages/
+
+# Build results
+[Dd]ebug/
+[Rr]elease/
+[Oo]bj/
+
+# User-specific files
+*.user
+
+# Sensitive config files.
+App.config
+
+# Copyright unminified JS file.
+/Resources/edge.js
+
+# Extracted version of the ZIP file.
+/Resources/Windows UWP Sample/WebSocket_sample/
+
+# Certificate files do not belong in Git.
+*.crt
