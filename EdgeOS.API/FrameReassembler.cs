@@ -102,7 +102,7 @@ namespace EdgeOS.API
         /// <summary>Reads a frame and separates the length of the message from the message itself. Returning the length to the caller and assigning back to the variable the now headerless message.</summary>
         /// <param name="messageFrame">The message that was received including the header.</param>
         /// <returns>The expected message length of this message.</returns>
-        private uint GetLengthAndStripHeader(ref string messageFrame)
+        private static uint GetLengthAndStripHeader(ref string messageFrame)
         {
             // The header is delimited by a new line character.
             int startMessageIndex = messageFrame.IndexOf('\n') + 1;

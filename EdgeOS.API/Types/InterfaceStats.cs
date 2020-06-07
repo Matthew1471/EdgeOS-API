@@ -1,5 +1,6 @@
 ﻿namespace EdgeOS.API.Types
 {
+    /// <summary>An object that contains network interface statistics information for a specific EdgeOS network interface.</summary>
     public class InterfaceStats
     {
         /// <summary>The number of packets this interface has received.</summary>

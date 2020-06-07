@@ -1,4 +1,6 @@
 ﻿using EdgeOS.API;
+using EdgeOS.API.Types;
+using EdgeOS.API.Types.SubscriptionRequestTypes;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -109,7 +111,7 @@ namespace InterfacesChart
                     // Compose a subscription request message.
                     SubscriptionRequest subscriptionRequest = new SubscriptionRequest
                     {
-                        Subscribe = { SubscriptionMessageType.Interfaces },
+                        Subscribe = new Subscription[] { new Subscription() { name = SubscriptionMessageType.Interfaces } },
                         SessionID = statsConnection.SessionID
                     };
 
@@ -119,55 +121,58 @@ namespace InterfacesChart
             }
         }
 
-        /// <summary>Method which is invoked when new <see cref="SubscriptionData"/> arrives.</summary>
+        /// <summary>Method which is invoked when new <see cref="SubscriptionDataEvent"/> arrives.</summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="SubscriptionData"/> instance containing the event data.</param>
-        private void Connection_DataReceived(object sender, SubscriptionData e)
+        /// <param name="e">The <see cref="SubscriptionDataEvent"/> instance containing the event data.</param>
+        private void Connection_DataReceived(object sender, SubscriptionDataEvent e)
         {
-            byte manuallyAddedSeriesCount = 0;
-            foreach (KeyValuePair<string, EdgeOS.API.Types.Interface> currentInterface in e.rootObject.Interfaces)
+            if (e.rootObject.Interfaces != null)
             {
-                // We only care about "eth" devices.
-                if (!currentInterface.Key.StartsWith("eth")) { continue; }
-
-                string currentRx = currentInterface.Key + "Rx";
-                string currentTx = currentInterface.Key + "Tx";
-
-                // If the bandwidthChart does not have this series already addded then we will need to add it.
-                if (bandwidthChart.Series.IndexOf(currentRx) == -1)
+                byte manuallyAddedSeriesCount = 0;
+                foreach (KeyValuePair<string, Interface> currentInterface in e.rootObject.Interfaces)
                 {
-                    Series currentRxSeries = new Series(currentRx) { ChartArea = "ChartAreaRx", ChartType = SeriesChartType.StackedColumn };
-                    if (manuallyAddedSeriesCount < paletteColors.Length) { currentRxSeries.Color = paletteColors[manuallyAddedSeriesCount]; }
-                    bandwidthChart.Series.Add(currentRxSeries);
+                    // We only care about "eth" devices.
+                    if (!currentInterface.Key.StartsWith("eth")) { continue; }
 
-                    Series currentTxSeries = new Series(currentTx) { ChartArea = "ChartAreaTx", ChartType = SeriesChartType.StackedColumn };
-                    if (manuallyAddedSeriesCount < paletteColors.Length) { currentTxSeries.Color = paletteColors[manuallyAddedSeriesCount++]; }
-                    bandwidthChart.Series.Add(new Series(currentTx));
+                    string currentRx = currentInterface.Key + "Rx";
+                    string currentTx = currentInterface.Key + "Tx";
+
+                    // If the bandwidthChart does not have this series already addded then we will need to add it.
+                    if (bandwidthChart.Series.IndexOf(currentRx) == -1)
+                    {
+                        Series currentRxSeries = new Series(currentRx) { ChartArea = "ChartAreaRx", ChartType = SeriesChartType.StackedColumn };
+                        if (manuallyAddedSeriesCount < paletteColors.Length) { currentRxSeries.Color = paletteColors[manuallyAddedSeriesCount]; }
+                        bandwidthChart.Series.Add(currentRxSeries);
+
+                        Series currentTxSeries = new Series(currentTx) { ChartArea = "ChartAreaTx", ChartType = SeriesChartType.StackedColumn };
+                        if (manuallyAddedSeriesCount < paletteColors.Length) { currentTxSeries.Color = paletteColors[manuallyAddedSeriesCount++]; }
+                        bandwidthChart.Series.Add(new Series(currentTx));
+                    }
+
+                    bandwidthChart.Series[currentRx].Points.AddY(e.rootObject.Interfaces[currentInterface.Key].stats.rx_bps);
+                    bandwidthChart.Series[currentTx].Points.AddY(e.rootObject.Interfaces[currentInterface.Key].stats.tx_bps);
                 }
 
-                bandwidthChart.Series[currentRx].Points.AddY(e.rootObject.Interfaces[currentInterface.Key].stats.rx_bps);
-                bandwidthChart.Series[currentTx].Points.AddY(e.rootObject.Interfaces[currentInterface.Key].stats.tx_bps);
-            }
+                // Adjust Y & X axis scale
+                bandwidthChart.ResetAutoValues();
 
-            // Adjust Y & X axis scale
-            bandwidthChart.ResetAutoValues();
+                // We set a limit for the maximum number of points we want to see in the chart.
+                const byte numberOfPointsInChart = 50;
 
-            // We set a limit for the maximum number of points we want to see in the chart.
-            const byte numberOfPointsInChart = 50;
-
-            // Check each of the series.
-            foreach (Series currentSeries in bandwidthChart.Series)
-            {
-                // Keep a constant number of points by removing them from the left
-                while (currentSeries.Points.Count > numberOfPointsInChart)
+                // Check each of the series.
+                foreach (Series currentSeries in bandwidthChart.Series)
                 {
-                    // Remove data points on the left side
-                    while (currentSeries.Points.Count > numberOfPointsInChart) { currentSeries.Points.RemoveAt(0); }
+                    // Keep a constant number of points by removing them from the left
+                    while (currentSeries.Points.Count > numberOfPointsInChart)
+                    {
+                        // Remove data points on the left side
+                        while (currentSeries.Points.Count > numberOfPointsInChart) { currentSeries.Points.RemoveAt(0); }
+                    }
                 }
-            }
 
-            // Invalidate chart
-            bandwidthChart.Invalidate();
+                // Invalidate chart
+                bandwidthChart.Invalidate();
+            }
         }
     }
 }

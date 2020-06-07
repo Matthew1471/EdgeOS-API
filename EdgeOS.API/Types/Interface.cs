@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace EdgeOS.API.Types
+﻿namespace EdgeOS.API.Types
 {
     /// <summary>An object that contains network interface information for a specific EdgeOS network interface.</summary>
     public class Interface
@@ -39,7 +37,7 @@ namespace EdgeOS.API.Types
         public uint mtu;
 
         /// <summary>Any addresses assigned to this interface.</summary>
-        public List<string> addresses;
+        public string[] addresses;
 
         /// <summary>A breakdown of statistics for this interface.</summary>
         public InterfaceStats stats;

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EdgeOS.API.Types;
+using System;
 using System.Net;
 using System.Net.WebSockets;
 using System.Text;
@@ -6,6 +7,7 @@ using System.Threading;
 
 namespace EdgeOS.API
 {
+    /// <summary>Represents a WebSocket connection to EdgeOS and provides methods for requesting and receiving data.</summary>
     public class StatsConnection : IDisposable
     {
         /// <summary>The ClientWebSocket used to connect to EdgeOS.</summary>
@@ -17,11 +19,11 @@ namespace EdgeOS.API
         /// <summary>A cancellation token used to propagate notification that the operation should be cancelled.</summary>
         private readonly CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
 
-        // Size of receive buffer.  
+        /// <summary>Size of the receive buffer.</summary>
         public const int BufferSize = 1024;
 
         /// <summary>Event that gets raised when a full message has been received from EdgeOS.</summary>
-        public event EventHandler<SubscriptionData> DataReceived;
+        public event EventHandler<SubscriptionDataEvent> DataReceived;
 
         /// <summary>Event that gets raised when the connection state of the underlying ClientWebSocket changes.</summary>
         public event EventHandler<ConnectionStatus> ConnectionStatusChanged;
@@ -30,8 +32,33 @@ namespace EdgeOS.API
         private bool _disposed;
 
         /// <summary>The various states a StatsConnection connection may be in.</summary>
-        public enum ConnectionStatus { Connecting, Connected, DisconnectedByUser, DisconnectedByHost, ConnectFail_Timeout, ReceiveFail_Timeout, SendFail_Timeout, Error };
+        public enum ConnectionStatus {
+            /// <summary>The socket is currently connecting.</summary>
+            Connecting,
+            
+            /// <summary>The socket is currently connected.</summary>
+            Connected,
+            
+            /// <summary>The user has closed the connection.</summary>
+            DisconnectedByUser,
+            
+            /// <summary>The remote server has closed the connection.</summary>
+            DisconnectedByHost,
+            
+            /// <summary>The host did not respond to our connection in the specified time.</summary>
+            ConnectFail_Timeout,
+            
+            /// <summary>The host did not send data in the specified time.</summary>
+            ReceiveFail_Timeout,
+            
+            /// <summary>The message failed to send in time.</summary>
+            SendFail_Timeout,
 
+            /// <summary>An error has occurred.</summary>
+            Error
+        };
+        
+        /// <summary>Creates an instance of the StatsConnection for connecting to a single EdgeOS device.</summary>
         public StatsConnection()
         {
             // Implementation of timeout of 5000ms.
@@ -106,7 +133,7 @@ namespace EdgeOS.API
                                 while (frameReassembler.HasCompleteMessages())
                                 {
                                     // Raise an event containing the full message.
-                                    DataReceived?.Invoke(this, new SubscriptionData(frameReassembler.GetNextCompleteMessage()));
+                                    DataReceived?.Invoke(this, new SubscriptionDataEvent(frameReassembler.GetNextCompleteMessage()));
                                 }
 
                                 break;
@@ -155,6 +182,9 @@ namespace EdgeOS.API
 
                     // Release the socket resources.
                     _clientWebSocket.Dispose();
+
+                    // Release the cancellation token.
+                    _cancellationTokenSource.Dispose();
                 }
 
                 // We are marked as disposed.
