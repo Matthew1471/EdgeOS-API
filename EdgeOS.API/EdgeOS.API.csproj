@@ -60,7 +60,7 @@
     <Compile Include="Types\UDAPITypes\RAM.cs" />
     <Compile Include="Types\UDAPITypes\Storage.cs" />
     <Compile Include="Types\SubscriptionRequestTypes\Subscription.cs" />
-    <Compile Include="Types\SubscriptionType.cs" />
+    <Compile Include="Types\SubscriptionMessageType.cs" />
     <Compile Include="Types\ApplicationStats.cs" />
     <Compile Include="Types\ConfigurationChange.cs" />
     <Compile Include="Types\NumberOfRoutes.cs" />
