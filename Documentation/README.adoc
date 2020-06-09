@@ -92,8 +92,8 @@ These are defined as "<op>.json" and are passed to the closed-source `ubnt-util`
 === Wizards
 
 * link:REST%20API/Wizard%20-%20List%20All%20Wizards.adoc[List All Wizards]
-* [line-through]#Runtime# (referenced in the web UI but no longer present)
-* [line-through]#Setup# (referenced in the web UI but no longer present)
+* [.line-through]#Runtime# (referenced in the web UI but no longer present)
+* [.line-through]#Setup# (referenced in the web UI but no longer present)
 * link:REST%20API/Wizard%20-%20Specific%20Wizard%20Create.adoc[Specific Wizard Create]
 * link:REST%20API/Wizard%20-%20Specific%20Wizard%20Download.adoc[Specific Wizard Download]
 * link:REST%20API/Wizard%20-%20Specific%20Wizard%20Remove.adoc[Specific Wizard Remove]

@@ -13,6 +13,30 @@ The default wizards are:
 |Key
 |Type
 
+|Basic Setup (symlink'd to WAN+2LAN2)
+|`Basic_Setup`
+|setup
+
+|Load Balancing
+|`Load_Balancing`
+|setup
+
+|Load Balancing2
+|`Load_Balancing2`
+|setup
+
+|Switch
+|`Switch`
+|setup
+
+|WAN+2LAN
+|`WAN+2LAN`
+|setup
+
+|WAN+2LAN2
+|`WAN+2LAN2`
+|setup
+
 |.Basic_Queue
 |`.Basic_Queue`
 |feature
@@ -33,25 +57,9 @@ The default wizards are:
 |`.Vpn2`
 |feature
 
-|Basic Setup
-|`Basic_Setup`
-|setup
-
 |DNS host names
 |`DNS_host_names`
 |feature
-
-|Load Balancing
-|`Load_Balancing`
-|setup
-
-|Load Balancing2
-|`Load_Balancing2`
-|setup
-
-|Switch
-|`Switch`
-|setup
 
 |TCP MSS clamping
 |`TCP_MSS_clamping`
@@ -64,16 +72,7 @@ The default wizards are:
 |VPN status
 |`VPN_status`
 |feature
-
-|WAN+2LAN
-|`WAN+2LAN`
-|setup
-
-|WAN+2LAN2
-|`WAN+2LAN2`
-|setup
 |===
-{
 
 GET /api/wizard/feature/DNS_host_names.json Response
 [source,json]
