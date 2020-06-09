@@ -1,0 +1,24 @@
+= Raw - Bandwidth Test
+
+Client:
+
+[source,json]
+----
+150
+{"SUBSCRIBE":[{"name":"bwtest-feed","sub_id":"bandwidth5","server":"192.168.0.253"}],"UNSUBSCRIBE":[],"SESSION_ID":"9a00126c5bf04e29835f7c13fe5ab155"}
+----
+
+or with advanced properties set:
+
+[source,json]
+----
+273
+{"SUBSCRIBE":[{"name":"bwtest-feed","sub_id":"bandwidth2","server":"192.168.0.254","duration":"1","protocol":"udp","udp-bandwidth":"500","parallel-flows":"1","tcp-window-size":"64","reverse-direction":true}],"UNSUBSCRIBE":[],"SESSION_ID":"9a00126c5bf04e29835f7c13fe5ab155"}
+----
+
+Server:
+[source,json]
+----
+144
+{"SUBSCRIBE":[{"name":"bwtest-feed","sub_id":"bandwidth5","server-mode":true}],"UNSUBSCRIBE":[],"SESSION_ID":"9a00126c5bf04e29835f7c13fe5ab155"}
+----

@@ -1,0 +1,11 @@
+= Raw - NAT Statistics
+
+Returns per-rule NAT stats:
+
+[source,json]
+----
+1115
+{
+    "nat-stats": "1 15 DST eth0 \"Allow OpenVPN To VPN\"\n2 0 DST eth1 \"Allow OpenVPN To VPN (Hairpin)\"\n3 28 DST eth0 \"Allow qBittorrent\"\n4 0 DST eth0 \"Allow Emergency iLO (HTTP)\" DISABLED\n5 0 DST eth0 \"Allow Emergency iLO (Console)\" DISABLED\n6 7192 DST eth1 \"Redirect Google DNS To Router\"\n7 3920 DST eth1 \"Redirect Google ICMP To Router\"\n5001 46501 MASQ eth0 \"Masquerade For WAN\"\n5002 0 MASQ eth1 \"Allow OpenVPN To VPN (Hairpin)\"\n1 15 DST eth0 \"Allow OpenVPN To VPN\"\n2 0 DST eth1 \"Allow OpenVPN To VPN (Hairpin)\"\n3 28 DST eth0 \"Allow qBittorrent\"\n4 0 DST eth0 \"Allow Emergency iLO (HTTP)\" DISABLED\n5 0 DST eth0 \"Allow Emergency iLO (Console)\" DISABLED\n6 7192 DST eth1 \"Redirect Google DNS To Router\"\n7 3920 DST eth1 \"Redirect Google ICMP To Router\"\n5001 46501 MASQ eth0 \"Masquerade For WAN\"\n5002 0 MASQ eth1 \"Allow OpenVPN To VPN (Hairpin)\"\n1 15 DST eth0 \"Allow OpenVPN To VPN\"\n2 0 DST eth1 \"Allow OpenVPN To VPN (Hairpin)\"\n3 28 DST eth0 \"Allow qBittorrent\"\n4 0 DST eth0 \"Allow Emergency iLO (HTTP)\" DISABLED\n5 0 DST eth0 \"Allow Emergency iLO "
+}
+----

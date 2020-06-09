@@ -1,0 +1,17 @@
+= Raw - Ping
+
+[source,json]
+----
+163
+{"SUBSCRIBE":[{"name":"ping-feed","sub_id":"ping1","target":"192.168.0.1","count":"1","size":""}],"UNSUBSCRIBE":[],"SESSION_ID":"9a00126c5bf04e29835f7c13fe5ab155"}
+----
+
+with the response being pretty similar to a raw feed:
+
+[source,json]
+----
+76
+{
+    "ping1": "PING 192.168.0.1 (192.168.0.1) 56(84) bytes of data.\n\n"
+}
+----

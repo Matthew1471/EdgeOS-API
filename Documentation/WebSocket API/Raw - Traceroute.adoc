@@ -1,0 +1,17 @@
+= Raw - Traceroute
+
+[source,json]
+----
+165
+{"SUBSCRIBE":[{"name":"traceroute-feed","sub_id":"trace6","target":"192.168.0.254","resolve":true}],"UNSUBSCRIBE":[],"SESSION_ID":"9a00126c5bf04e29835f7c13fe5ab155"}
+----
+
+with the response being pretty similar to a raw feed:
+
+[source,json]
+----
+98
+{
+    "trace6": "traceroute to 192.168.0.254 (192.168.0.254), 30 hops max, 38 byte packets\n 1"
+}
+----

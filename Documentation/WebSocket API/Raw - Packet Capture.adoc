@@ -1,0 +1,7 @@
+= Raw - Packet Capture
+
+[source,json]
+----
+224
+{"SUBSCRIBE":[{"name":"packets-feed","sub_id":"packets4","interface":"1","pkt_count":"1","resolve":true,"f_proto":"","f_address":"","f_port":"","f_neg":true}],"UNSUBSCRIBE":[],"SESSION_ID":"9a00126c5bf04e29835f7c13fe5ab155"}
+----

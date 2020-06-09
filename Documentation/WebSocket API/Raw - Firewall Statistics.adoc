@@ -1,0 +1,38 @@
+= Raw - Firewall Statistics
+
+Returns per-rule firewall stats:
+
+Request:
+[source,json]
+----
+142
+{"SUBSCRIBE":[{"name":"fw-stats","sub_id":"fwstat:WAN_IN","chain":"WAN_IN"}],"UNSUBSCRIBE":[],"SESSION_ID":"9a00126c5bf04e29835f7c13fe5ab155"}
+----
+
+[source,json]
+----
+{'fwstat:WAN_IN': 'MGT_IN 10 11604461 1380173884 ACCEPT ""\n'}
+{'fwstat:WAN_IN': 'MGT_IN 20 0 0 DROP "drop direct stun"\n'}
+{'fwstat:WAN_IN': 'MGT_IN 30 24 1152 ACCEPT "stun"\n'}
+{'fwstat:WAN_IN': 'MGT_IN 10000 8417 670074 DROP "DEFAULT ACTION"\n\n'}
+{'fwstat:WAN_IN': 'WAN_IN 10 747540714 999952823643 ACCEPT "Allow established/related"\n'}
+{'fwstat:WAN_IN': 'WAN_IN 20 0 0 DROP "Drop invalid state"\n'}
+{'fwstat:WAN_IN': 'WAN_IN 30 1095 52610 DROP "block ET"\n'}
+{'fwstat:WAN_IN': 'WAN_IN 40 0 0 DROP "block TOR"\n'}
+{'fwstat:WAN_IN': 'WAN_IN 50 0 0 DROP "block EDROP"\n'}
+{'fwstat:WAN_IN': 'WAN_IN 60 0 0 DROP "block China" DISABLED\n'}
+{'fwstat:WAN_IN': 'WAN_IN 70 92712 5078903 ACCEPT "server - web ports - tcp"\n'}
+{'fwstat:WAN_IN': 'WAN_IN 80 65556 3923195 ACCEPT "server - ssh"\n'}
+{'fwstat:WAN_IN': 'WAN_IN 90 877 52516 ACCEPT "server - gitlab ssh"\n'}
+{'fwstat:WAN_IN': 'WAN_IN 100 142 33791 ACCEPT "server - mosh"\n'}
+{'fwstat:WAN_IN': 'WAN_IN 110 3926 143574 ACCEPT "server - unifi stun"\n'}
+{'fwstat:WAN_IN': 'WAN_IN 10000 259 136357 DROP "DEFAULT ACTION"\n\n'}
+{'fwstat:WAN_IN': 'WAN_LOCAL 10 55434 36097276 ACCEPT "Allow established/related"\n'}
+{'fwstat:WAN_IN': 'WAN_LOCAL 20 87599 17248696 DROP "Drop invalid state"\n'}
+{'fwstat:WAN_IN': 'WAN_LOCAL 61 41787 1761510 DROP "block ET"\n'}
+{'fwstat:WAN_IN': 'WAN_LOCAL 62 0 0 DROP "block TOR"\n'}
+{'fwstat:WAN_IN': 'WAN_LOCAL 63 100 4160 DROP "block EDROP"\n'}
+{'fwstat:WAN_IN': 'WAN_LOCAL 64 0 0 DROP "block China" DISABLED\n'}
+{'fwstat:WAN_IN': 'WAN_LOCAL 65 21894 1372976 ACCEPT "ICMP"\n'}
+{'fwstat:WAN_IN': 'WAN_LOCAL 10000 241941 37301536 DROP "DEFAULT ACTION"\n\n'}
+----

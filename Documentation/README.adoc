@@ -69,6 +69,7 @@ The `/api/edge/data.json` endpoint can query a variety of stats and data:
 * link:WebSocket%20API/Statistics.adoc[Statistics]
 
 == Third Party Unofficial APIs
+
 There are a few developers who have worked on creating unofficial APIs:
 
  * https://github.com/matthew1471/EdgeOS-API (written in C#)
