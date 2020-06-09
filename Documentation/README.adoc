@@ -34,17 +34,17 @@ A session can be extended with a HTTP GET to `/api/edge/heartbeat.json?t=*EPOCH*
 
 === General
 
-* link:Documentation/API/Get%20Configuration.adoc[Get Configuration]
-* link:Documentation/API/Get%20Configured%20Sections.adoc[Get Configured Sections]
+* link:API/Get%20Configuration.adoc[Get Configuration]
+* link:API/Get%20Configured%20Sections.adoc[Get Configured Sections]
 
 === Data
 The `/api/edge/data.json` endpoint can query a variety of stats and data:
 
-* link:Documentation/API/Data%20-%20Default%20Configuration%20Status.adoc[Default Configuration Status]
-* link:Documentation/API/Data%20-%20DHCP%20Leases.adoc[DHCP Leases]
-* link:Documentation/API/Data%20-%20DHCP%20Statistics.adoc[DHCP Statistics]
-* link:Documentation/API/Data%20-%20Routes.adoc[Routes]
-* link:Documentation/API/Data%20-%20System%20Information.adoc[System Information]
+* link:API/Data%20-%20Default%20Configuration%20Status.adoc[Default Configuration Status]
+* link:API/Data%20-%20DHCP%20Leases.adoc[DHCP Leases]
+* link:API/Data%20-%20DHCP%20Statistics.adoc[DHCP Statistics]
+* link:API/Data%20-%20Routes.adoc[Routes]
+* link:API/Data%20-%20System%20Information.adoc[System Information]
 
 === Download Configuration
 
