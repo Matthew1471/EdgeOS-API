@@ -2,8 +2,8 @@
 
 The `/api/edge/data.json` endpoint can query a variety of stats and data:
 
-* link:REST%20API/Data%20-%20Default%20Configuration%20Status.adoc[Default Configuration Status]
-* link:REST%20API/Data%20-%20DHCP%20Leases.adoc[DHCP Leases]
-* link:REST%20API/Data%20-%20DHCP%20Statistics.adoc[DHCP Statistics]
-* link:REST%20API/Data%20-%20Routes.adoc[Routes]
-* link:REST%20API/Data%20-%20System%20Information.adoc[System Information]
+* link:Data%20-%20Default%20Configuration%20Status.adoc[Default Configuration Status]
+* link:Data%20-%20DHCP%20Leases.adoc[DHCP Leases]
+* link:Data%20-%20DHCP%20Statistics.adoc[DHCP Statistics]
+* link:Data%20-%20Routes.adoc[Routes]
+* link:Data%20-%20System%20Information.adoc[System Information]
