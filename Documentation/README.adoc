@@ -34,7 +34,7 @@ A session can be artificially extended with a link:REST%20API/General%20-%20Sess
 
 === General
 
-* link:REST%20API/General%20-%20Update%20Configuration.adoc[Batch Configuration]
+* link:REST%20API/General%20-%20Batch%20Configuration.adoc[Batch Configuration]
 * link:REST%20API/General%20-%20Get%20Complete%20Configuration.adoc[Get Complete Configuration]
 * link:REST%20API/General%20-%20Get%20Configured%20Configuration%20Sections.adoc[Get Configured Configuration Sections]
 * link:REST%20API/General%20-%20Get%20Data.adoc[Get Data]
