@@ -1,6 +1,6 @@
 = General - Get Configuration Section
 
-Used internally by the configuration download and support file generation to obtain the system section information `/api/edge/partial.json?struct={"system": null}` this allows you to access just a specific section of the configuration.
+Used internally by the link:Config%20-%20Download%20Configuration.adoc[configuration download] and link:Operation%20-%20Generate%20Support%20File.adoc[generate support file] features to obtain the system section information `/api/edge/partial.json?struct={"system": null}` this allows you to access just a specific section of the configuration.
 
 GET /api/edge/partial.json?struct={"interfaces":""} Response
 [source,json]

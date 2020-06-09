@@ -1,6 +1,6 @@
 = Config - Download Configuration
 
-To download the configuration send a HTTP GET to `/api/edge/config/save.json`:
+To download the configuration send a HTTP GET to `/api/edge/config/save.json`.
 
 GET /api/edge/config/save.json Response
 [source,json]
@@ -8,4 +8,6 @@ GET /api/edge/config/save.json Response
 {"CONFIG": {"success": "1", "path": "/tmp/sysd-save.ycYPpL"}, "success": true}
 ----
 
-and then make a request to `/files/config/`. The file will be deleted once the request has been made.
+and then make an additional HTTP GET request to `/files/config/`.
+
+The temporarily stored file will be deleted once the request has been made.

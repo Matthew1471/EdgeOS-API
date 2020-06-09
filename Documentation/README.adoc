@@ -47,7 +47,7 @@ The REST API is served from `/var/www/python/edgeos_gui/api` on the EdgeOS devic
 === Optical Line Terminal (OLT) - Optical Network Unit (ONU)
 
 * Get Connected WiFi Clients
-* Get Support File
+* Generate Support File
 * Locate
 * Reset
 
@@ -78,7 +78,7 @@ The REST API is served from `/var/www/python/edgeos_gui/api` on the EdgeOS devic
 
 === Edge - Operations
 
-These are defined as "<op>.json" and are passed to the closed-source `ubnt-util`.
+These are defined as "<op>.json" and are passed to the closed-source `ubnt-util`:
 
 * link:REST%20API/Operation%20-%20Check%20For%20Firmware%20Updates.adoc[Check For Firmware Updates]
 * link:REST%20API/Operation%20-%20Clear%20Traffic%20Analysis.adoc[Clear Traffic Analysis]

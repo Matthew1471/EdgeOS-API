@@ -1,6 +1,6 @@
 = General - Get Data
 
-The `/api/edge/data.json` endpoint can query a variety of statistics and data:
+The `/api/edge/data.json` endpoint can query a variety of pre-defined statistics and data:
 
 [cols="1,1,2", options="header"] 
 |===

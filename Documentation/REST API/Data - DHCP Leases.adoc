@@ -1,6 +1,6 @@
 = Data - DHCP Leases
 
-A HTTP GET to `/api/edge/data.json?data=dhcp_leases` can be used to get a JSON formatted list of DHCP leases:
+A HTTP GET to `/api/edge/data.json?data=dhcp_leases` can be used to get a JSON formatted list of DHCP leases.
 
 [source,json]
 ----

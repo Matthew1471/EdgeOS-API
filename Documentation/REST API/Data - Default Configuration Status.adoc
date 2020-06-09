@@ -1,6 +1,6 @@
 = Data - Default Configuration Status
 
-A HTTP GET to `/api/edge/data.json?data=default_config` obtains information on whether the device is operating with no user supplied configuration:
+A HTTP GET to `/api/edge/data.json?data=default_config` obtains information on whether the device is operating with no user supplied configuration.
 
 GET /api/edge/data.json?data=default_config Response
 [source,json]
