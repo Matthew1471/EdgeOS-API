@@ -1,4 +1,4 @@
-= General - Update Configuration Batch
+= General - Batch Configuration
 
 The `/api/edge/batch.json` endpoint allows you to make batch updates to the device's configuration.
 

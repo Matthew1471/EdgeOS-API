@@ -1,3 +1,0 @@
-= General - Get Configuration
-
-A HTTP GET to `/api/edge/get.json` can be used to get a JSON formatted dictionary containing the configuration (and the current `SESSION_ID`).
