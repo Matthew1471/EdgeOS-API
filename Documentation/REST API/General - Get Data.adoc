@@ -1,6 +1,6 @@
 = General - Get Data
 
-The `/api/edge/data.json` endpoint can query a variety of stats and data:
+The `/api/edge/data.json` endpoint can query a variety of statistics and data:
 
 * link:Data%20-%20Default%20Configuration%20Status.adoc[Default Configuration Status]
 * link:Data%20-%20DHCP%20Leases.adoc[DHCP Leases]

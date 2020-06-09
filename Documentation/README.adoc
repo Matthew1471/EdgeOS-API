@@ -55,7 +55,7 @@ A session can be artificially extended with a link:REST%20API/General%20-%20Sess
 * link:REST%20API/Operation%20-%20Reset%20Default%20Configuration.adoc[Reset Default Configuration]
 * link:REST%20API/Operation%20-%20Shutdown.adoc[Shutdown]
 
-= WebSocket
+== WebSocket
 
 * link:WebSocket%20API/Command%20Line%20Interface%20%28CLI%29.adoc[Command Line Interface (CLI)]
 * link:WebSocket%20API/Statistics.adoc[Statistics]
