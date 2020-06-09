@@ -1,0 +1,17 @@
+= General - Configuration Setting Delete
+
+The `/api/edge/delete.json` endpoint allows you to delete a specific part of the device's configuration.
+
+It does not support a HTTP GET.
+
+POST /api/edge/delete.json
+[source,json]
+----
+{"custom-attribute":{"hi":null}}
+----
+
+POST /api/edge/delete.json Response
+[source,json,subs="+quotes"]
+----
+{"DELETE": {"failure": "0", "success": "1"}, "SESSION_ID": "742dfcc13b8d449aa36a4a1847bfcef7", "GET": {"custom-attribute": ""}, "COMMIT": {"failure": "0", "success": "1"}, "SAVE": {"success": "1"}, "success": true}
+----
