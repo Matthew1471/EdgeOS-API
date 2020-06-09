@@ -1,11 +1,3 @@
-/api/olt/get-onu-macs.json
-
-/api/olt/onu/get-support-file.json
-/api/olt/onu/get-wifi-clients.json
-/api/olt/onu/locate.json
-/api/olt/onu/reset.json
-/api/olt/onu/support-file/
-
 /api/edge/auth.json
 /api/edge/batch.json
 /api/edge/data.json
@@ -36,10 +28,17 @@
 /api/edge/operation/reset-default-config.json
 /api/edge/operation/shutdown.json
 
+/api/olt/get-onu-macs.json
+
+/api/olt/onu/get-support-file.json
+/api/olt/onu/get-wifi-clients.json
+/api/olt/onu/locate.json
+/api/olt/onu/reset.json
+/api/olt/onu/support-file/
+
 /api/wizard/$type$/$key$.json
 /api/wizard/all.json
 /api/wizard/create.json
 /api/wizard/remove/$key$.json
 /api/wizard/runtime.json
-/api/wizard/setup.json
 /api/wizard/upload.json

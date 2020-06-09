@@ -1,0 +1,5 @@
+= Wizard - Specific Wizard Create
+
+A specific wizard can be created by sending a HTTP POST to `/api/wizard/create.json`. This reads a session variable from link:Wizard%20-%20Specific%20Wizard%20Upload.adoc[Specific Wizard Upload]
+
+It does not support a HTTP GET.

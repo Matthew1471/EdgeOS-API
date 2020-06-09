@@ -40,17 +40,6 @@ A HTTP GET to `/logout` will end the current session.
 
 The REST API is served from `/var/www/python/edgeos_gui/api` on the EdgeOS device.
 
-=== Optical Line Terminal (OLT)
-
-* Get Connected Optical Network Unit (ONU) Devices
-
-=== Optical Line Terminal (OLT) - Optical Network Unit (ONU)
-
-* Get Connected WiFi Clients
-* Generate Support File
-* Locate
-* Reset
-
 === Edge - General
 
 * link:REST%20API/General%20-%20Authenticate.adoc[Authenticate]
@@ -89,15 +78,26 @@ These are defined as "<op>.json" and are passed to the closed-source `ubnt-util`
 * link:REST%20API/Operation%20-%20Reset%20Default%20Configuration.adoc[Reset Default Configuration]
 * link:REST%20API/Operation%20-%20Shutdown.adoc[Shutdown]
 
+=== Optical Line Terminal (OLT)
+
+* Get Connected Optical Network Unit (ONU) Devices
+
+=== Optical Line Terminal (OLT) - Optical Network Unit (ONU)
+
+* link:REST%20API/ONU%20-%20Generate%20Support%20File.adoc[Generate Support File]
+* Get Connected WiFi Clients
+* Locate
+* Reset
+
 === Wizards
 
-* Create
-* Download Wizard
 * link:REST%20API/Wizard%20-%20List%20All%20Wizards.adoc[List All Wizards]
-* Setup
-* Remove
-* Runtime
-* Upload
+* [line-through]#Runtime# (referenced in the web UI but no longer present)
+* [line-through]#Setup# (referenced in the web UI but no longer present)
+* link:REST%20API/Wizard%20-%20Specific%20Wizard%20Create.adoc[Specific Wizard Create]
+* link:REST%20API/Wizard%20-%20Specific%20Wizard%20Download.adoc[Specific Wizard Download]
+* link:REST%20API/Wizard%20-%20Specific%20Wizard%20Remove.adoc[Specific Wizard Remove]
+* link:REST%20API/Wizard%20-%20Specific%20Wizard%20Upload.adoc[Specific Wizard Upload]
 
 == WebSocket
 

@@ -1,0 +1,82 @@
+= Wizard - Download Specific Wizard
+
+A specific wizard can be downloaded by sending a HTTP GET to `/api/wizard/*Type*/*Key*.json` substituting the type and key.
+
+Typically type will be one of:
+* feature
+* setup
+
+The default wizards are:
+[cols="1,1,1", options="header"] 
+|===
+|Name
+|Key
+|Type
+
+|.Basic_Queue
+|`.Basic_Queue`
+|feature
+
+|.DDns
+|`.DDns`
+|feature
+
+|.Port Forwarding
+|`.Port_Forwarding`
+|feature
+
+|.Sql
+|`.Sql`
+|feature
+
+|.Vpn2
+|`.Vpn2`
+|feature
+
+|Basic Setup
+|`Basic_Setup`
+|setup
+
+|DNS host names
+|`DNS_host_names`
+|feature
+
+|Load Balancing
+|`Load_Balancing`
+|setup
+
+|Load Balancing2
+|`Load_Balancing2`
+|setup
+
+|Switch
+|`Switch`
+|setup
+
+|TCP MSS clamping
+|`TCP_MSS_clamping`
+|feature
+
+|UPnP
+|`UPnP`
+|feature
+
+|VPN status
+|`VPN_status`
+|feature
+
+|WAN+2LAN
+|`WAN+2LAN`
+|setup
+
+|WAN+2LAN2
+|`WAN+2LAN2`
+|setup
+|===
+{
+
+GET /api/wizard/feature/DNS_host_names.json Response
+[source,json]
+----
+{"html": "<div class=\"instructions\">\n  DNS host names configuration\n</div>\n\n<fieldset name=\"static-mapping\" class=\"primary expanded\">\n  <legend>Static host names</legend>\n  <div class=\"addable\" data-min=\"0\" data-object=\"static-mapping\" data-objectify=\"1\">\n    <div class=\"addable-template\">\n      <div><input type=\"text\" name=\"hostname\" style=\"width:160px;margin-right:25px\" data-infotip=\"Enter a unique host name<br>This field is mandatory, for example:<br><b>firstname</b>\"/></div>\n      <div><input type=\"text\" class=\"text\" name=\"alias\" style=\"width:200px;margin-right:25px\" data-infotip=\"Enter one or more alias names, separated by comma<br>This field is optional, for example:<br><b>secondname,thirdname</b>\"/></div>\n      <div><input type=\"text\" class=\"address\" name=\"inet\" style=\"width:110px;margin-right:25px\" data-infotip=\"Enter the corresponding IP address<br>This field is mandatory, for example:<br><b>192.168.1.100</b>\"/></div>\n      <div><button type=\"button\" class=\"addable-remove\">Remove</button></div>\n    </div>\n    <table class=\"addable-container\">\n      <tr><th>Host Name</th><th>Alias</th><th>IP Address</th><th></th></tr>\n      <!-- static mappings will be inserted here -->\n    </table>\n    <button type=\"button\" class=\"addable-add\">Add New</button>\n  </div>\n</fieldset>\n\n<fieldset name=\"dynamic-mapping\" class=\"primary\">\n  <legend>Dynamic host names</legend>\n  <div class=\"addable\" data-object=\"dynamic-mapping\" data-objectify=\"1\">\n    <div class=\"addable-template\">\n      <div><input readonly type=\"text\" name=\"dname\" style=\"width:180px;\"/></div>\n      <div><input readonly type=\"text\" name=\"dpool\" style=\"width:120px;\"/></div>\n      <div><input readonly type=\"text\" name=\"dinet\" style=\"width:110px;\"/></div>\n      <div><input readonly type=\"text\" name=\"dinfo\" /></div>\n    </div>\n    <table class=\"addable-container\">\n      <tr style=\"border-bottom:1px solid #d0d0d0;\"><th>Host Name</th><th>Pool</th><th>IP Address</th><th></th></tr>\n      <!-- dynamic mappings will be inserted here -->\n    </table>\n    <button disabled type=\"button\" class=\"addable-add hidden\"></button>\n  </div>\n</fieldset>\n", "success": true, "validator": {"rules": {"alias": {"required": false, "hostnames": 1}, "hostname": {"required": true, "hostname": 1}, "inet": {"required": true, "ipv4": 1}}}}
+----

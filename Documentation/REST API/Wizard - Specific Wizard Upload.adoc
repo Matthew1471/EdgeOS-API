@@ -1,0 +1,5 @@
+= Wizard - Specific Wizard Upload
+
+A specific wizard can be uploaded by sending a HTTP POST to `/api/wizard/upload.json`. This then sets a session variable ready for the link:Wizard%20-%20Specific%20Wizard%20Create.adoc[Specific Wizard Create] endpoint.
+
+It does not support a HTTP GET.

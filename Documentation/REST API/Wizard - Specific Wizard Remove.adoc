@@ -1,0 +1,3 @@
+= Wizard - Specific Wizard Remove
+
+A specific wizard can be removed by sending a HTTP GET to `/api/wizard/remove/*Key*.json` substituting the key.
