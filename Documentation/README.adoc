@@ -54,14 +54,14 @@ The REST API is served from `/var/www/python/edgeos_gui/api` on the EdgeOS devic
 === Edge - General
 
 * link:REST%20API/General%20-%20Authenticate.adoc[Authenticate]
-* link:REST%20API/General%20-%20Batch%20Configuration.adoc[Batch Configuration]
-* link:REST%20API/General%20-%20Delete.adoc[Delete]
+* link:REST%20API/General%20-%20Configuration%20Setting%20Delete.adoc[Configuration Setting Delete]
+* link:REST%20API/General%20-%20Configuration%20Setting%20Set.adoc[Configuration Setting Set]
+* link:REST%20API/General%20-%20Configuration%20Settings%20Batch.adoc[Configuration Settings Batch]
 * link:REST%20API/General%20-%20Get%20Configuration%20Section.adoc[Get Configuration Section]
 * link:REST%20API/General%20-%20Get%20Configuration%20Tree.adoc[Get Configuration Tree]
 * link:REST%20API/General%20-%20Get%20Data.adoc[Get Data]
 * link:REST%20API/General%20-%20Get%20Status.adoc[Get Status]
 * link:REST%20API/General%20-%20Session%20Heartbeat.adoc[Session Heartbeat]
-* link:REST%20API/General%20-%20Set.adoc[Set]
 * link:REST%20API/General%20-%20Upgrade.adoc[Upgrade]
 * link:REST%20API/General%20-%20Wizard%20Feature.adoc[Wizard Feature]
 * link:REST%20API/General%20-%20Wizard%20Setup.adoc[Wizard Setup]
