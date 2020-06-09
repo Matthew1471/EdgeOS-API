@@ -23,7 +23,7 @@ POST /api/edge/batch.json Response
              "system": { *system as json* }, 
              "service": { *service as json* }, 
              ....
-           }
+           },
     "COMMIT": {"failure": "0", "success": "1"}, 
     "SAVE": {"success": "1"}, 
     "success": true

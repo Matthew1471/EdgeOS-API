@@ -2,8 +2,37 @@
 
 The `/api/edge/data.json` endpoint can query a variety of statistics and data:
 
-* link:Data%20-%20Default%20Configuration%20Status.adoc[Default Configuration Status]
-* link:Data%20-%20DHCP%20Leases.adoc[DHCP Leases]
-* link:Data%20-%20DHCP%20Statistics.adoc[DHCP Statistics]
-* link:Data%20-%20Routes.adoc[Routes]
-* link:Data%20-%20System%20Information.adoc[System Information]
+[cols="1,1,2", options="header"] 
+|===
+|Name
+|Data String
+|Description
+
+|link:Data%20-%20Default%20Configuration%20Status.adoc[Default Configuration Status]
+|`default_config`
+|Whether the device is operating with no user supplied configuration.
+
+|link:Data%20-%20DHCP%20Leases.adoc[DHCP Leases]
+|`dhcp_leases`
+|Lists the current DHCP leases.
+
+|link:Data%20-%20DHCP%20Statistics.adoc[DHCP Statistics]
+|`dhcp_stats`
+|Lists the current DHCP usage statistics.
+
+|link:Data%20-%20Firewall%20Statistics.adoc[Firewall Statistics]
+|`fw_stats`
+|Lists the current Firewall statistics.
+
+|link:Data%20-%20NAT%20Statistics.adoc[NAT Statistics]
+|`nat_stats`
+|Lists the current Network Address Translation (NAT) statistics.
+
+|link:Data%20-%20Routes.adoc[Routes]
+|`routes`
+|Lists the current route information.
+
+|link:Data%20-%20System%20Information.adoc[System Information]
+|`sys_info`
+|Lists the current system information.
+|===

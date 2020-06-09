@@ -90,7 +90,6 @@ Each one of these subscriptions will output data with the response being full JS
 |link:JSON%20-%20UDAPI%20Statistics.adoc[UDAPI Statistics]
 |`udapi-statistics`
 |Periodic messages containing device statistics in a specific API format, potentially used by UNMS.
-
 |===
 
 === RAW Console Output (No Parameters)
