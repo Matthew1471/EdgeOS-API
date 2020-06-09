@@ -1,21 +1,9 @@
 = General - Get Configuration Section
 
-A HTTP GET to `/api/edge/getcfg.json` can be used to get a JSON formatted object of the requested configuration section.
+Used internally by the configuration download and support file generation to obtain the system section information `/api/edge/partial.json?struct={"system": null}` this allows you to access just a specific section of the configuration.
 
-GET /api/edge/getcfg.json Response
+GET /api/edge/partial.json?struct={"interfaces":""} Response
 [source,json]
 ----
-{"GETCFG": {"children": ["firewall", "interfaces", "port-forward", "service", "system"], "defs": {"custom-attribute": {"type": "txt", "tag": "true", "help": "Custom attribute name\n"}, "firewall": {"help": "Firewall\n"}, "interfaces": {"help": "Network interfaces\n"}, "load-balance": {"help": "Load Balance\n"}, "policy": {"help": "Routing policy\n"}, "port-forward": {"help": "Port forwarding"}, "protocols": {"help": "Routing protocol parameters\n"}, "service": {"help": "Services\n"}, "system": {"help": "System parameters\n"}, "traffic-control": {"help": "Traffic control (QOS) type\n"}, "traffic-policy": {"help": "Quality of Service (QOS) policy type\n"}, "vpn": {"help": "Virtual Private Network (VPN)"}, "zone-policy": {"help": "Configure zone-policy\n"}}, "success": "1"}, "success": true}
-----
-
-GET /api/edge/getcfg.json?node[]=system&node[]=ntp&node[]=server Response
-[source,json]
-----
-{"GETCFG": {"tags": ["0.ubnt.pool.ntp.org", "1.ubnt.pool.ntp.org", "2.ubnt.pool.ntp.org", "3.ubnt.pool.ntp.org"], "success": "1"}, "success": true}
-----
-
-GET /api/edge/getcfg.json?node[]=system&node[]=crash-handler Response
-[source,json]
-----
-{"GETCFG": {"children": [{"send-crash-report": "true"}], "defs": {"save-core-file": {"type": "bool", "help": "Save core file of crashed userspace process in \"/var/core/\""}, "send-crash-report": {"type": "bool", "help": "Send *anonymous* app/kernel crash report to Ubiquiti cloud"}}, "success": "1"}, "success": true}
+{"SESSION_ID": "742dfcc13b8d449aa36a4a1847bfcef7", "GET": {"interfaces": {"ethernet": {"eth0": {"address": ["dhcp"], "description": "WAN", "duplex": "auto", "firewall": {"in": {"name": "WAN_IN"}, "local": {"name": "WAN_LOCAL"}}, "speed": "auto"}, "eth1": {"address": ["192.168.0.254/24"], "description": "LAN", "duplex": "auto", "speed": "auto"}, "eth2": {"address": ["192.168.1.254/24"], "description": "LAN2", "duplex": "auto", "speed": "auto"}, "eth3": {"disable": null, "duplex": "auto", "speed": "auto"}}, "loopback": {"lo": null}}}, "success": true}
 ----

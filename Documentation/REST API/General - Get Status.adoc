@@ -1,0 +1,15 @@
+= General - Get Complete Configuration
+
+A HTTP GET to `/api/edge/get.json` can be used to get a JSON formatted dictionary containing the configuration (and the current `SESSION_ID`) of the following:
+
+* firewall
+* interfaces
+* layer2
+* service
+* system
+* vpn
+* protocols
+* traffic-control
+* onu-list
+* onu-profiles
+* onu-policies

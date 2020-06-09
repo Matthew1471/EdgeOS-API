@@ -153,7 +153,7 @@ These are subscribed to in the same way as the JSON subscriptions above but some
 
 === Other Endpoints
 
-There are also the following endpoints that not much is known about:
+There are also the following endpoints that not much is known about (it's likely the implementation has been removed from `ubnt-util` but have been left over in the web UI):
 
 [cols="1,1,2", options="header"] 
 |===
@@ -161,19 +161,19 @@ There are also the following endpoints that not much is known about:
 |Subscription String
 |Description
 
-|LLDP Neighbours
+|LLDP Neighbours (not present in web UI)
 |`lldp-detail`
 |Information about Link Layer Discovery Protocol (LLDP) connected neighbours.
 
-|NNI Statistics
+|NNI Statistics (not present in `ubnt-util`)
 |`nni-stats`
 |Lists Network to Network Interface (NNI) statistics.
 
-|ONU List
+|ONU List (not present in `ubnt-util`)
 |`onu-list`
 |Lists Optical Network Unit (ONU) details.
 
-|PON Statistics
+|PON Statistics (not present in `ubnt-util`)
 |`pon-stats`
 |Lists Passive Optical Network (PON) statistics.
 |===

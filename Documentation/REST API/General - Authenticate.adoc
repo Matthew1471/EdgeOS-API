@@ -1,0 +1,15 @@
+= General - Authenticate
+
+A HTTP POST to `/api/edge/auth.json` will create a session on the device, however this method is designed to be used internally (and is used internally by the logon form), so it does not return the session ID headers useful for validating login status but does pass it to the internal code.
+
+POST /api/edge/auth.json
+[source,subs="+quotes"]
+----
+username=*USERNAME*&password=*PASSWORD*
+----
+
+POST /api/edge/auth.json Response
+[source,json]
+----
+{"success": "1", "level": "admin", "started": "1513", "default-config": "false", "platform": {"model": "ER-4", "poe_cap": {"eth0": "0", "eth1": "0", "eth2": "0", "eth3": "0", "eth4": "-1"}}}
+----

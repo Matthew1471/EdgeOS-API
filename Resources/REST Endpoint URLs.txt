@@ -4,7 +4,9 @@
 /api/olt/onu/get-wifi-clients.json
 /api/olt/onu/locate.json
 /api/olt/onu/reset.json
+/api/olt/onu/support-file/
 
+/api/edge/auth.json
 /api/edge/batch.json
 /api/edge/data.json
 /api/edge/delete.json
@@ -12,6 +14,7 @@
 /api/edge/get.json
 /api/edge/getcfg.json
 /api/edge/heartbeat.json
+/api/edge/partial.json
 /api/edge/set.json
 /api/edge/setup.json
 /api/edge/upgrade.json
@@ -22,8 +25,10 @@
 /api/edge/onu/reboot.json
 /api/edge/onu/upgrade.json
 
-/api/edge/operation/clear-traffic-analysis.json
 /api/edge/operation/get-support-file.json
+
+- /api/edge/operation/<op>.json (via ubnt-util) -
+/api/edge/operation/clear-traffic-analysis.json
 /api/edge/operation/reboot.json
 /api/edge/operation/refresh-fw-latest-status.json
 /api/edge/operation/release-dhcp.json

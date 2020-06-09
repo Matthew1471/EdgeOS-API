@@ -15,9 +15,8 @@
 # Sensitive config files.
 App.config
 
-# Copyrighted unminified JS files.
-/Resources/Unminified/core.js
-/Resources/Unminified/edge.js
+# Copyrighted extracted files.
+/Resources/Web UI Extract/
 
 # Extracted version of the ZIP file.
 /Resources/Windows UWP Sample/WebSocket_sample/
