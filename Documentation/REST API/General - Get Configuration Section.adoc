@@ -1,6 +1,6 @@
 = General - Get Configuration Section
 
-A HTTP GET to `getcfg.json?node%5B%5D=*JSON_Node*` can be used to get a JSON formatted object of the requested configuration section.
+A HTTP GET to `/api/edge/getcfg.json` can be used to get a JSON formatted object of the requested configuration section.
 
 GET /api/edge/getcfg.json Response
 [source,json]
@@ -8,13 +8,13 @@ GET /api/edge/getcfg.json Response
 {"GETCFG": {"children": ["firewall", "interfaces", "port-forward", "service", "system"], "defs": {"custom-attribute": {"type": "txt", "tag": "true", "help": "Custom attribute name\n"}, "firewall": {"help": "Firewall\n"}, "interfaces": {"help": "Network interfaces\n"}, "load-balance": {"help": "Load Balance\n"}, "policy": {"help": "Routing policy\n"}, "port-forward": {"help": "Port forwarding"}, "protocols": {"help": "Routing protocol parameters\n"}, "service": {"help": "Services\n"}, "system": {"help": "System parameters\n"}, "traffic-control": {"help": "Traffic control (QOS) type\n"}, "traffic-policy": {"help": "Quality of Service (QOS) policy type\n"}, "vpn": {"help": "Virtual Private Network (VPN)"}, "zone-policy": {"help": "Configure zone-policy\n"}}, "success": "1"}, "success": true}
 ----
 
-GET /api/edge/getcfg.json?node%5B%5D=system&node%5B%5D=ntp&node%5B%5D=server Response
+GET /api/edge/getcfg.json?node[]=system&node[]=ntp&node[]=server Response
 [source,json]
 ----
 {"GETCFG": {"tags": ["0.ubnt.pool.ntp.org", "1.ubnt.pool.ntp.org", "2.ubnt.pool.ntp.org", "3.ubnt.pool.ntp.org"], "success": "1"}, "success": true}
 ----
 
-GET /api/edge/getcfg.json?node%5B%5D=system&node%5B%5D=crash-handler Response
+GET /api/edge/getcfg.json?node[]=system&node[]=crash-handler Response
 [source,json]
 ----
 {"GETCFG": {"children": [{"send-crash-report": "true"}], "defs": {"save-core-file": {"type": "bool", "help": "Save core file of crashed userspace process in \"/var/core/\""}, "send-crash-report": {"type": "bool", "help": "Send *anonymous* app/kernel crash report to Ubiquiti cloud"}}, "success": "1"}, "success": true}
