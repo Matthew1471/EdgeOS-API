@@ -27,226 +27,46 @@ Set-Cookie: PHPSESSID=9a00126c5bf04e29835f7c13fe5ab155; secure
 ====
 A session is valid for 15 minutes and is refreshed on every web request.
 
-A session can be extended with a HTTP GET to `/api/edge/heartbeat.json?t=*EPOCH*` where `EPOCH` is the current time in EPOCH notation (such as `1591537772865`).
+A session can be extended with a link:REST%20API/General%20-%20Session%20Heartbeat.adoc[Session Heartbeat] request.
 ====
 
 == REST API
 
 === General
 
-* link:API/General%20-%20Get%20Configuration.adoc[Get Configuration]
-* link:API/General%20-%20Get%20Configured%20Configuration%20Sections.adoc[Get Configured Configuration Sections]
-* link:API/General%20-%20Get%20Configuration.adoc[Update Configuration Batch]
+* link:REST%20API/General%20-%20Get%20Configuration.adoc[Get Configuration]
+* link:REST%20API/General%20-%20Get%20Configured%20Configuration%20Sections.adoc[Get Configured Configuration Sections]
+* link:REST%20API/General%20-%20Session%20Heartbeat.adoc[Session Heartbeat]
+* link:REST%20API/General%20-%20Get%20Configuration.adoc[Update Configuration Batch]
 
 === Data
 The `/api/edge/data.json` endpoint can query a variety of stats and data:
 
-* link:API/Data%20-%20Default%20Configuration%20Status.adoc[Default Configuration Status]
-* link:API/Data%20-%20DHCP%20Leases.adoc[DHCP Leases]
-* link:API/Data%20-%20DHCP%20Statistics.adoc[DHCP Statistics]
-* link:API/Data%20-%20Routes.adoc[Routes]
-* link:API/Data%20-%20System%20Information.adoc[System Information]
+* link:REST%20API/Data%20-%20Default%20Configuration%20Status.adoc[Default Configuration Status]
+* link:REST%20API/Data%20-%20DHCP%20Leases.adoc[DHCP Leases]
+* link:REST%20API/Data%20-%20DHCP%20Statistics.adoc[DHCP Statistics]
+* link:REST%20API/Data%20-%20Routes.adoc[Routes]
+* link:REST%20API/Data%20-%20System%20Information.adoc[System Information]
 
 === Configuration
 
-* link:API/Config%20-%20Download%20Configuration.adoc[Download Configuration]
+* link:REST%20API/Config%20-%20Download%20Configuration.adoc[Download Configuration]
 
 === Operations
 
-* link:API/Operation%20-%20Check%20For%20Firmware%20Updates.adoc[Check For Firmware Updates]
-* link:API/Operation%20-%20Clear%20Traffic%20Analysis.adoc[Clear Traffic Analysis]
-* link:API/Operation%20-%20Generate%20Support%20File.adoc[Generate Support File]
-* link:API/Operation%20-%20Reboot.adoc[Reboot]
-* link:API/Operation%20-%20Release%20DHCP%20Lease.adoc[Release DHCP Lease]
-* link:API/Operation%20-%20Renew%20DHCP%20Lease.adoc[Renew DHCP Lease]
-* link:API/Operation%20-%20Reset%20Default%20Configuration.adoc[Reset Default Configuration]
-* link:API/Operation%20-%20Shutdown.adoc[Shutdown]
+* link:REST%20API/Operation%20-%20Check%20For%20Firmware%20Updates.adoc[Check For Firmware Updates]
+* link:REST%20API/Operation%20-%20Clear%20Traffic%20Analysis.adoc[Clear Traffic Analysis]
+* link:REST%20API/Operation%20-%20Generate%20Support%20File.adoc[Generate Support File]
+* link:REST%20API/Operation%20-%20Reboot.adoc[Reboot]
+* link:REST%20API/Operation%20-%20Release%20DHCP%20Lease.adoc[Release DHCP Lease]
+* link:REST%20API/Operation%20-%20Renew%20DHCP%20Lease.adoc[Renew DHCP Lease]
+* link:REST%20API/Operation%20-%20Reset%20Default%20Configuration.adoc[Reset Default Configuration]
+* link:REST%20API/Operation%20-%20Shutdown.adoc[Shutdown]
 
-== Websocket - CLI
+= WebSocket
 
-The CLI can be accessed from `wss://host-or-ip/ws/cli`. The data sent to the WebSocket will be as you would type on CLI and the received data is just the response raw.
-
-== Websocket - Stats
-
-You can get streaming statistical data from the endpoint `wss://host-or-ip/ws/stats`.  The data from the WebSocket is framed oddly, it's actually a streaming protocol that has been sent and received over WebSocket.  The data will not arrive like you might expect.  You *MUST* reassemble the web socket data fragments since the frames may not align with data boundaries.  Commands must be sent with a valid SESSION_ID.
-
-The format of data to and from the WebSocket stream is "LENGTH\nJSON_PAYLOAD". Failure of sending properly formed messages to start the streaming will result in no messages from server aka "dead air".
-
-When the SESSION_ID times out the WebSocket will abruptly close so it's recommended to refresh it occasionally.
-
-[source,json]
-----
-249
-{"SUBSCRIBE":[{"name":"export"},{"name":"discover"},{"name":"pon-stats"},{"name":"interfaces"},{"name":"system-stats"},{"name":"num-routes"},{"name":"config-change"},{"name":"users"}],"UNSUBSCRIBE":[],"SESSION_ID":"b5d5cfdb326c484abb00ca0d9effffff"}
-----
-
-Return values from the stream follow a similar format.
-
-[source,json]
-----
-104
-{
-    "system-stats":
-    {
-        "cpu": "10",
-        "uptime": "57864",
-        "mem": "60"
-    }
-}
-----
-
-The webUI sends a non-standard ping every 30 seconds which consists of the following string with NO length prefix `{"CLIENT_PING"}`
-
-=== WebSocket Subscriptions: JSON Based
-
-Each one of these subscriptions will output data with the response being full JSON objects:
-
-  * system-stats: Returns cpu, memory and uptime `{'system-stats': {'cpu': '35', 'mem': '22', 'uptime': '3321154'}}`
-  * num-routes: Returns information about the number of active routes, use the json endpoint to fetch detailed routing information `{'num-routes': {'connected': '5', 'static': '1', 'total': '6'}}`
-  * config-change: Returns only when the config has changed as an indication you need to reload `{'config-change': {'commit': 'started'}}` `{'config-change': {'commit': 'ended'}}`
-  * users: Lists the users logged into the EdgeOS device including ssh, web, and vpn
-  * interfaces: Shows per-interface details about the device
-  * discover: Results from any devices discovered via ubnt protocols
-  * export: Traffic Analysis (aka DPI) information
-  * lldp-detail: Information about LLDP connected neightbors
-  * udapi-statistics: System information formatted for udapi, odd dialect
-
-=== WebSocket Subscriptions: RAW Console Output
-
-Each one of these endpoints just dumps the raw console output data within a string `{'<<Request sub_id>>': '<line of text>\n' }`
-
-These are subscribed to in the same way as the JSON subscriptions above but some additional parameters may need to be specified.
-
-==== Log File ("log-feed")
-Basically a `tail -f /var/log/messages`
-
-==== Firewall Statistics ("fw-stats")
-Returns per-rule firewall stats:
-
-Request:
-[source,json]
-----
-142
-{"SUBSCRIBE":[{"name":"fw-stats","sub_id":"fwstat:WAN_IN","chain":"WAN_IN"}],"UNSUBSCRIBE":[],"SESSION_ID":"9a00126c5bf04e29835f7c13fe5ab155"}
-----
-
-[source,json]
-----
-{'fwstat:WAN_IN': 'MGT_IN 10 11604461 1380173884 ACCEPT ""\n'}
-{'fwstat:WAN_IN': 'MGT_IN 20 0 0 DROP "drop direct stun"\n'}
-{'fwstat:WAN_IN': 'MGT_IN 30 24 1152 ACCEPT "stun"\n'}
-{'fwstat:WAN_IN': 'MGT_IN 10000 8417 670074 DROP "DEFAULT ACTION"\n\n'}
-{'fwstat:WAN_IN': 'WAN_IN 10 747540714 999952823643 ACCEPT "Allow established/related"\n'}
-{'fwstat:WAN_IN': 'WAN_IN 20 0 0 DROP "Drop invalid state"\n'}
-{'fwstat:WAN_IN': 'WAN_IN 30 1095 52610 DROP "block ET"\n'}
-{'fwstat:WAN_IN': 'WAN_IN 40 0 0 DROP "block TOR"\n'}
-{'fwstat:WAN_IN': 'WAN_IN 50 0 0 DROP "block EDROP"\n'}
-{'fwstat:WAN_IN': 'WAN_IN 60 0 0 DROP "block China" DISABLED\n'}
-{'fwstat:WAN_IN': 'WAN_IN 70 92712 5078903 ACCEPT "server - web ports - tcp"\n'}
-{'fwstat:WAN_IN': 'WAN_IN 80 65556 3923195 ACCEPT "server - ssh"\n'}
-{'fwstat:WAN_IN': 'WAN_IN 90 877 52516 ACCEPT "server - gitlab ssh"\n'}
-{'fwstat:WAN_IN': 'WAN_IN 100 142 33791 ACCEPT "server - mosh"\n'}
-{'fwstat:WAN_IN': 'WAN_IN 110 3926 143574 ACCEPT "server - unifi stun"\n'}
-{'fwstat:WAN_IN': 'WAN_IN 10000 259 136357 DROP "DEFAULT ACTION"\n\n'}
-{'fwstat:WAN_IN': 'WAN_LOCAL 10 55434 36097276 ACCEPT "Allow established/related"\n'}
-{'fwstat:WAN_IN': 'WAN_LOCAL 20 87599 17248696 DROP "Drop invalid state"\n'}
-{'fwstat:WAN_IN': 'WAN_LOCAL 61 41787 1761510 DROP "block ET"\n'}
-{'fwstat:WAN_IN': 'WAN_LOCAL 62 0 0 DROP "block TOR"\n'}
-{'fwstat:WAN_IN': 'WAN_LOCAL 63 100 4160 DROP "block EDROP"\n'}
-{'fwstat:WAN_IN': 'WAN_LOCAL 64 0 0 DROP "block China" DISABLED\n'}
-{'fwstat:WAN_IN': 'WAN_LOCAL 65 21894 1372976 ACCEPT "ICMP"\n'}
-{'fwstat:WAN_IN': 'WAN_LOCAL 10000 241941 37301536 DROP "DEFAULT ACTION"\n\n'}
-----
-
-==== Port Forwarding Statistics ("pf-stats")
-Contains the statistics from Port Forwarding.
-
-==== NAT Statistics ("nat-stats")
-Returns per-rule NAT stats:
-
-[source,json]
-----
-1115
-{
-    "nat-stats": "1 15 DST eth0 \"Allow OpenVPN To VPN\"\n2 0 DST eth1 \"Allow OpenVPN To VPN (Hairpin)\"\n3 28 DST eth0 \"Allow qBittorrent\"\n4 0 DST eth0 \"Allow Emergency iLO (HTTP)\" DISABLED\n5 0 DST eth0 \"Allow Emergency iLO (Console)\" DISABLED\n6 7192 DST eth1 \"Redirect Google DNS To Router\"\n7 3920 DST eth1 \"Redirect Google ICMP To Router\"\n5001 46501 MASQ eth0 \"Masquerade For WAN\"\n5002 0 MASQ eth1 \"Allow OpenVPN To VPN (Hairpin)\"\n1 15 DST eth0 \"Allow OpenVPN To VPN\"\n2 0 DST eth1 \"Allow OpenVPN To VPN (Hairpin)\"\n3 28 DST eth0 \"Allow qBittorrent\"\n4 0 DST eth0 \"Allow Emergency iLO (HTTP)\" DISABLED\n5 0 DST eth0 \"Allow Emergency iLO (Console)\" DISABLED\n6 7192 DST eth1 \"Redirect Google DNS To Router\"\n7 3920 DST eth1 \"Redirect Google ICMP To Router\"\n5001 46501 MASQ eth0 \"Masquerade For WAN\"\n5002 0 MASQ eth1 \"Allow OpenVPN To VPN (Hairpin)\"\n1 15 DST eth0 \"Allow OpenVPN To VPN\"\n2 0 DST eth1 \"Allow OpenVPN To VPN (Hairpin)\"\n3 28 DST eth0 \"Allow qBittorrent\"\n4 0 DST eth0 \"Allow Emergency iLO (HTTP)\" DISABLED\n5 0 DST eth0 \"Allow Emergency iLO "
-}
-----
-
-==== Ping ("ping-feed")
-
-[source,json]
-----
-163
-{"SUBSCRIBE":[{"name":"ping-feed","sub_id":"ping1","target":"192.168.0.1","count":"1","size":""}],"UNSUBSCRIBE":[],"SESSION_ID":"9a00126c5bf04e29835f7c13fe5ab155"}
-----
-
-with the response being pretty similar to a raw feed:
-
-[source,json]
-----
-76
-{
-    "ping1": "PING 192.168.0.1 (192.168.0.1) 56(84) bytes of data.\n\n"
-}
-----
-
-==== Traceroute ("traceroute-feed")
-
-[source,json]
-----
-165
-{"SUBSCRIBE":[{"name":"traceroute-feed","sub_id":"trace6","target":"192.168.0.254","resolve":true}],"UNSUBSCRIBE":[],"SESSION_ID":"9a00126c5bf04e29835f7c13fe5ab155"}
-----
-
-with the response being pretty similar to a raw feed:
-
-[source,json]
-----
-98
-{
-    "trace6": "traceroute to 192.168.0.254 (192.168.0.254), 30 hops max, 38 byte packets\n 1"
-}
-----
-
-==== Packet Capture ("packets-feed")
-
-[source,json]
-----
-224
-{"SUBSCRIBE":[{"name":"packets-feed","sub_id":"packets4","interface":"1","pkt_count":"1","resolve":true,"f_proto":"","f_address":"","f_port":"","f_neg":true}],"UNSUBSCRIBE":[],"SESSION_ID":"9a00126c5bf04e29835f7c13fe5ab155"}
-----
-
-==== Bandwidth Test ("bwtest-feed")
-Client:
-
-[source,json]
-----
-150
-{"SUBSCRIBE":[{"name":"bwtest-feed","sub_id":"bandwidth5","server":"192.168.0.253"}],"UNSUBSCRIBE":[],"SESSION_ID":"9a00126c5bf04e29835f7c13fe5ab155"}
-----
-
-or with advanced properties set:
-
-[source,json]
-----
-273
-{"SUBSCRIBE":[{"name":"bwtest-feed","sub_id":"bandwidth2","server":"192.168.0.254","duration":"1","protocol":"udp","udp-bandwidth":"500","parallel-flows":"1","tcp-window-size":"64","reverse-direction":true}],"UNSUBSCRIBE":[],"SESSION_ID":"9a00126c5bf04e29835f7c13fe5ab155"}
-----
-
-Server:
-[source,json]
-----
-144
-{"SUBSCRIBE":[{"name":"bwtest-feed","sub_id":"bandwidth5","server-mode":true}],"UNSUBSCRIBE":[],"SESSION_ID":"9a00126c5bf04e29835f7c13fe5ab155"}
-----
-
-=== Websocket Subscriptions: Other Endpoints
-
-There is also the following endpoints that not much is known about:
-
- * onu-list: Lists Optical Network Unit devices.
- * pon-stats: Lists Passive Optical Network stats.
- * nni-stats: Lists Network to Network Interface stats.
+* link:WebSocket%20API/Command Line Interface (CLI).adoc[Command Line Interface (CLI)]
+* link:WebSocket%20API/Statistics.adoc[Statistics]
 
 == Third Party Unofficial APIs
 There are a few developers who have worked on creating unofficial APIs:

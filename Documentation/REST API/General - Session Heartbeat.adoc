@@ -1,0 +1,3 @@
+= General - Session Heartbeat
+
+A session can be extended with a HTTP GET to `/api/edge/heartbeat.json?t=*EPOCH*` where `EPOCH` is the current time in EPOCH notation (such as `1591537772865`).

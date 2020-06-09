@@ -1,0 +1,3 @@
+= Command Line Interface (CLI)
+
+The CLI can be accessed from `wss://host-or-ip/ws/cli`. The data sent to the WebSocket will be as you would type on CLI and the received data is just the response raw.
