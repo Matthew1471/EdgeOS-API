@@ -1,0 +1,9 @@
+= Wizard - List All Wizards
+
+A list of all the available wizards can be obtained by sending a HTTP GET to `/api/wizard/all.json`
+
+Response
+[source,json]
+----
+{"wizards": [{"custom": false, "type": "feature", "id": "feature-.Basic_Queue", "key": ".Basic_Queue", "name": ".Basic Queue"}, {"custom": false, "type": "feature", "id": "feature-.DDns", "key": ".DDns", "name": ".DDns"}, {"custom": false, "type": "feature", "id": "feature-.Port_Forwarding", "key": ".Port_Forwarding", "name": ".Port Forwarding"}, {"custom": false, "type": "feature", "id": "feature-.Sql", "key": ".Sql", "name": ".Sql"}, {"custom": false, "type": "feature", "id": "feature-.Vpn2", "key": ".Vpn2", "name": ".Vpn2"}, {"custom": false, "type": "setup", "id": "setup-Basic_Setup", "key": "Basic_Setup", "name": "Basic Setup"}, {"custom": false, "type": "feature", "id": "feature-DNS_host_names", "key": "DNS_host_names", "name": "DNS host names"}, {"custom": false, "type": "setup", "id": "setup-Load_Balancing", "key": "Load_Balancing", "name": "Load Balancing"}, {"custom": false, "type": "setup", "id": "setup-Load_Balancing2", "key": "Load_Balancing2", "name": "Load Balancing2"}, {"custom": false, "type": "setup", "id": "setup-Switch", "key": "Switch", "name": "Switch"}, {"custom": false, "type": "feature", "id": "feature-TCP_MSS_clamping", "key": "TCP_MSS_clamping", "name": "TCP MSS clamping"}, {"custom": false, "type": "feature", "id": "feature-UPnP", "key": "UPnP", "name": "UPnP"}, {"custom": false, "type": "feature", "id": "feature-VPN_status", "key": "VPN_status", "name": "VPN status"}, {"custom": false, "type": "setup", "id": "setup-WAN+2LAN", "key": "WAN+2LAN", "name": "WAN+2LAN"}, {"custom": false, "type": "setup", "id": "setup-WAN+2LAN2", "key": "WAN+2LAN2", "name": "WAN+2LAN2"}], "success": true}
+----
