@@ -2,6 +2,7 @@
 
 A HTTP GET to `/api/edge/data.json?data=dhcp_leases` can be used to get a JSON formatted list of DHCP leases.
 
+GET /api/edge/data.json?data=dhcp_leases Response
 [source,json]
 ----
 {"success": "1", "output": {"dhcp-server-leases": {"LAN2": "", "LAN1": {"192.168.0.180": {"expiration": "2020/06/08 13:07:17", "pool": "LAN1", "mac": "xx:xx:xx:xx:xx:xx", "client-hostname": "Versa"}, "192.168.0.165": {"expiration": "2020/06/08 08:42:42", "pool": "LAN1", "mac": "xx:xx:xx:xx:xx:xx", "client-hostname": ""}, "192.168.0.104": {"expiration": "2020/06/07 16:19:20", "pool": "LAN1", "mac": "xx:xx:xx:xx:xx:xx", "client-hostname": "andys-6s"}}}}}

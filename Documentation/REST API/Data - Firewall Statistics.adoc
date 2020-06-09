@@ -1,0 +1,9 @@
+= Data - Firewall Statistics
+
+A HTTP GET to `/api/edge/data.json?data=fw_stats` can be used to get a JSON formatted list of firewall statistics.
+
+GET /api/edge/data.json?data=fw_stats Response
+[source,json]
+----
+{"success": "1", "output": {"name": [{"WAN_IN": [{"rule": "10", "pkts": "36837", "bytes": "6953322"}, {"rule": "20", "pkts": "0", "bytes": "0"}, {"rule": "21", "pkts": "3", "bytes": "184"}, {"rule": "22", "pkts": "0", "bytes": "0"}, {"rule": "10000", "pkts": "0", "bytes": "0"}], "WAN_LOCAL": [{"rule": "10", "pkts": "3875", "bytes": "589011"}, {"rule": "20", "pkts": "342", "bytes": "21329"}, {"rule": "10000", "pkts": "3236", "bytes": "262149"}]}]}}
+----
