@@ -7,7 +7,7 @@ toc::[]
 
 == Authentication
 
-== Login
+=== Login
 
 A HTTP POST to `\https://host-or-ip/` with the username and password encoded as a simple `application/x-www-form-urlencoded` form with the following request content will grant you a `PHPSESSID` cookie that is used to confirm you are authenticated:
 
@@ -25,7 +25,7 @@ The session ID is returned multiple times but the only header of importance for 
 Set-Cookie: PHPSESSID=*9a00126c5bf04e29835f7c13fe5ab155*; secure
 ----
 
-== Logout
+=== Logout
 
 A HTTP GET to `/logout' will end the current session.
 
