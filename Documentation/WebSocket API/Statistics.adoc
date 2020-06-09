@@ -1,6 +1,9 @@
 = Statistics
+:toc:
 
-You can get streaming statistical data from the endpoint `wss://host-or-ip/ws/stats`.  The data from the WebSocket is framed oddly, it's actually a streaming protocol that has been sent and received over WebSocket.  The data will not arrive like you might expect.  You *MUST* reassemble the web socket data fragments since the frames may not align with data boundaries.  Commands must be sent with a valid `SESSION_ID`.
+== Introduction
+
+You can get streaming statistical data from the endpoint `wss://host-or-ip/ws/stats`. The data from the WebSocket is framed oddly, it's actually a streaming protocol that has been sent and received over WebSocket. The data will not arrive like you might expect. You *MUST* reassemble the web socket data fragments since the frames may not align with data boundaries. Commands must be sent with a valid `SESSION_ID`.
 
 The format of data to and from the WebSocket stream is "LENGTH\nJSON_PAYLOAD". Failure of sending properly formed messages to start the streaming will result in no messages from server aka "dead air".
 
@@ -33,14 +36,16 @@ Return values from the stream follow a similar format.
 
 The web UI sends a non-standard ping every 30 seconds which consists of the following string with NO length prefix `{"CLIENT_PING"}`
 
-=== WebSocket Subscriptions: JSON Based
+== Subscription Types
+
+=== JSON Based
 
 Each one of these subscriptions will output data with the response being full JSON objects:
 
 [cols="1,1,2", options="header"] 
 |===
 |Name
-|String
+|Subscription String
 |Description
 
 |Configuration Change
@@ -83,7 +88,7 @@ Each one of these subscriptions will output data with the response being full JS
 |Lists the users logged into the EdgeOS device including ssh, web, and vpn
 |===
 
-=== WebSocket Subscriptions: RAW Console Output
+=== RAW Console Output
 
 Each one of these endpoints just dumps the raw console output data within a string `{'<<Request sub_id>>': '<line of text>\n' }`
 
@@ -92,7 +97,7 @@ These are subscribed to in the same way as the JSON subscriptions above but some
 [cols="1,1,2", options="header"] 
 |===
 |Name
-|String
+|Subscription String
 |Description
 
 |link:Raw%20-%20Bandwidth%20Test.adoc[Bandwidth Test]
@@ -128,14 +133,14 @@ These are subscribed to in the same way as the JSON subscriptions above but some
 |Performs a packet capture.
 |===
 
-=== Websocket Subscriptions: Other Endpoints
+=== Other Endpoints
 
 There is also the following endpoints that not much is known about:
 
 [cols="1,1,2", options="header"] 
 |===
 |Name
-|String
+|Subscription String
 |Description
 
 |ONU List
