@@ -27,7 +27,7 @@ Set-Cookie: PHPSESSID=9a00126c5bf04e29835f7c13fe5ab155; secure
 ====
 A session is valid for 15 minutes and is refreshed on every web request.
 
-A session can be extended with a link:REST%20API/General%20-%20Session%20Heartbeat.adoc[Session Heartbeat] request.
+A session can be artificially extended with a link:REST%20API/General%20-%20Session%20Heartbeat.adoc[Session Heartbeat] request.
 ====
 
 == REST API
