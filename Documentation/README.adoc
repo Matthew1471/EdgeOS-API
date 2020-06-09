@@ -65,7 +65,7 @@ The `/api/edge/data.json` endpoint can query a variety of stats and data:
 
 = WebSocket
 
-* link:WebSocket%20API/Command Line Interface (CLI).adoc[Command Line Interface (CLI)]
+* link:WebSocket%20API/Command%20Line%20Interface%20%28CLI%29.adoc[Command Line Interface (CLI)]
 * link:WebSocket%20API/Statistics.adoc[Statistics]
 
 == Third Party Unofficial APIs
