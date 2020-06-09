@@ -1,0 +1,5 @@
+= General - Upgrade Firmware
+
+A HTTP POST to `/api/edge/upgrade.json` can be used to upgrade the device firmware.
+
+It does not support a HTTP GET.

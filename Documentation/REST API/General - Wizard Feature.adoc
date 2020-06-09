@@ -1,0 +1,17 @@
+= General - Wizard Feature
+
+The `/api/edge/feature.json` endpoint allows you to view and make changes to specific parts of the device's configuration with a user-friendly form.
+
+It does not support a HTTP GET.
+
+POST /api/edge/feature.json
+[source,json]
+----
+{"data":{"scenario":"DNS_host_names","action":"load"}}
+----
+
+POST /api/edge/feature.json Response
+[source,json]
+----
+{"FEATURE": {"success": "1", "data": {"static-mapping": [{"hostname": "NAS.LAN", "alias": "", "inet": "192.168.0.100"}, {"hostname": "Router.LAN", "alias": "", "inet": "192.168.0.254"}], "dynamic-mapping": [{"dname": "ULTRABOOK", "dpool": "LAN1", "dinet": "192.168.0.1", "dinfo": "static-IP"}, {"dname": "GuestLaptop", "dpool": "LAN1", "dinet": "192.168.0.165", "dinfo": ""}, {"dname": "MikroTik", "dpool": "LAN1", "dinet": "192.168.0.100", "dinfo": "static-IP"}]}}, "success": true}
+----

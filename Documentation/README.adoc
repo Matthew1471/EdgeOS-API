@@ -62,14 +62,14 @@ The REST API is served from `/var/www/python/edgeos_gui/api` on the EdgeOS devic
 * link:REST%20API/General%20-%20Get%20Configuration%20Tree.adoc[Get Configuration Tree]
 * link:REST%20API/General%20-%20Get%20Data.adoc[Get Data]
 * link:REST%20API/General%20-%20Session%20Heartbeat.adoc[Session Heartbeat]
-* link:REST%20API/General%20-%20Upgrade.adoc[Upgrade]
+* link:REST%20API/General%20-%20Upgrade%20Firmware.adoc[Upgrade Firmware]
 * link:REST%20API/General%20-%20Wizard%20Feature.adoc[Wizard Feature]
 * link:REST%20API/General%20-%20Wizard%20Setup.adoc[Wizard Setup]
 
 === Edge - Configuration
 
 * link:REST%20API/Config%20-%20Download%20Configuration.adoc[Download Configuration]
-* Restore Configuration
+* link:REST%20API/Config%20-%20Restore%20Configuration.adoc[Restore Configuration]
 
 === Edge - Optical Network Unit (ONU)
 

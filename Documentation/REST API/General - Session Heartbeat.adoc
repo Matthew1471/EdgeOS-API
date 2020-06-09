@@ -1,3 +1,6 @@
 = General - Session Heartbeat
 
-A session can be extended with a HTTP GET to `/api/edge/heartbeat.json?t=*EPOCH*` where `EPOCH` is the current time in EPOCH notation (such as `1591537772865`).
+A session can be extended with a HTTP GET to `/api/edge/heartbeat.json`.
+
+The web UI includes an ignored `t` querystring parameter to prevent a browser or network device cache from preventing the remote connection from reaching the remote device.
+The URL format the web UI uses is `/api/edge/heartbeat.json?t=*epoch*` where `epoch` is the current time in Unix epoch notation (such as `1591537772865`).
