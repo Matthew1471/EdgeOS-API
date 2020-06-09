@@ -49,7 +49,7 @@ A HTTP GET to `/logout` will end the current session.
 * Locate
 * Reset
 
-=== Edge General
+=== Edge - General
 
 * link:REST%20API/General%20-%20Batch%20Configuration.adoc[Batch Configuration]
 * Delete
@@ -62,17 +62,17 @@ A HTTP GET to `/logout` will end the current session.
 * Setup
 * Upgrade
 
-=== Edge Configuration
+=== Edge - Configuration
 
 * link:REST%20API/Config%20-%20Download%20Configuration.adoc[Download Configuration]
 * Restore Configuration
 
-=== Edge Optical Network Unit (ONU)
+=== Edge - Optical Network Unit (ONU)
 
 * Reboot
 * Upgrade
 
-=== Edge Operations
+=== Edge - Operations
 
 * link:REST%20API/Operation%20-%20Check%20For%20Firmware%20Updates.adoc[Check For Firmware Updates]
 * link:REST%20API/Operation%20-%20Clear%20Traffic%20Analysis.adoc[Clear Traffic Analysis]
