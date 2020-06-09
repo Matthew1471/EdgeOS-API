@@ -38,17 +38,39 @@ A HTTP GET to `/logout` will end the current session.
 
 == REST API
 
+=== OLT
+
+* Get Connected ONU Devices
+
+=== OLT ONU
+
+* Get Connected WiFi Clients
+* Get Support File
+* Locate
+* Reset
+
 === General
 
 * link:REST%20API/General%20-%20Batch%20Configuration.adoc[Batch Configuration]
+* Delete
+* Feature
 * link:REST%20API/General%20-%20Get%20Complete%20Configuration.adoc[Get Complete Configuration]
 * link:REST%20API/General%20-%20Get%20Configuration%20Section.adoc[Get Configuration Section]
 * link:REST%20API/General%20-%20Get%20Data.adoc[Get Data]
 * link:REST%20API/General%20-%20Session%20Heartbeat.adoc[Session Heartbeat]
+* Set
+* Setup
+* Upgrade
 
-=== Configuration
+=== Edge Configuration
 
 * link:REST%20API/Config%20-%20Download%20Configuration.adoc[Download Configuration]
+* Restore Configuration
+
+=== Edge ONU
+
+* Reboot
+* Upgrade
 
 === Operations
 
@@ -63,7 +85,13 @@ A HTTP GET to `/logout` will end the current session.
 
 === Wizards
 
+* Create
+* Download Wizard
 * link:REST%20API/Wizard%20-%20List%20All%20Wizards.adoc[List All Wizards]
+* Setup
+* Remove
+* Runtime
+* Upload
 
 == WebSocket
 
