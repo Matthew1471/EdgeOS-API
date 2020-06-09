@@ -36,7 +36,7 @@ Return values from the stream follow a similar format.
 
 The web UI sends a ping every 30 seconds which consists of the following:
 
-[source,json]
+[source,json,subs="+quotes"]
 ----
 66
 {"CLIENT_PING":"","SESSION_ID":"*f989665499eb406b8600fd50bf1971bc*"}

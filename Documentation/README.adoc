@@ -42,7 +42,7 @@ A HTTP GET to `/logout` will end the current session.
 
 * link:REST%20API/General%20-%20Batch%20Configuration.adoc[Batch Configuration]
 * link:REST%20API/General%20-%20Get%20Complete%20Configuration.adoc[Get Complete Configuration]
-* link:REST%20API/General%20-%20Get%20Configured%20Configuration%20Sections.adoc[Get Configured Configuration Sections]
+* link:REST%20API/General%20-%20Get%20Configuration%20Section.adoc[Get Configuration Section]
 * link:REST%20API/General%20-%20Get%20Data.adoc[Get Data]
 * link:REST%20API/General%20-%20Session%20Heartbeat.adoc[Session Heartbeat]
 
