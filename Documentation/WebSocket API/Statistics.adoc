@@ -5,11 +5,11 @@
 
 You can get streaming statistical data from the endpoint `wss://host-or-ip/ws/stats`. The data from the WebSocket is framed oddly, it's actually a streaming protocol that has been sent and received over WebSocket. The data will not arrive like you might expect. You *MUST* reassemble the web socket data fragments since the frames may not align with data boundaries. Commands must be sent with a valid `SESSION_ID`.
 
-The format of data to and from the WebSocket stream is "LENGTH\nJSON_PAYLOAD". Failure of sending properly formed messages to start the streaming will result in no messages from server aka "dead air".
+The format of data to and from the WebSocket stream is `LENGTH\nJSON_PAYLOAD`.
 
 When the `SESSION_ID` times out the WebSocket will abruptly close so it's recommended to refresh it occasionally.
 
-== Request Subscription
+== Subscription Request
 
 No data will be received by the socket until the user requests a subscription to a selection of message types:
 
@@ -41,6 +41,11 @@ The web UI sends a ping every 30 seconds which consists of the following:
 66
 {"CLIENT_PING":"","SESSION_ID":"*f989665499eb406b8600fd50bf1971bc*"}
 ----
+
+[WARNING]
+====
+Failure to send a properly formed subscription request will continue to result in no messages being sent from the server.
+====
 
 == Subscription Types
 
