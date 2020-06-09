@@ -1,0 +1,8 @@
+= Data - DHCP Statistics
+
+A HTTP GET to `/api/edge/data.json?data=dhcp_stats` can be used to get a JSON formatted list of DHCP stats:
+
+[source,json]
+----
+{"success": "1", "output": {"dhcp-server-stats": {"LAN2": {"pool_size": "253", "leased": "0", "available": "253"}, "LAN1": {"pool_size": "253", "leased": "3", "available": "250"}}}}
+----

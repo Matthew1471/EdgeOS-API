@@ -1,0 +1,8 @@
+= Data - Routes
+
+A HTTP GET to `/api/edge/data.json?data=routes` obtains route information:
+
+[source,json]
+----
+{"success": "1", "output": [{"pfx": "0.0.0.0/0", "nh": [{"t": "S>*", "metric": "210/0", "via": "xxx.xxx.xxx.xxx", "intf": "eth0"}]}, {"pfx": "xxx.xxx.xxx.xxx/21", "nh": [{"t": "C>*", "intf": "eth0"}]}, {"pfx": "127.0.0.0/8", "nh": [{"t": "C>*", "intf": "lo"}]}, {"pfx": "192.168.0.0/24", "nh": [{"t": "C>*", "intf": "eth1"}]}]}
+----

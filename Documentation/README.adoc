@@ -32,61 +32,19 @@ A session can be extended with a HTTP GET to `/api/edge/heartbeat.json?t=*EPOCH*
 
 == REST API
 
-=== Get Configuration
+=== General
 
-A HTTP GET to `/api/edge/get.json` can be used to get a JSON formatted dictionary containing the configuration (and the current `SESSION_ID`).
-
-=== Get Configured Sections
-
-A HTTP GET to `/api/edge/getcfg.json` can be used to get a JSON formatted list stating which sections have been modified.
+* link:Documentation/API/Get%20Configuration.adoc[Get Configuration]
+* link:Documentation/API/Get%20Configured%20Sections.adoc[Get Configured Sections]
 
 === Data
-The `/api/edge/data.json` endpoint can query a variety of stats and data.
+The `/api/edge/data.json` endpoint can query a variety of stats and data:
 
-==== DHCP Leases
-
-A HTTP GET to `/api/edge/data.json?data=dhcp_leases` can be used to get a JSON formatted list of DHCP leases:
-
-[source,json]
-----
-{"success": "1", "output": {"dhcp-server-leases": {"LAN2": "", "LAN1": {"192.168.0.180": {"expiration": "2020/06/08 13:07:17", "pool": "LAN1", "mac": "xx:xx:xx:xx:xx:xx", "client-hostname": "Versa"}, "192.168.0.165": {"expiration": "2020/06/08 08:42:42", "pool": "LAN1", "mac": "xx:xx:xx:xx:xx:xx", "client-hostname": ""}, "192.168.0.104": {"expiration": "2020/06/07 16:19:20", "pool": "LAN1", "mac": "xx:xx:xx:xx:xx:xx", "client-hostname": "andys-6s"}}}}}
-----
-
-==== DHCP Stats
-
-A HTTP GET to `/api/edge/data.json?data=dhcp_stats` can be used to get a JSON formatted list of DHCP stats:
-
-[source,json]
-----
-{"success": "1", "output": {"dhcp-server-stats": {"LAN2": {"pool_size": "253", "leased": "0", "available": "253"}, "LAN1": {"pool_size": "253", "leased": "3", "available": "250"}}}}
-----
-
-==== System Information
-
-A HTTP GET to `/api/edge/data.json?data=sys_info` obtains basic system information:
-
-[source,json]
-----
-{"success": "1", "output": {"sw_ver": "EdgeRouter.ER-e300.v2.0.9-beta.3.5296219.200507.1538", "unms": {"daemon": "Not running", "status": "", "last": ""}, "fw-latest": {"version": "v2.0.8-hotfix.1", "url": "https://fw-download.ubnt.com/data/e300/669e-edgerouter-2.0.8-hotfix.1-752ed9f0476a4cb3adcce84ec537b228.tar", "md5": "d4b30e3821621f16f6e960d753eaf073", "state": "up-to-date"}}}
-----
-
-==== Routes
-
-A HTTP GET to `/api/edge/data.json?data=routes` obtains route information:
-
-[source,json]
-----
-{"success": "1", "output": [{"pfx": "0.0.0.0/0", "nh": [{"t": "S>*", "metric": "210/0", "via": "xxx.xxx.xxx.xxx", "intf": "eth0"}]}, {"pfx": "xxx.xxx.xxx.xxx/21", "nh": [{"t": "C>*", "intf": "eth0"}]}, {"pfx": "127.0.0.0/8", "nh": [{"t": "C>*", "intf": "lo"}]}, {"pfx": "192.168.0.0/24", "nh": [{"t": "C>*", "intf": "eth1"}]}]}
-----
-
-==== Default Configuration Status
-
-A HTTP GET to `/api/edge/data.json?data=default_config` obtains information on whether the device is operating with no user supplied configuration:
-
-[source,json]
-----
-{"success": "1", "output": {"is_default": "0"}}
-----
+* link:Documentation/API/Data%20-%20Default%20Configuration%20Status.adoc[Default Configuration Status]
+* link:Documentation/API/Data%20-%20DHCP%20Leases.adoc[DHCP Leases]
+* link:Documentation/API/Data%20-%20DHCP%20Statistics.adoc[DHCP Statistics]
+* link:Documentation/API/Data%20-%20Routes.adoc[Routes]
+* link:Documentation/API/Data%20-%20System%20Information.adoc[System Information]
 
 === Download Configuration
 

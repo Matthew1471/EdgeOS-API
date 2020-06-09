@@ -1,0 +1,3 @@
+= Get Configured Sections
+
+A HTTP GET to `/api/edge/getcfg.json` can be used to get a JSON formatted list stating which sections have been modified.
