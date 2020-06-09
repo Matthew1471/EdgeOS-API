@@ -1,0 +1,3 @@
+= JSON - Configuration Change
+
+`{'config-change': {'commit': 'started'}}` `{'config-change': {'commit': 'ended'}}`

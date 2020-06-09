@@ -1,0 +1,5 @@
+= JSON - Number Of Routes
+
+This returns periodic messages containing counts of the EdgeOS network routes.
+
+`{'num-routes': {'connected': '5', 'static': '1', 'total': '6'}}`

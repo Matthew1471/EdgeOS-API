@@ -48,47 +48,66 @@ Each one of these subscriptions will output data with the response being full JS
 |Subscription String
 |Description
 
-|Configuration Change
+|link:JSON%20-%20Configuration%20Change.adoc[Configuration Change]
 |config-change
-|Returns only when the config has changed as an indication you need to reload
-`{'config-change': {'commit': 'started'}}` `{'config-change': {'commit': 'ended'}}`
+|Returns only when EdgeOS is processing a configuration change.
 
-|Device Discovery
+|link:JSON%20-%20Device%20Discovery.adoc[Device Discovery]
 |discover
-|Results from any devices discovered via ubnt protocols.
+|Results from any devices discovered (typically via UBNT Discovery).
 
-|Traffic Analysis
+|link:JSON%20-%20Interfaces.adoc[Interfaces]
+|interfaces
+|Periodic messages containing network interface information for each of the EdgeOS network interfaces.
+
+|link:JSON%20-%20Number%20Of%20Routes.adoc[Number Of Routes]
+|num-routes
+|Returns periodic messages containing counts of the EdgeOS network routes.
+
+|link:JSON%20-%20System%20Statistics.adoc[System Statistics]
+|system-stats
+|Returns cpu, memory and uptime
+
+|link:JSON%20-%20Traffic%20Analysis.adoc[Traffic Analysis]
 |export
 |Traffic Analysis (aka DPI) information.
 
-|Interfaces
-|interfaces
-|Shows per-interface details about the device
+|link:JSON%20-%20Users.adoc[Users]
+|users
+|Lists the users logged into the EdgeOS device including SSH, Web, and VPN.
 
-|LLDP Neighbours
-|lldp-detail
-|Information about LLDP connected neighbours.
-
-|System Statistics
-|system-stats
-|Returns cpu, memory and uptime
-`{'system-stats': {'cpu': '35', 'mem': '22', 'uptime': '3321154'}}`
-
-|Number of Routes
-|num-routes
-|Returns information about the number of active routes, use the json endpoint to fetch detailed routing information
-`{'num-routes': {'connected': '5', 'static': '1', 'total': '6'}}`
-
-|UDAPI Statistics
+|link:JSON%20-%20UDAPI%20Statistics.adoc[UDAPI Statistics]
 |udapi-statistics
 |System information formatted for udapi, odd dialect
 
-|Users
-|users
-|Lists the users logged into the EdgeOS device including ssh, web, and vpn
 |===
 
-=== RAW Console Output
+=== RAW Console Output (No parameters)
+
+Each one of these endpoints just dumps the raw console output data within a string `{'<<Request sub_id>>': '<line of text>\n' }`
+
+These are subscribed to in the same way as the JSON subscriptions above but some additional parameters may need to be specified.
+
+[cols="1,1,2", options="header"] 
+|===
+|Name
+|Subscription String
+|Description
+
+|link:Raw%20-%20Log%20Feed.adoc[Log Feed]
+|log-feed
+|Basically a `tail -f /var/log/messages`
+
+|link:Raw%20-%20NAT%20Statistics.adoc[NAT Statistics]
+|nat-stats
+|Returns per-rule NAT stats.
+
+|link:Raw%20-%20Port%20Forwarding%20Statistics.adoc[Port Forwarding Statistics]
+|pf-stats
+|Contains the statistics from Port Forwarding.
+|===
+
+=== RAW Console Output (Parameters Required)
 
 Each one of these endpoints just dumps the raw console output data within a string `{'<<Request sub_id>>': '<line of text>\n' }`
 
@@ -104,21 +123,9 @@ These are subscribed to in the same way as the JSON subscriptions above but some
 |bwtest-feed
 |Performs a bandwidth test.
 
-|Log Messages
-|log-feed
-|Basically a `tail -f /var/log/messages`
-
 |link:Raw%20-%20Firewall%20Statistics.adoc[Firewall Statistics]
 |fw-stats
 |Returns per-rule firewall stats.
-
-|Port Forwarding Statistics
-|pf-stats
-|Contains the statistics from Port Forwarding.
-
-|link:Raw%20-%20NAT%20Statistics.adoc[NAT Statistics]
-|nat-stats
-|Returns per-rule NAT stats.
 
 |link:Raw%20-%20Ping.adoc[Ping]
 |ping-feed
@@ -128,7 +135,7 @@ These are subscribed to in the same way as the JSON subscriptions above but some
 |traceroute-feed
 |Performs a traceroute.
 
-|link:Raw%20-%20Traceroute.adoc[Packet Capture]
+|link:Raw%20-%20Packet%20Capture.adoc[Packet Capture]
 |packets-feed
 |Performs a packet capture.
 |===
@@ -143,6 +150,14 @@ There is also the following endpoints that not much is known about:
 |Subscription String
 |Description
 
+|LLDP Neighbours
+|lldp-detail
+|Information about LLDP connected neighbours.
+
+|NNI Statistics
+|nni-stats
+|Lists Network to Network Interface stats.
+
 |ONU List
 |onu-list
 |Lists Optical Network Unit devices.
@@ -150,8 +165,4 @@ There is also the following endpoints that not much is known about:
 |PON Statistics
 |pon-stats
 |Lists Passive Optical Network stats.
-
-|NNI Statistics
-|nni-stats
-|Lists Network to Network Interface stats.
 |===

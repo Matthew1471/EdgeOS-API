@@ -1,0 +1,3 @@
+= JSON - System Statistics
+
+`{'system-stats': {'cpu': '35', 'mem': '22', 'uptime': '3321154'}}`

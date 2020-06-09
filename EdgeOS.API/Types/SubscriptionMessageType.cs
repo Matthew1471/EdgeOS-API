@@ -82,7 +82,7 @@ namespace EdgeOS.API.Types
 
         /// <summary>Request information about Link Layer Discovery Protocol (LLDP) connected neighbours.</summary>
         [EnumMember(Value = "lldp-detail")]
-        LLDPDetail,
+        LLDPNeighbours,
 
         /// <summary>List Network to Network Interface (NNI) statistics.</summary>
         [EnumMember(Value = "nni-stats")]
