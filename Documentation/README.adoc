@@ -25,16 +25,16 @@ The session ID is returned multiple times but the only header of importance for 
 Set-Cookie: PHPSESSID=*9a00126c5bf04e29835f7c13fe5ab155*; secure
 ----
 
-=== Logout
-
-A HTTP GET to `/logout' will end the current session.
-
 [WARNING]
 ====
 A session is valid for 15 minutes and is refreshed on every web request.
 
 A session can be periodically artificially extended with a link:REST%20API/General%20-%20Session%20Heartbeat.adoc[Session Heartbeat] request.
 ====
+
+=== Logout
+
+A HTTP GET to `/logout` will end the current session.
 
 == REST API
 
