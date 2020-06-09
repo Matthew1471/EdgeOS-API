@@ -1,0 +1,30 @@
+= Raw - Users
+
+Returns periodically the users logged into the EdgeOS device (including via SSH, Web and VPN).
+
+Request:
+[source,json]
+----
+97
+{"SUBSCRIBE":[{"name":"users"}],"UNSUBSCRIBE":[],"SESSION_ID":"f989665499eb406b8600fd50bf1971bc"}
+----
+
+Response:
+[source,json]
+----
+268
+{
+    "users": {
+        "local": [
+            {
+                "admin": {
+                    "tty": "Web",
+                    "idle": "0",
+                    "host": "",
+                    "uptime": "01h14m55s"
+                }
+            }
+        ]
+    }
+}
+----

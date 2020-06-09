@@ -1,22 +1,20 @@
 = General - Batch Configuration
 
-The `/api/edge/batch.json` endpoint allows you to make batch updates to the device's configuration.
+The `/api/edge/batch.json` endpoint allows you to make batch requests/updates to specific parts of the device's configuration.
+
+It does not support a HTTP GET.
 
 POST /api/edge/batch.json
 [source,json]
 ----
-
-
 {
     "SET":{"system":{"host-name":"<hostname>"},"service":{"unms":{"disable":null}}},
     "GET":{"system":null,"service":null}
 }
 ----
 
-Response:
-
-[subs="+quotes"]
-[source,json]
+POST /api/edge/batch.json Response
+[source,json,subs="+quotes"]
 ----
 {
     "SET": {"failure": "0", "success": "1"}, 

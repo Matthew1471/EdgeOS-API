@@ -1,6 +1,6 @@
 = Raw - Firewall Statistics
 
-Returns per-rule firewall stats:
+Returns per-rule firewall stats.
 
 Request:
 [source,json]

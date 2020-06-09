@@ -10,7 +10,7 @@ namespace EdgeOS.API.Types
         [JsonProperty(PropertyName = "config-change")]
         public ConfigurationChange ConfigurationChange;
 
-        /// <summary>A message that contains discovered device information when EdgeOS has discovered another device (typically via UBNT Discovery).</summary>
+        /// <summary>The object that contains discovered device information when EdgeOS has discovered another device (typically via UBNT Discovery).</summary>
         [JsonProperty(PropertyName = "discover")]
         public string Discover;
 

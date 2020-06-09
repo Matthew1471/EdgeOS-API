@@ -34,7 +34,13 @@ Return values from the stream follow a similar format.
 }
 ----
 
-The web UI sends a non-standard ping every 30 seconds which consists of the following string with NO length prefix `{"CLIENT_PING"}`
+The web UI sends a ping every 30 seconds which consists of the following:
+
+[source,json]
+----
+66
+{"CLIENT_PING":"","SESSION_ID":"*f989665499eb406b8600fd50bf1971bc*"}
+----
 
 == Subscription Types
 
@@ -74,7 +80,7 @@ Each one of these subscriptions will output data with the response being full JS
 
 |link:JSON%20-%20Users.adoc[Users]
 |users
-|Lists the users logged into the EdgeOS device including SSH, Web and VPN.
+|Periodic messages listing the users logged into the EdgeOS device including SSH, Web and VPN.
 
 |link:JSON%20-%20UDAPI%20Statistics.adoc[UDAPI Statistics]
 |udapi-statistics

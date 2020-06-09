@@ -34,7 +34,7 @@ namespace EdgeOS.API.Types
         [EnumMember(Value = "export")]
         TrafficAnalysis,
 
-        /// <summary>Request messages that contain the users logged into the EdgeOS device including SSH, Web and VPN.</summary>
+        /// <summary>Request periodic messages containing the users logged into the EdgeOS device (including via SSH, Web and VPN).</summary>
         [EnumMember(Value = "users")]
         Users,
 

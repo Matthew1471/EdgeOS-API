@@ -1,11 +1,13 @@
 = EdgeOS API Guide
 :toc: preamble
 
-The EdgeOS API is largely undocumented. However as the requests and responses can be monitored in a web-browser a lot of information on how it works can be derived.
+The EdgeOS API is not publicly documented. However as the requests and responses can be monitored in a web-browser along with the JavaScript source being available, a lot of information on how it works can be derived.
 
 toc::[]
 
 == Authentication
+
+== Login
 
 A HTTP POST to `\https://host-or-ip/` with the username and password encoded as a simple `application/x-www-form-urlencoded` form with the following request content will grant you a `PHPSESSID` cookie that is used to confirm you are authenticated:
 
@@ -18,16 +20,20 @@ This will return a HTTP status code `303 See Other` on success and the same logi
 
 The session ID is returned multiple times but the only header of importance for authentication is:
 
-[source,html]
+[source,http,subs="+quotes"]
 ----
-Set-Cookie: PHPSESSID=9a00126c5bf04e29835f7c13fe5ab155; secure
+Set-Cookie: PHPSESSID=*9a00126c5bf04e29835f7c13fe5ab155*; secure
 ----
+
+== Logout
+
+A HTTP GET to `/logout' will end the current session.
 
 [WARNING]
 ====
 A session is valid for 15 minutes and is refreshed on every web request.
 
-A session can be artificially extended with a link:REST%20API/General%20-%20Session%20Heartbeat.adoc[Session Heartbeat] request.
+A session can be periodically artificially extended with a link:REST%20API/General%20-%20Session%20Heartbeat.adoc[Session Heartbeat] request.
 ====
 
 == REST API

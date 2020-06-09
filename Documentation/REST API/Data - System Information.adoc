@@ -1,7 +1,8 @@
 = Data - System Information
 
-A HTTP GET to `/api/edge/data.json?data=sys_info` obtains basic system information:
+A HTTP GET to `/api/edge/data.json?data=sys_info` obtains basic system information.
 
+GET /api/edge/data.json?data=sys_info Response
 [source,json]
 ----
 {"success": "1", "output": {"sw_ver": "EdgeRouter.ER-e300.v2.0.9-beta.3.5296219.200507.1538", "unms": {"daemon": "Not running", "status": "", "last": ""}, "fw-latest": {"version": "v2.0.8-hotfix.1", "url": "https://fw-download.ubnt.com/data/e300/669e-edgerouter-2.0.8-hotfix.1-752ed9f0476a4cb3adcce84ec537b228.tar", "md5": "d4b30e3821621f16f6e960d753eaf073", "state": "up-to-date"}}}

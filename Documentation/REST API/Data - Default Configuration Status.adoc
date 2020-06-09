@@ -2,6 +2,7 @@
 
 A HTTP GET to `/api/edge/data.json?data=default_config` obtains information on whether the device is operating with no user supplied configuration:
 
+GET /api/edge/data.json?data=default_config Response
 [source,json]
 ----
 {"success": "1", "output": {"is_default": "0"}}
