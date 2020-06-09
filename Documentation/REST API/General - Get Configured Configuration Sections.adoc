@@ -1,3 +1,9 @@
 = General - Get Configured Configuration Sections
 
 A HTTP GET to `/api/edge/getcfg.json` can be used to get a JSON formatted list stating which sections have been modified.
+
+GET /api/edge/getcfg.json Response
+[source,json]
+----
+{"GETCFG": {"children": ["firewall", "interfaces", "port-forward", "service", "system"], "defs": {"custom-attribute": {"type": "txt", "tag": "true", "help": "Custom attribute name\n"}, "firewall": {"help": "Firewall\n"}, "interfaces": {"help": "Network interfaces\n"}, "load-balance": {"help": "Load Balance\n"}, "policy": {"help": "Routing policy\n"}, "port-forward": {"help": "Port forwarding"}, "protocols": {"help": "Routing protocol parameters\n"}, "service": {"help": "Services\n"}, "system": {"help": "System parameters\n"}, "traffic-control": {"help": "Traffic control (QOS) type\n"}, "traffic-policy": {"help": "Quality of Service (QOS) policy type\n"}, "vpn": {"help": "Virtual Private Network (VPN)"}, "zone-policy": {"help": "Configure zone-policy\n"}}, "success": "1"}, "success": true}
+----

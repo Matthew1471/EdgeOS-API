@@ -2,6 +2,7 @@
 
 To download the configuration send a HTTP GET to `/api/edge/config/save.json`:
 
+GET /api/edge/config/save.json Response
 [source,json]
 ----
 {"CONFIG": {"success": "1", "path": "/tmp/sysd-save.ycYPpL"}, "success": true}

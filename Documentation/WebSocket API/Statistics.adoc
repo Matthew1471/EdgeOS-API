@@ -55,35 +55,35 @@ Each one of these subscriptions will output data with the response being full JS
 |Description
 
 |link:JSON%20-%20Configuration%20Change.adoc[Configuration Change]
-|config-change
+|`config-change`
 |Returns only when EdgeOS is processing a configuration change.
 
 |link:JSON%20-%20Device%20Discovery.adoc[Device Discovery]
-|discover
+|`discover`
 |Results from any devices discovered (typically via UBNT Discovery).
 
 |link:JSON%20-%20Interfaces.adoc[Interfaces]
-|interfaces
+|`interfaces`
 |Periodic messages containing network interface information for each of the EdgeOS network interfaces.
 
 |link:JSON%20-%20Number%20Of%20Routes.adoc[Number Of Routes]
-|num-routes
+|`num-routes`
 |Periodic messages containing counts of the EdgeOS network routes.
 
 |link:JSON%20-%20System%20Statistics.adoc[System Statistics]
-|system-stats
+|`system-stats`
 |Periodic messages containing system statistics about the EdgeOS device
 
 |link:JSON%20-%20Traffic%20Analysis.adoc[Traffic Analysis]
-|export
+|`export`
 |Periodic messages containing Traffic Analysis (aka DPI) information.
 
 |link:JSON%20-%20Users.adoc[Users]
-|users
-|Periodic messages listing the users logged into the EdgeOS device including SSH, Web and VPN.
+|`users`
+|Periodic messages listing the users logged into the EdgeOS device (including via SSH, Web and VPN).
 
 |link:JSON%20-%20UDAPI%20Statistics.adoc[UDAPI Statistics]
-|udapi-statistics
+|`udapi-statistics`
 |Periodic messages containing device statistics in a specific API format, potentially used by UNMS.
 
 |===
@@ -101,15 +101,15 @@ These are subscribed to in the same way as the JSON subscriptions above but no a
 |Description
 
 |link:Raw%20-%20Log%20Feed.adoc[Log Feed]
-|log-feed
+|`log-feed`
 |Basically a `tail -f /var/log/messages`
 
 |link:Raw%20-%20NAT%20Statistics.adoc[NAT Statistics]
-|nat-stats
+|`nat-stats`
 |Returns per-rule NAT stats.
 
 |link:Raw%20-%20Port%20Forwarding%20Statistics.adoc[Port Forwarding Statistics]
-|pf-stats
+|`pf-stats`
 |Contains the statistics from Port Forwarding.
 |===
 
@@ -126,23 +126,23 @@ These are subscribed to in the same way as the JSON subscriptions above but some
 |Description
 
 |link:Raw%20-%20Bandwidth%20Test.adoc[Bandwidth Test]
-|bwtest-feed
+|`bwtest-feed`
 |Performs or hosts a bandwidth test (using iperf).
 
 |link:Raw%20-%20Firewall%20Statistics.adoc[Firewall Statistics]
-|fw-stats
+|`fw-stats`
 |Returns periodic firewall statistics.
 
 |link:Raw%20-%20Ping.adoc[Ping]
-|ping-feed
+|`ping-feed`
 |Performs a ping.
 
 |link:Raw%20-%20Traceroute.adoc[Traceroute]
-|traceroute-feed
+|`traceroute-feed`
 |Performs a tracert to trace a route to a host.
 
 |link:Raw%20-%20Packet%20Capture.adoc[Packet Capture]
-|packets-feed
+|`packets-feed`
 |Performs a packet capture (using tcpdump).
 |===
 
@@ -157,18 +157,18 @@ There are also the following endpoints that not much is known about:
 |Description
 
 |LLDP Neighbours
-|lldp-detail
+|`lldp-detail`
 |Information about Link Layer Discovery Protocol (LLDP) connected neighbours.
 
 |NNI Statistics
-|nni-stats
+|`nni-stats`
 |Lists Network to Network Interface (NNI) statistics.
 
 |ONU List
-|onu-list
+|`onu-list`
 |Lists Optical Network Unit (ONU) details.
 
 |PON Statistics
-|pon-stats
+|`pon-stats`
 |Lists Passive Optical Network (PON) statistics.
 |===
