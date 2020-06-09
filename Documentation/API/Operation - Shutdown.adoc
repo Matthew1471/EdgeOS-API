@@ -1,0 +1,3 @@
+= Operation - Shutdown
+
+The device can be shutdown by sending a HTTP POST to `/api/edge/operation/shutdown.json`

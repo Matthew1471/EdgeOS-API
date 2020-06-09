@@ -1,0 +1,3 @@
+= Operation - Check For Firmware Updates
+
+A check for firmware updates can be performed by sending a HTTP POST to `/api/edge/operation/refresh-fw-latest-status.json`

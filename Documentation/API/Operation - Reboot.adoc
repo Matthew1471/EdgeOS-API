@@ -1,0 +1,3 @@
+= Operation - Reboot
+
+The device can be rebooted by sending a HTTP POST to `/api/edge/operation/reboot.json`

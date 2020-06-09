@@ -1,0 +1,10 @@
+= Config - Download Configuration
+
+To download the configuration send a HTTP GET to `/api/edge/config/save.json`:
+
+[source,json]
+----
+{"CONFIG": {"success": "1", "path": "/tmp/sysd-save.ycYPpL"}, "success": true}
+----
+
+and then make a request to `/files/config/`. The file will be deleted once the request has been made.

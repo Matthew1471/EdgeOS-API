@@ -1,0 +1,3 @@
+= Operation - Reset Default Configuration
+
+The device configuration can be reset by sending a HTTP POST to `/api/edge/operation/reset-default-config.json`
