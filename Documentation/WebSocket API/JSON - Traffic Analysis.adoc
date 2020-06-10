@@ -33,7 +33,7 @@ This returns periodic messages containing traffic analysis information for each 
 
 |Key
 |String
-|Application (e.g. `Netflix|Media streaming services`)
+|Application (e.g. `Netflix\|Media streaming services`)
 |The observed application that EdgeOS has statistics for via Deep Packet Inspection (DPI).
 
 |Value
