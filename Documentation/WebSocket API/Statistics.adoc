@@ -95,7 +95,9 @@ Failure to send a properly formed subscription request will continue to result i
 
 === JSON Based
 
-Each one of these subscriptions will output data with the response being full JSON objects:
+Each one of these subscriptions will output data with the response being full JSON objects.
+
+==== SubscriptionTypes
 
 [cols="1,1,2", options="header"] 
 |===
@@ -142,7 +144,7 @@ Each one of these endpoints just dumps the raw console output data within a stri
 
 These are subscribed to in the same way as the JSON subscriptions above but while no additional parameters may need to be specified the SubscriptionParameters schema is extended to attribute specific console responses to specific requests.
 
-==== Console Based
+==== SubscriptionTypes
 
 [cols="1,1,2", options="header"] 
 |===
