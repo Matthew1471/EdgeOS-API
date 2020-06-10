@@ -140,9 +140,9 @@ Each one of these subscriptions will output data with the response being full JS
 
 Each one of these endpoints just dumps the raw console output data within a string `{'<<Request sub_id>>': '<line of text>\n' }`
 
-These are subscribed to in the same way as the JSON subscriptions above but no additional parameters may need to be specified.
+These are subscribed to in the same way as the JSON subscriptions above but while no additional parameters may need to be specified the SubscriptionParameters schema is extended to attribute specific console responses to specific requests.
 
-== Request Optional Properties - SubscriptionParameters (extended)
+=== Request Optional Properties - SubscriptionParameters (extended)
 
 [cols="1,1,1,2", options="header"] 
 |===
@@ -156,6 +156,8 @@ These are subscribed to in the same way as the JSON subscriptions above but no a
 |String
 |An identifier to tag plain string responses to this subscription with.
 |===
+
+=== Console Based
 
 [cols="1,1,2", options="header"] 
 |===
