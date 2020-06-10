@@ -74,6 +74,8 @@ This returns periodic messages containing traffic analysis information for each 
 
 == Examples
 
+[source,json]
+----
 14398
 {
     "export": {
