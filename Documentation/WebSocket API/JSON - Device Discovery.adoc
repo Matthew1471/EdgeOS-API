@@ -1,8 +1,6 @@
 = JSON - Device Discovery
 
-This message is generated only when EdgeOS is processing a configuration change.
-
-It is used by the web UI to detect when the displayed configuration is out of date and requires refreshing.
+This returns periodic messages containing discovered device information (typically via UBNT Discovery).
 
 == Response Properties - Root
 
@@ -14,9 +12,9 @@ It is used by the web UI to detect when the displayed configuration is out of da
 |Description
 
 |`devices`
-|Array (Object)
-|Array of `Device`
-|An array of discovered devices.
+|Array (Object) or String
+|Array of `Device` or empty string
+|An array of discovered devices or an empty string if no devices have been discovered.
 |===
 
 == Response Properties - Device

@@ -14,7 +14,7 @@ namespace EdgeOS.API.Types
         [EnumMember(Value = "config-change")]
         ConfigurationChange,
 
-        /// <summary>Request messages that contains discovered device information when EdgeOS has discovered another device (typically via UBNT Discovery).</summary>
+        /// <summary>Request periodic messages containing discovered device information where EdgeOS has discovered another device (typically via UBNT Discovery).</summary>
         [EnumMember(Value = "discover")]
         DeviceDiscovery,
 
