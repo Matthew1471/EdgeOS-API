@@ -1,0 +1,543 @@
+= JSON - System Statistics
+
+This returns periodic messages containing traffic analysis information for each host when EdgeOS has observed certain application types via Deep Packet Inspection (DPI).
+
+== Response Properties - Root
+
+[cols="1,1,1,2", options="header"] 
+|===
+|Name
+|Type
+|Values
+|Description
+
+|Key
+|String
+|IP Address (e.g. `192.168.0.1`)
+|The local host the traffic analysis has been observing.
+
+|Value
+|Array (Object)
+|Array of `Application`
+|Each observed application type that EdgeOS has statistics for via Deep Packet Inspection (DPI).
+|===
+
+== Response Properties - Application
+
+[cols="1,1,1,2", options="header"] 
+|===
+|Name
+|Type
+|Values
+|Description
+
+|Key
+|String
+|Application (e.g. `Netflix|Media streaming services`)
+|The observed application that EdgeOS has statistics for via Deep Packet Inspection (DPI).
+
+|Value
+|Array (Object)
+|Array of `ApplicationStatistics`
+|Traffic statistics for a certain observed application type via Deep Packet Inspection (DPI).
+|===
+
+== Response Properties - ApplicationStatistics
+
+[cols="1,1,1,2", options="header"] 
+|===
+|Name
+|Type
+|Values
+|Description
+
+|`tx_bytes`
+|Number
+|Number (e.g. `299`)
+|The number of bytes transmitted from this observed application.
+
+|`tx_rate`
+|Number
+|Number (e.g. `18`)
+|The rate at which bytes are currently being transmitted from this observed application.
+
+|`rx_bytes`
+|Number
+|Number (e.g. `40584`)
+|The number of bytes received by this observed application.
+
+|`rx_rate`
+|Number
+|Number (e.g. `32148`)
+|The rate at which bytes are currently being received by this observed application.
+|===
+
+== Examples
+
+14398
+{
+    "export": {
+        "192.168.0.40": {
+            "Netflix|Media streaming services": {
+                "tx_bytes": "299",
+                "tx_rate": "0",
+                "rx_bytes": "5931",
+                "rx_rate": "0"
+            },
+            "Roku|Media streaming services": {
+                "tx_bytes": "37581",
+                "tx_rate": "0",
+                "rx_bytes": "40",
+                "rx_rate": "0"
+            },
+            "Other|Other": {
+                "tx_bytes": "40397",
+                "tx_rate": "0",
+                "rx_bytes": "40584",
+                "rx_rate": "0"
+            },
+            "Web - Other|Web": {
+                "tx_bytes": "69970",
+                "tx_rate": "0",
+                "rx_bytes": "1249414",
+                "rx_rate": "0"
+            }
+        },
+        "192.168.0.1": {
+            "MSN.com|Web services": {
+                "tx_bytes": "2337",
+                "tx_rate": "0",
+                "rx_bytes": "0",
+                "rx_rate": "0"
+            },
+            "SSL\/TLS|Network protocols": {
+                "tx_bytes": "22625",
+                "tx_rate": "0",
+                "rx_bytes": "1856595",
+                "rx_rate": "0"
+            },
+            "Web - Other|Web": {
+                "tx_bytes": "4007915",
+                "tx_rate": "0",
+                "rx_bytes": "221553210",
+                "rx_rate": "0"
+            }
+        },
+        "192.168.0.30": {
+            "iTunes|Media streaming services": {
+                "tx_bytes": "3221",
+                "tx_rate": "0",
+                "rx_bytes": "13217",
+                "rx_rate": "0"
+            },
+            "Google Static Content(SSL)|Network protocols": {
+                "tx_bytes": "23800",
+                "tx_rate": "0",
+                "rx_bytes": "2078",
+                "rx_rate": "0"
+            },
+            "Google Play|Web services": {
+                "tx_bytes": "13882",
+                "tx_rate": "0",
+                "rx_bytes": "632",
+                "rx_rate": "0"
+            },
+            "Google Analytics|Web services": {
+                "tx_bytes": "27458",
+                "tx_rate": "0",
+                "rx_bytes": "13625",
+                "rx_rate": "0"
+            },
+            "Twitter|Social networks": {
+                "tx_bytes": "1789521",
+                "tx_rate": "74",
+                "rx_bytes": "46223163",
+                "rx_rate": "32148"
+            },
+            "Google|Web services": {
+                "tx_bytes": "503443",
+                "tx_rate": "0",
+                "rx_bytes": "2076138",
+                "rx_rate": "0"
+            },
+            "Web - Other|Web": {
+                "tx_bytes": "106979172",
+                "tx_rate": "18",
+                "rx_bytes": "5699620488",
+                "rx_rate": "2432"
+            },
+            "Google APIs(SSL)|Network protocols": {
+                "tx_bytes": "157027",
+                "tx_rate": "0",
+                "rx_bytes": "523847",
+                "rx_rate": "0"
+            },
+            "Other|Other": {
+                "tx_bytes": "120321",
+                "tx_rate": "7",
+                "rx_bytes": "132576",
+                "rx_rate": "23"
+            }
+        },
+        "192.168.0.252": {
+            "Web - Other|Web": {
+                "tx_bytes": "164",
+                "tx_rate": "0",
+                "rx_bytes": "5934",
+                "rx_rate": "0"
+            }
+        },
+        "192.168.0.100": {
+            "Microsoft Office|Business tools": {
+                "tx_bytes": "6183",
+                "tx_rate": "0",
+                "rx_bytes": "68995",
+                "rx_rate": "0"
+            },
+            "Google Static Content(SSL)|Network protocols": {
+                "tx_bytes": "75404",
+                "tx_rate": "0",
+                "rx_bytes": "561584",
+                "rx_rate": "0"
+            },
+            "Google|Web services": {
+                "tx_bytes": "361536",
+                "tx_rate": "0",
+                "rx_bytes": "9508297",
+                "rx_rate": "0"
+            },
+            "GitHub|File sharing services and tools": {
+                "tx_bytes": "124162",
+                "tx_rate": "0",
+                "rx_bytes": "234659",
+                "rx_rate": "0"
+            },
+            "SSL\/TLS|Network protocols": {
+                "tx_bytes": "42495",
+                "tx_rate": "0",
+                "rx_bytes": "844222",
+                "rx_rate": "0"
+            },
+            "Google APIs(SSL)|Network protocols": {
+                "tx_bytes": "76247",
+                "tx_rate": "0",
+                "rx_bytes": "708268",
+                "rx_rate": "0"
+            },
+            "Web - Other|Web": {
+                "tx_bytes": "4622148",
+                "tx_rate": "35",
+                "rx_bytes": "73561829",
+                "rx_rate": "1275"
+            },
+            "Other|Other": {
+                "tx_bytes": "24608",
+                "tx_rate": "0",
+                "rx_bytes": "1033190",
+                "rx_rate": "0"
+            }
+        },
+        "192.168.0.20": {
+            "Google Static Content(SSL)|Network protocols": {
+                "tx_bytes": "9489",
+                "tx_rate": "0",
+                "rx_bytes": "3389",
+                "rx_rate": "0"
+            },
+            "Youtube|Media streaming services": {
+                "tx_bytes": "5896",
+                "tx_rate": "0",
+                "rx_bytes": "13007",
+                "rx_rate": "0"
+            },
+            "Google|Web services": {
+                "tx_bytes": "16768",
+                "tx_rate": "0",
+                "rx_bytes": "43661",
+                "rx_rate": "0"
+            },
+            "Google Play|Web services": {
+                "tx_bytes": "1535324",
+                "tx_rate": "0",
+                "rx_bytes": "43139983",
+                "rx_rate": "0"
+            },
+            "Web - Other|Web": {
+                "tx_bytes": "1371520",
+                "tx_rate": "0",
+                "rx_bytes": "13483186",
+                "rx_rate": "0"
+            },
+            "fitbit|Web services": {
+                "tx_bytes": "408206",
+                "tx_rate": "0",
+                "rx_bytes": "140892",
+                "rx_rate": "0"
+            },
+            "Gmail|Email messaging services": {
+                "tx_bytes": "51734",
+                "tx_rate": "0",
+                "rx_bytes": "134811",
+                "rx_rate": "0"
+            },
+            "Other|Other": {
+                "tx_bytes": "510160",
+                "tx_rate": "0",
+                "rx_bytes": "813997",
+                "rx_rate": "0"
+            },
+            "Facebook|Social networks": {
+                "tx_bytes": "6801",
+                "tx_rate": "0",
+                "rx_bytes": "7496",
+                "rx_rate": "0"
+            },
+            "Google APIs(SSL)|Network protocols": {
+                "tx_bytes": "506905",
+                "tx_rate": "0",
+                "rx_bytes": "5884917",
+                "rx_rate": "0"
+            }
+        },
+        "192.168.0.22": {
+            "Facebook|Social networks": {
+                "tx_bytes": "176830",
+                "tx_rate": "0",
+                "rx_bytes": "119325",
+                "rx_rate": "0"
+            },
+            "Google|Web services": {
+                "tx_bytes": "3047",
+                "tx_rate": "0",
+                "rx_bytes": "4922",
+                "rx_rate": "0"
+            },
+            "Google APIs(SSL)|Network protocols": {
+                "tx_bytes": "522582",
+                "tx_rate": "0",
+                "rx_bytes": "940189",
+                "rx_rate": "0"
+            },
+            "Google Play|Web services": {
+                "tx_bytes": "424427",
+                "tx_rate": "0",
+                "rx_bytes": "169243",
+                "rx_rate": "0"
+            },
+            "Other|Other": {
+                "tx_bytes": "298310",
+                "tx_rate": "0",
+                "rx_bytes": "613067",
+                "rx_rate": "0"
+            },
+            "Web - Other|Web": {
+                "tx_bytes": "7425592",
+                "tx_rate": "0",
+                "rx_bytes": "28243190",
+                "rx_rate": "0"
+            }
+        },
+        "192.168.0.44": {
+            "Google APIs(SSL)|Network protocols": {
+                "tx_bytes": "2574",
+                "tx_rate": "0",
+                "rx_bytes": "26789",
+                "rx_rate": "0"
+            },
+            "Web - Other|Web": {
+                "tx_bytes": "5628",
+                "tx_rate": "0",
+                "rx_bytes": "11695",
+                "rx_rate": "0"
+            },
+            "Google Static Content(SSL)|Network protocols": {
+                "tx_bytes": "296152",
+                "tx_rate": "0",
+                "rx_bytes": "888784",
+                "rx_rate": "0"
+            },
+            "Other|Other": {
+                "tx_bytes": "187978",
+                "tx_rate": "0",
+                "rx_bytes": "188968",
+                "rx_rate": "0"
+            }
+        },
+        "192.168.0.33": {
+            "iCloud|File sharing services and tools": {
+                "tx_bytes": "3266",
+                "tx_rate": "0",
+                "rx_bytes": "164",
+                "rx_rate": "0"
+            },
+            "Apple.com|Web services": {
+                "tx_bytes": "151702",
+                "tx_rate": "0",
+                "rx_bytes": "304295",
+                "rx_rate": "0"
+            },
+            "Web - Other|Web": {
+                "tx_bytes": "641579",
+                "tx_rate": "0",
+                "rx_bytes": "22669483",
+                "rx_rate": "0"
+            },
+            "Apple iMessage|Instant messengers": {
+                "tx_bytes": "15113",
+                "tx_rate": "0",
+                "rx_bytes": "0",
+                "rx_rate": "0"
+            },
+            "Other|Other": {
+                "tx_bytes": "214924",
+                "tx_rate": "0",
+                "rx_bytes": "51073",
+                "rx_rate": "0"
+            }
+        },
+        "192.168.0.249": {
+            "Web File Transfer|File sharing services and tools": {
+                "tx_bytes": "14395",
+                "tx_rate": "0",
+                "rx_bytes": "43000",
+                "rx_rate": "0"
+            },
+            "Web - Other|Web": {
+                "tx_bytes": "342972",
+                "tx_rate": "173",
+                "rx_bytes": "81257061",
+                "rx_rate": "53"
+            },
+            "Other|Other": {
+                "tx_bytes": "966514361",
+                "tx_rate": "218",
+                "rx_bytes": "344632",
+                "rx_rate": "0"
+            }
+        },
+        "192.168.0.81": {
+            "Other|Other": {
+                "tx_bytes": "136996",
+                "tx_rate": "10",
+                "rx_bytes": "109482",
+                "rx_rate": "23"
+            },
+            "Google APIs(SSL)|Network protocols": {
+                "tx_bytes": "24020",
+                "tx_rate": "0",
+                "rx_bytes": "22495",
+                "rx_rate": "0"
+            },
+            "Youtube|Media streaming services": {
+                "tx_bytes": "180568",
+                "tx_rate": "0",
+                "rx_bytes": "224156",
+                "rx_rate": "0"
+            },
+            "Web - Other|Web": {
+                "tx_bytes": "436000",
+                "tx_rate": "0",
+                "rx_bytes": "215762",
+                "rx_rate": "0"
+            }
+        },
+        "192.168.0.42": {
+            "Google|Web services": {
+                "tx_bytes": "212144",
+                "tx_rate": "0",
+                "rx_bytes": "546265",
+                "rx_rate": "0"
+            },
+            "Youtube|Media streaming services": {
+                "tx_bytes": "87663",
+                "tx_rate": "0",
+                "rx_bytes": "32556",
+                "rx_rate": "0"
+            },
+            "Web - Other|Web": {
+                "tx_bytes": "1191010",
+                "tx_rate": "0",
+                "rx_bytes": "22731505",
+                "rx_rate": "0"
+            }
+        },
+        "192.168.0.250": {
+            "Web - Other|Web": {
+                "tx_bytes": "77905",
+                "tx_rate": "0",
+                "rx_bytes": "200014",
+                "rx_rate": "0"
+            }
+        },
+        "192.168.0.92": {
+            "Other|Other": {
+                "tx_bytes": "285040",
+                "tx_rate": "43",
+                "rx_bytes": "255005",
+                "rx_rate": "34"
+            }
+        },
+        "192.168.0.200": {
+            "Other|Other": {
+                "tx_bytes": "344868",
+                "tx_rate": "18",
+                "rx_bytes": "57729",
+                "rx_rate": "0"
+            }
+        },
+        "192.168.0.94": {
+            "SSL\/TLS|Network protocols": {
+                "tx_bytes": "286112",
+                "tx_rate": "9",
+                "rx_bytes": "67629",
+                "rx_rate": "0"
+            }
+        },
+        "192.168.0.41": {
+            "Other|Other": {
+                "tx_bytes": "46154",
+                "tx_rate": "0",
+                "rx_bytes": "99090",
+                "rx_rate": "0"
+            },
+            "QUIC|Web services": {
+                "tx_bytes": "622952",
+                "tx_rate": "0",
+                "rx_bytes": "1139171",
+                "rx_rate": "275"
+            },
+            "Web - Other|Web": {
+                "tx_bytes": "898119",
+                "tx_rate": "0",
+                "rx_bytes": "17166187",
+                "rx_rate": "0"
+            }
+        },
+        "192.168.0.90": {
+            "SSL\/TLS|Network protocols": {
+                "tx_bytes": "278544",
+                "tx_rate": "18",
+                "rx_bytes": "249801",
+                "rx_rate": "18"
+            }
+        },
+        "192.168.0.93": {
+            "SSL\/TLS|Network protocols": {
+                "tx_bytes": "55069",
+                "tx_rate": "0",
+                "rx_bytes": "257295",
+                "rx_rate": "0"
+            }
+        },
+        "192.168.0.95": {
+            "SSL\/TLS|Network protocols": {
+                "tx_bytes": "54983",
+                "tx_rate": "0",
+                "rx_bytes": "258908",
+                "rx_rate": "0"
+            }
+        }
+    }
+}
+
+----

@@ -13,7 +13,7 @@ This returns periodic messages containing system statistics about the EdgeOS dev
 
 |`cpu`
 |Number
-|Number
+|Number (0 - 100)
 |The CPU usage (as a percentage) of the EdgeOS device.
 
 |`uptime`
@@ -23,7 +23,7 @@ This returns periodic messages containing system statistics about the EdgeOS dev
 
 |`mem`
 |Number
-|Number
+|Number (0 - 100)
 |The amount of memory in use (as a percentage) on the EdgeOS device.
 |===
 

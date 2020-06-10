@@ -5,7 +5,7 @@
 
 You can get streaming statistical data from the endpoint `wss://host-or-ip/ws/stats`. The data from the WebSocket is framed oddly, it's actually a streaming protocol that has been sent and received over WebSocket. The data will not arrive like you might expect. You *MUST* reassemble the web socket data fragments since the frames may not align with data boundaries. Commands must be sent with a valid `SESSION_ID`.
 
-The format of data to and from the WebSocket stream is `LENGTH\nJSON_PAYLOAD`.
+The format of data to and from the WebSocket stream is `LENGTH\nJSON_PAYLOAD\n`. Line feeds are Linux line feeds (e.g. `\n`).
 
 When the `SESSION_ID` times out the WebSocket will abruptly close so it's recommended to refresh it occasionally.
 
