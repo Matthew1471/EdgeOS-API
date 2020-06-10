@@ -142,22 +142,7 @@ Each one of these endpoints just dumps the raw console output data within a stri
 
 These are subscribed to in the same way as the JSON subscriptions above but while no additional parameters may need to be specified the SubscriptionParameters schema is extended to attribute specific console responses to specific requests.
 
-=== Request Optional Properties - SubscriptionParameters (extended)
-
-[cols="1,1,1,2", options="header"] 
-|===
-|Name
-|Type
-|Values
-|Description
-
-|`sub_id` (Optional)
-|String
-|String
-|An identifier to tag plain string responses to this subscription with.
-|===
-
-=== Console Based
+==== Console Based
 
 [cols="1,1,2", options="header"] 
 |===
@@ -176,6 +161,21 @@ These are subscribed to in the same way as the JSON subscriptions above but whil
 |link:Raw%20-%20Port%20Forwarding%20Statistics.adoc[Port Forwarding Statistics]
 |`pf-stats`
 |Contains the statistics from Port Forwarding.
+|===
+
+==== Request Optional Properties - SubscriptionParameters (extended)
+
+[cols="1,1,1,2", options="header"] 
+|===
+|Name
+|Type
+|Values
+|Description
+
+|`sub_id` (Optional)
+|String
+|String
+|An identifier to tag plain string responses to this subscription with.
 |===
 
 === RAW Console Output (Parameters Required)
