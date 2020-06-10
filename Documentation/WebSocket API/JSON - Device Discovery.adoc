@@ -1,0 +1,152 @@
+= JSON - Device Discovery
+
+This message is generated only when EdgeOS is processing a configuration change.
+
+It is used by the web UI to detect when the displayed configuration is out of date and requires refreshing.
+
+== Response Properties - Root
+
+[cols="1,1,1,2", options="header"] 
+|===
+|Name
+|Type
+|Values
+|Description
+
+|`devices`
+|Array (Object)
+|Array of `Device`
+|An array of discovered devices.
+|===
+
+== Response Properties - Device
+
+[cols="1,1,1,2", options="header"] 
+|===
+|Name
+|Type
+|Values
+|Description
+
+|`interface`
+|String
+|Interface name (e.g. `eth2`)
+|The interface the discovery packet was broadcast on.
+
+|`hwaddr`
+|String
+|MAC Address (e.g. `FF:FF:FF:FF:FF:01`)
+|The base MAC address of the device.
+
+|`ipv4`
+|String
+|IP Address (e.g. `192.168.0.1`)
+|One of the IP addresses currently of the device.
+
+|`hostname`
+|String
+|Hostname (e.g. `Router`)
+|The current hostname of the discovered device.
+
+|`product`
+|String
+|Model (e.g. `ER-4`)
+|The model of the discovered device.
+
+|`uptime`
+|String
+|Time in days, hours, minutes and seconds (e.g. `1d2h3m4s`)
+|How long the discovered device has currently been powered for.
+
+|`wmode`
+|String
+|Unknown (e.g. `unknown (-1)`)
+|The current wireless mode of the discovered device.
+
+|`essid`
+|String
+|Unknown (e.g. ``)
+|The current wireless network name or Extended Service Set Identification (ESSID) of the discovered device (if applicable).
+
+|`addresses`
+|Array (Object)
+|Array of `Addresses`
+|The current addresses the discovered device has on each of its interfaces.
+
+|`fwversion`
+|String
+|Firmware version string (e.g. `EdgeRouter.ER-e300.v2.0.9-beta.3.5296219.200507.1538`)
+|The firmware version the discovered device is currently running.
+
+|`system_status`
+|String
+|Hexadecimal string (e.g. `0x566eccb8`)
+|An unknown encoded hexadecimal value that represents the discovered device's current status.
+|===
+
+== Response Properties - Addresses
+
+[cols="1,1,1,2", options="header"] 
+|===
+|Name
+|Type
+|Values
+|Description
+
+|`hwaddr`
+|String
+|MAC Address (e.g. `FF:FF:FF:FF:FF:02`)
+|The MAC address of the interface.
+
+|`ipv4`
+|String
+|IP Address (e.g. `192.168.0.1`)
+|The IP addresses of the interface on this device.
+|===
+
+== Examples
+
+[source,json]
+----
+50
+{
+    "discover": {
+        "devices": ""
+    }
+}
+
+----
+
+[source,json]
+----
+871
+{
+    "discover": {
+        "devices": [
+            {
+                "interface": "eth2",
+                "hwaddr": "FF:FF:FF:FF:FF:01",
+                "ipv4": "255.255.255.255",
+                "hostname": "Router",
+                "product": "ER-4",
+                "uptime": "8h45m49s",
+                "wmode": "unknown (-1)",
+                "essid": "",
+                "addresses": [
+                    {
+                        "hwaddr": "FF:FF:FF:FF:FF:02",
+                        "ipv4": "255.255.255.255"
+                    },
+                    {
+                        "hwaddr": "FF:FF:FF:FF:FF:03",
+                        "ipv4": "255.255.255.255"
+                    }
+                ],
+                "fwversion": "EdgeRouter.ER-e300.v2.0.9-beta.3.5296219.200507.1538",
+                "system_status": "0x566eccb8"
+            }
+        ]
+    }
+}
+
+----

@@ -1,11 +1,44 @@
 = JSON - Configuration Change
 
+This message is generated only when EdgeOS is processing a configuration change.
+
+It is used by the web UI to detect when the displayed configuration is out of date and requires refreshing.
+
+== Response Properties - Root
+
+[cols="1,1,1,2", options="header"] 
+|===
+|Name
+|Type
+|Values
+|Description
+
+|`commit`
+|String
+|`started` or `ended`
+|The progress of the configuration change.
+|===
+
+== Examples
+
 [source,json]
 ----
-{'config-change': {'commit': 'started'}}
+61
+{
+    "config-change": {
+        "commit": "started"
+    }
+}
+
 ----
 
 [source,json]
 ----
-`{'config-change': {'commit': 'ended'}}
+59
+{
+    "config-change": {
+        "commit": "ended"
+    }
+}
+
 ----
