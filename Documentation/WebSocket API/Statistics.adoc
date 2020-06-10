@@ -24,13 +24,13 @@ No data will be received by the socket until the user requests a subscription to
 
 |`SUBSCRIBE`
 |Array (Object)
-|Array of `SubscriptionFormat`
-|The message types to subscribe to.
+|Array of `SubscriptionParameters`
+|An array of objects to represent individual specific MessageTypes to subscribe to and their parameters.
 
 |`UNSUBSCRIBE`
 |Array (Object)
-|Array of `SubscriptionFormat`
-|The message types to unsubscribe from.
+|Array of `SubscriptionParameters`
+|An array of objects to represent individual specific MessageTypes to unsubscribe from and their parameters.
 
 |`SESSION_ID`
 |String
@@ -38,7 +38,7 @@ No data will be received by the socket until the user requests a subscription to
 |The authorisation string for this session to confirm the user is correctly authenticated.
 |===
 
-== Request Properties - Subscription Format
+== Request Properties - SubscriptionParameters
 
 [cols="1,1,1,2", options="header"] 
 |===
@@ -142,7 +142,7 @@ Each one of these endpoints just dumps the raw console output data within a stri
 
 These are subscribed to in the same way as the JSON subscriptions above but no additional parameters may need to be specified.
 
-== Request Optional Properties - Subscription Format
+== Request Optional Properties - SubscriptionParameters (extended)
 
 [cols="1,1,1,2", options="header"] 
 |===
