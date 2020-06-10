@@ -1,0 +1,3 @@
+= JSON - UDAPI Statistics
+
+This returns periodic messages containing device statistics in a specific API format, potentially used by UNMS.

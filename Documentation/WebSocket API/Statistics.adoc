@@ -11,8 +11,49 @@ When the `SESSION_ID` times out the WebSocket will abruptly close so it's recomm
 
 == Subscription Request
 
-No data will be received by the socket until the user requests a subscription to a selection of message types:
+No data will be received by the socket until the user requests a subscription to a selection of message types.
 
+== Request Properties - Request Format
+
+[cols="1,1,1,2", options="header"] 
+|===
+|Name
+|Type
+|Values
+|Description
+
+|`SUBSCRIBE`
+|Array (Object)
+|Array of `SubscriptionFormat`
+|The message types to subscribe to.
+
+|`UNSUBSCRIBE`
+|Array (Object)
+|Array of `SubscriptionFormat`
+|The message types to unsubscribe from.
+
+|`SESSION_ID`
+|String
+|String
+|The authorisation string for this session to confirm the user is correctly authenticated.
+|===
+
+== Request Properties - Subscription Format
+
+[cols="1,1,1,2", options="header"] 
+|===
+|Name
+|Type
+|Values
+|Description
+
+|`name`
+|String
+|String
+|The `SubscriptionTypes` to subscribe.
+|===
+
+=== Example
 [source,json]
 ----
 249
@@ -100,6 +141,21 @@ Each one of these subscriptions will output data with the response being full JS
 Each one of these endpoints just dumps the raw console output data within a string `{'<<Request sub_id>>': '<line of text>\n' }`
 
 These are subscribed to in the same way as the JSON subscriptions above but no additional parameters may need to be specified.
+
+== Request Optional Properties - Subscription Format
+
+[cols="1,1,1,2", options="header"] 
+|===
+|Name
+|Type
+|Values
+|Description
+
+|`sub_id` (Optional)
+|String
+|String
+|An identifier to tag plain string responses to this subscription with.
+|===
 
 [cols="1,1,2", options="header"] 
 |===

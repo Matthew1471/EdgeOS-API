@@ -1,4 +1,4 @@
-= JSON - System Statistics
+= JSON - Traffic Analysis
 
 This returns periodic messages containing traffic analysis information for each host when EdgeOS has observed certain application types via Deep Packet Inspection (DPI).
 

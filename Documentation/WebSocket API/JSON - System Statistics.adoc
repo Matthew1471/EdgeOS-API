@@ -18,7 +18,7 @@ This returns periodic messages containing system statistics about the EdgeOS dev
 
 |`uptime`
 |Number
-|Number
+|Number (> 0)
 |How long this EdgeOS device has been running for.
 
 |`mem`

@@ -1,18 +1,84 @@
-= Raw - Users
+= JSON - Users
 
-Returns periodically the users logged into the EdgeOS device (including via SSH, Web and VPN).
+This returns periodic messages containing the users logged into the EdgeOS device (including via SSH, Web and VPN).
 
-Request:
+== Response Properties - Root
+
+[cols="1,1,1,2", options="header"] 
+|===
+|Name
+|Type
+|Values
+|Description
+
+|`local`
+|Array (Object)
+|Array of `User`
+|The users currently connected.
+|===
+
+== Response Properties - User
+
+[cols="1,1,1,2", options="header"] 
+|===
+|Name
+|Type
+|Values
+|Description
+
+|Key
+|String
+|Username (e.g. `admin`)
+|The username currently connected.
+
+|Value
+|Array (Object)
+|Array of `UserConnection`
+|The connection details of the username currently connected.
+|===
+
+== Response Properties - UserConnection
+
+[cols="1,1,1,2", options="header"] 
+|===
+|Name
+|Type
+|Values
+|Description
+
+|`tty`
+|String
+|`ConnectionType` (e.g. `Web`)
+|The method the user is currently connected.
+
+|`idle`
+|Number
+|Number (0+)
+|How long the user has been idle for.
+
+|`host`
+|String
+|String (`Laptop`) or empty string
+|The hostname the user has been resolved to (if known).
+
+|`uptime`
+|String
+|Time in days, hours, minutes and seconds (e.g. `1d2h3m4s`)
+|How long the user has been connected for.
+|===
+
+== Response Properties - ConnectionType
+
+These are the currently known connection types:
+
+* Web
+* pts/n
+
+== Examples
+
 [source,json]
 ----
-97
-{"SUBSCRIBE":[{"name":"users"}],"UNSUBSCRIBE":[],"SESSION_ID":"f989665499eb406b8600fd50bf1971bc"}
-----
-
-Response:
-[source,json]
-----
-268
+502
 {
     "users": {
         "local": [
@@ -21,10 +87,19 @@ Response:
                     "tty": "Web",
                     "idle": "0",
                     "host": "",
-                    "uptime": "01h14m55s"
+                    "uptime": "01h55m03s"
+                }
+            },
+            {
+                "admin": {
+                    "tty": "pts\/0",
+                    "idle": "4901",
+                    "host": "192.168.0.100",
+                    "uptime": "01h33m44s"
                 }
             }
         ]
     }
 }
+
 ----
