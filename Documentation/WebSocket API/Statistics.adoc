@@ -17,6 +17,7 @@ No data will be received by the socket until the user requests a subscription to
 ----
 249
 {"SUBSCRIBE":[{"name":"export"},{"name":"discover"},{"name":"pon-stats"},{"name":"interfaces"},{"name":"system-stats"},{"name":"num-routes"},{"name":"config-change"},{"name":"users"}],"UNSUBSCRIBE":[],"SESSION_ID":"b5d5cfdb326c484abb00ca0d9effffff"}
+
 ----
 
 Return values from the stream follow a similar format.
@@ -32,6 +33,7 @@ Return values from the stream follow a similar format.
         "mem": "60"
     }
 }
+
 ----
 
 The web UI sends a ping every 30 seconds which consists of the following:
@@ -40,6 +42,7 @@ The web UI sends a ping every 30 seconds which consists of the following:
 ----
 66
 {"CLIENT_PING":"","SESSION_ID":"*f989665499eb406b8600fd50bf1971bc*"}
+
 ----
 
 [WARNING]
@@ -65,7 +68,7 @@ Each one of these subscriptions will output data with the response being full JS
 
 |link:JSON%20-%20Device%20Discovery.adoc[Device Discovery]
 |`discover`
-|Results from any devices discovered (typically via UBNT Discovery).
+|Periodic messages containing results from any devices discovered (typically via UBNT Discovery).
 
 |link:JSON%20-%20Interfaces.adoc[Interfaces]
 |`interfaces`

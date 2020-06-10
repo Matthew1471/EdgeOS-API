@@ -1,3 +1,43 @@
 = JSON - System Statistics
 
-`{'system-stats': {'cpu': '35', 'mem': '22', 'uptime': '3321154'}}`
+This returns periodic messages containing system statistics about the EdgeOS device.
+
+== Response Properties - Root
+
+[cols="1,1,1,2", options="header"] 
+|===
+|Name
+|Type
+|Values
+|Description
+
+|`cpu`
+|Number
+|Number
+|The CPU usage (as a percentage) of the EdgeOS device.
+
+|`uptime`
+|Number
+|Number
+|How long this EdgeOS device has been running for.
+
+|`mem`
+|Number
+|Number
+|The amount of memory in use (as a percentage) on the EdgeOS device.
+|===
+
+== Examples
+
+[source,json]
+----
+99
+{
+    "system-stats": {
+        "cpu": "1",
+        "uptime": "32884",
+        "mem": "12"
+    }
+}
+
+----

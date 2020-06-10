@@ -1,6 +1,6 @@
 = JSON - Device Discovery
 
-This returns periodic messages containing discovered device information (typically via UBNT Discovery).
+This returns periodic messages containing discovered device information where EdgeOS has discovered another device (typically via UBNT Discovery).
 
 == Response Properties - Root
 

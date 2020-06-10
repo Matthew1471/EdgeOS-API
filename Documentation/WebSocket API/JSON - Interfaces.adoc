@@ -1,1 +1,3 @@
 = JSON - Interfaces
+
+This returns periodic messages containing network interface information for each of the EdgeOS network interfaces.

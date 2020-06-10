@@ -2,4 +2,42 @@
 
 This returns periodic messages containing counts of the EdgeOS network routes.
 
-`{'num-routes': {'connected': '5', 'static': '1', 'total': '6'}}`
+== Response Properties - Root
+
+[cols="1,1,1,2", options="header"] 
+|===
+|Name
+|Type
+|Values
+|Description
+
+|`connected`
+|Number
+|Number
+|The number of routes that are currently connected.
+
+|`static`
+|Number
+|Number
+|The number of static routes.
+
+|`total`
+|Number
+|Number
+|The total number of routes (should be the number of static + connected routes).
+|===
+
+== Examples
+
+[source,json]
+----
+100
+{
+    "num-routes": {
+        "connected": "3",
+        "static": "1",
+        "total": "4"
+    }
+}
+
+----
