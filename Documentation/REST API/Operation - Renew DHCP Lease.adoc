@@ -2,7 +2,7 @@
 
 The DHCP lease can be renewed by sending a HTTP POST to `/api/edge/operation/renew-dhcp.json`
 
-.GET */api/edge/operation/renew-dhcp.json*
+.GET */api/edge/operation/renew-dhcp.json* Request
 [source,json]
 ----
 interface=eth0

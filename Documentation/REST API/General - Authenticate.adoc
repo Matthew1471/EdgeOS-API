@@ -1,8 +1,113 @@
 = General - Authenticate
+:toc: preamble
 
-A HTTP POST to `/api/edge/auth.json` will create a session on the device, however this method is designed to be used internally (and is used internally by the logon form), so it does not return the session ID headers useful for validating login status but does pass it to the internal code.
+A HTTP POST to `/api/edge/auth.json` will create a session on the device, however this method is designed to be used internally (and *is* used internally by the login form), so it does not expose any session ID headers useful for validating login status but does pass it to the internal code.
 
-.POST */api/edge/auth.json*
+== Request
+
+A HTTP POST to `\https://host-or-ip/` with the username and password encoded as a simple `application/x-www-form-urlencoded` form.
+
+[cols="1,1,1,2", options="header"] 
+|===
+|Name
+|Type
+|Values
+|Description
+
+|`username`
+|String
+|String
+|The username of a user.
+
+|`password`
+|String
+|String
+|The password of a user.
+|===
+
+== Response
+
+=== Root
+
+[cols="1,1,1,2", options="header"] 
+|===
+|Name
+|Type
+|Values
+|Description
+
+|`success`
+|String
+|`"0"` or `"1"`
+|A boolean value encapsulated in a string (e.g. "1" or "0") that represents whether the API request was successful.
+
+|`level`
+|String
+|`"admin"` or `"operator"`
+|A value that represents the role / privilege level of the authenticated user.
+
+|`started`
+|String
+|A number encapsulated in a string (e.g. `"1513"`)
+|Unknown.
+
+|`default-config`
+|String
+|A boolean value encapsulated in a string (e.g. `"false"` or `"true"`)
+|Unknown.
+
+|`platform`
+|Object
+|`platform` object
+|Contains information about the current device capabilities.
+|===
+
+=== `platform` Object
+
+[cols="1,1,1,2", options="header"] 
+|===
+|Name
+|Type
+|Values
+|Description
+
+|`model`
+|String
+|A model name (e.g. `"ER-4"`)
+|A string that represents a device model from `devices.json`.
+
+|`poe_cap`
+|Object
+|`poe_cap` object
+|An object that represents the device Power over Ethernet (PoE) capabilities.
+|===
+
+=== `poe_cap` Object
+
+[cols="1,1,1,2", options="header"] 
+|===
+|Name
+|Type
+|Values
+|Description
+
+|Key
+|String
+|An interface name (e.g. `"eth0"`)
+|The unique name of a physical interface.
+
+|Value
+|String
+|`"1"`, `"0"` or `"-1"`
+|A signed numeric value encapsulated in a string that represents the Power over Ethernet (PoE) capabilities of a specific physical interface.
+|===
+
+== Examples
+
+=== Valid Login
+
+
+.POST */api/edge/auth.json* Request
 [source,subs="+quotes"]
 ----
 username=*USERNAME*&password=*PASSWORD*

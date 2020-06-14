@@ -4,7 +4,7 @@ The `/api/edge/feature.json` endpoint allows you to view and make changes to spe
 
 It does not support a HTTP GET.
 
-.POST */api/edge/feature.json*
+.POST */api/edge/feature.json* Request
 [source,json]
 ----
 {"data":{"scenario":"DNS_host_names","action":"load"}}

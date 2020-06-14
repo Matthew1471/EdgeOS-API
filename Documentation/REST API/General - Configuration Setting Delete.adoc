@@ -1,10 +1,81 @@
 = General - Configuration Setting Delete
+:toc: preamble
 
 The `/api/edge/delete.json` endpoint allows you to delete a specific part of the device's configuration.
 
 It does not support a HTTP GET.
 
-.POST */api/edge/delete.json*
+== Request
+
+A HTTP POST to `/api/edge/delete.json` with the JSON configuration attributes to delete as the request content.
+
+== Response
+
+=== Root
+
+[cols="1,1,1,2", options="header"] 
+|===
+|Name
+|Type
+|Values
+|Description
+
+|`DELETE`
+|Object
+|`status` object
+|An object that contains status values for the deletion request.
+
+|`SESSION_ID`
+|String
+|A session ID
+|The authorisation string for this session that confirms the user is correctly authenticated.
+
+|`GET`
+|String
+|JSON configuration
+|The parent section of the deleted value after the deletion.
+
+|`COMMIT`
+|Object
+|`status` object
+|An object that contains status values for the configuration commit request.
+
+|`SAVE`
+|Object
+|`status` object
+|An object that contains status values for the configuration save request.
+
+|`success`
+|Boolean
+|`true` or `false`
+|A boolean value that represents whether the API request was successful.
+|===
+
+=== `status` Object
+
+[cols="1,1,1,2", options="header"] 
+|===
+|Name
+|Type
+|Values
+|Description
+
+|`failure`
+|String
+|`"0"` or `"1"`
+|A boolean value encapsulated in a string (e.g. "1" or "0") that represents whether the operation failed.
+
+|`success`
+|String
+|`"0"` or `"1"`
+|A boolean value encapsulated in a string (e.g. "1" or "0") that represents whether the operation was successful.
+|===
+
+== Examples
+
+=== Custom Attribute Successful Deletion
+
+.POST */api/edge/delete.json* Request
 [source,json]
 ----
 {"custom-attribute":{"hi":null}}

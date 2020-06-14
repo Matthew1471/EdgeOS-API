@@ -4,7 +4,7 @@ The `/api/edge/setup.json` endpoint allows you to view and make changes to speci
 
 It does not support a HTTP GET.
 
-.POST */api/edge/setup.json*
+.POST */api/edge/setup.json* Request
 [source,json]
 ----
 {"data":{"scenario":"Basic_Setup","action":"load"}}

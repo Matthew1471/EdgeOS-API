@@ -1,24 +1,29 @@
 = EdgeOS API Guide
 :toc: preamble
 
-The EdgeOS API is not officially publicly documented. However as the requests and responses can be monitored in a web-browser along with the JavaScript and python backend source being available, a lot of information on how it works can be derived.
+The EdgeOS API is not officially publicly documented. However as the requests and responses can be monitored in a web-browser along with the client-side JavaScript and Python back-end source code being available, a lot of information on how it works can be derived.
 
 == Authentication
 
 === Login
 
-A HTTP POST to `\https://host-or-ip/` with the username and password encoded as a simple `application/x-www-form-urlencoded` form with the following request content will grant you a `PHPSESSID` cookie that is used to confirm you are authenticated:
+A HTTP POST to `\https://host-or-ip/` with the username and password encoded as a simple `application/x-www-form-urlencoded` form as the request content will grant you a `PHPSESSID` cookie that is used to confirm you are authenticated:
 
 [source,subs="+quotes"]
 ----
 username=*USERNAME*&password=*PASSWORD*
 ----
 
-This will return a HTTP status code `303 See Other` on success and the same login form again with a `200 OK` containing the text "The username or password you entered is incorrect" on failure, be careful as some web clients will automatically follow the 303 redirection and the cookies may not be where you expect them to be.
+This will return a HTTP status code `303 See Other` with a selection of cookies on success. On failure, a `200 OK` is returned with the same login form again, only this time containing the text `The username or password you entered is incorrect`. 
+
+[NOTICE]
+=====
+Be careful as some web clients will automatically follow the 303 redirection and therefore the cookies may not be where you expect them to be.
+=====
 
 ==== Session ID
 
-The session ID is returned multiple times in the header but the only header of importance for proving successful authentication is:
+The session ID is returned multiple times in the header but the primary header for proving successful authentication is:
 
 [source,http,subs="+quotes"]
 ----
@@ -40,7 +45,7 @@ For the session store, the full session details and variables are converted from
 
 ==== Sensitive Requests (CSRF Protection)
 
-To be able to call sensitive methods (anything that is not a `GET`, `HEAD`, `OPTIONS` or `TRACE` request and where the protection is not otherwise explicitly disabled or it is otherwise permitted to turn off protection for requests with the `X-Requested-With` client header set) a `X-CSRF-TOKEN` need also be supplied in the request (EdgeOS currently allows this in the querystring and does not mandate this is set as a cookie). This is a 256-bit hexadecimal CSRF token generated using Python's `os.urandom()`.
+To be able to call sensitive methods (anything that is not a `GET`, `HEAD`, `OPTIONS` or `TRACE` request and where the protection is not otherwise explicitly disabled or it is otherwise permitted to turn off protection for requests with the `X-Requested-With` client header set) a `X-CSRF-TOKEN` need also be supplied in the request (EdgeOS currently allows this in the querystring and does not mandate this is set as a cookie). This is a 256-bit hexadecimal value generated using Python's `os.urandom()`.
 
 [source,http,subs="+quotes"]
 ----
@@ -114,14 +119,14 @@ These are defined as "<op>.json" and are passed to the closed-source `ubnt-util`
 * link:REST%20API/Wizard%20-%20Specific%20Wizard%20Remove.adoc[Specific Wizard Remove]
 * link:REST%20API/Wizard%20-%20Specific%20Wizard%20Upload.adoc[Specific Wizard Upload]
 
-== WebSocket
+== WebSocket API
 
 * link:WebSocket%20API/Command%20Line%20Interface%20%28CLI%29.adoc[Command Line Interface (CLI)]
 * link:WebSocket%20API/Statistics.adoc[Statistics]
 
-== Third Party Unofficial APIs
+== Third Party Unofficial API Wrappers
 
-There are a few developers who have worked on creating unofficial APIs:
+There are a few developers who have worked on creating unofficial API wrappers:
 
  * https://github.com/matthew1471/EdgeOS-API (written in C#)
  * https://github.com/andrewstuart/edgeos-rest (written in Go)

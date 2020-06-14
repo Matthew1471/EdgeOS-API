@@ -3,7 +3,7 @@
 
 To restore the configuration send a HTTP POST to `/api/edge/config/restore.json?header=text%2Fhtml&noraw=1&X-CSRF-TOKEN=*X-CSRF-Token*` as a `multipart/form-data` request with the key `qqfile` containing a valid `.tar.gz` configuration file.
 
-This method is CSRF protected so also requires a `X-CSRF-TOKEN` (see link:../README.adoc#Sensitive_Requests_(CSRF_Protection)[Sensitive Requests (CSRF Protection)]).
+This method is CSRF protected so also requires a `X-CSRF-TOKEN` (see link:../README.adoc#Sensitive-Requests-CSRF-Protection[Sensitive Requests (CSRF Protection)]).
 
 == Request
 
