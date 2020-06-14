@@ -1,8 +1,95 @@
 = Data - DHCP Statistics
+:toc: preamble
 
 A HTTP GET to `/api/edge/data.json?data=dhcp_stats` can be used to get a JSON formatted list of DHCP statistics.
 
-GET /api/edge/data.json?data=dhcp_status Response
+== Response
+
+=== Root
+
+[cols="1,1,1,2", options="header"] 
+|===
+|Name
+|Type
+|Values
+|Description
+
+|`success`
+|String
+|`"0"` or `"1"`
+|A boolean value encapsulated in a string (e.g. "1" or "0") that represents whether the API request was successful.
+
+|`output`
+|Object
+|`output` object
+|The output to the data request.
+|===
+
+=== `output` Object
+
+[cols="1,1,1,2", options="header"] 
+|===
+|Name
+|Type
+|Values
+|Description
+
+|`dhcp-server-stats`
+|Object
+|`dhcp-server-stats` object
+|An object that contains each of the DHCP servers and their pool statistics.
+|===
+
+=== `dhcp-server-stats` Object
+
+[cols="1,1,1,2", options="header"] 
+|===
+|Name
+|Type
+|Values
+|Description
+
+|Key
+|String
+|The unique name of a particular DHCP server (e.g. `LAN1`)
+|A property that represents the unique DHCP server name.
+
+|Value
+|Object or empty string
+|`pool-stats` object
+|An object that represents a particular DHCP server's pool statistics.
+|===
+
+=== `pool-stats` Object
+
+[cols="1,1,1,2", options="header"] 
+|===
+|Name
+|Type
+|Values
+|Description
+
+|`pool_size`
+|String
+|A number encapsulated in a string (e.g. `"253"`)
+|The total size of the dynamic DHCP pool.
+
+|`leased`
+|String
+|A number encapsulated in a string (e.g. `"1"`)
+|The number of dynamically leased addresses.
+
+|`available`
+|String
+|A number encapsulated in a string (e.g. `"252"`)
+|The number of remaining available addresses in the dynamic DHCP pool.
+|===
+
+== Examples
+
+=== Successful Response
+
+.GET */api/edge/data.json?data=dhcp_status* Response
 [source,json]
 ----
 {"success": "1", "output": {"dhcp-server-stats": {"LAN2": {"pool_size": "253", "leased": "0", "available": "253"}, "LAN1": {"pool_size": "253", "leased": "3", "available": "250"}}}}

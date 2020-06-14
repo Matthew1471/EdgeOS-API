@@ -4,7 +4,7 @@ The `/api/edge/batch.json` endpoint allows you to make batch queries/deletions/u
 
 It does not support a HTTP GET.
 
-POST /api/edge/batch.json
+.POST */api/edge/batch.json*
 [source,json]
 ----
 {
@@ -13,7 +13,7 @@ POST /api/edge/batch.json
 }
 ----
 
-POST /api/edge/batch.json Response
+.POST */api/edge/batch.json* Response
 [source,json,subs="+quotes"]
 ----
 {
@@ -30,13 +30,13 @@ POST /api/edge/batch.json Response
 }
 ----
 
-POST /api/edge/batch.json
+.POST */api/edge/batch.json*
 [source,json]
 ----
 {"DELETE":{"custom-attribute":null}}
 ----
 
-POST /api/edge/batch.json Response
+.POST */api/edge/batch.json* Response
 [source,json,subs="+quotes"]
 ----
 {"DELETE": {"failure": "0", "success": "1"}, "SESSION_ID": "742dfcc13b8d449aa36a4a1847bfcef7", "GET": { .. Configuration .. }, "COMMIT": {"failure": "0", "success": "1"}, "SAVE": {"success": "1"}, "success": true}

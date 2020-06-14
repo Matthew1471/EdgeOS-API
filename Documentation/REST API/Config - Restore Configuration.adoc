@@ -1,1 +1,91 @@
 = Config - Restore Configuration
+:toc: preamble
+
+To restore the configuration send a HTTP POST to `/api/edge/config/restore.json?header=text%2Fhtml&noraw=1&X-CSRF-TOKEN=*X-CSRF-Token*` as a `multipart/form-data` request with the key `qqfile` containing a valid `.tar.gz` configuration file.
+
+This method is CSRF protected so also requires a `X-CSRF-TOKEN` (see link:../README.adoc#Sensitive_Requests_(CSRF_Protection)[Sensitive Requests (CSRF Protection)]).
+
+== Request
+
+=== Request Querystring
+
+[cols="1,1,1,2", options="header"] 
+|===
+|Name
+|Type
+|Values
+|Description
+
+|`header`
+|String
+|`text/html`
+|Unknown hard-coded value.
+
+|`noraw`
+|Number
+|`1`
+|Unknown hard-coded value.
+
+|`X-CSRF-TOKEN`
+|String
+|A 256-bit hexadecimal CSRF token
+|The Cross-Site Request Forgery (CSRF) token from a cookie set during login.
+|===
+
+=== Request Content
+
+[cols="1,1,1,2", options="header"] 
+|===
+|Name
+|Type
+|Values
+|Description
+
+|`qqfile`
+|String
+|Configuration file
+|The configuration to restore.
+|===
+
+== Response
+
+=== Root
+
+[cols="1,1,1,2", options="header"] 
+|===
+|Name
+|Type
+|Values
+|Description
+
+|`errors`
+|Array (String)
+|`errors` Array
+|An array of the errors that occurred.
+
+|`success`
+|Boolean
+|`true` or `false`
+|Whether the API request was successful.
+|===
+
+== Examples
+
+=== Bad File Example
+
+.POST */api/edge/config/restore.json?header=text%2Fhtml&noraw=1&X-CSRF-TOKEN=e3117c58b702c42f8b928b350b1660abff886f7d7d44735a6ae4a8bb6fefc66b* Request
+[source,http]
+----
+-----------------------------339514711711515864301518031004
+Content-Disposition: form-data; name="qqfile"; filename="BadConfigurationFile.bin"
+Content-Type: application/octet-stream
+
+I am a BadConfigurationFile.
+-----------------------------339514711711515864301518031004--
+----
+
+.POST */api/edge/config/restore.json?header=text%2Fhtml&noraw=1&X-CSRF-TOKEN=e3117c58b702c42f8b928b350b1660abff886f7d7d44735a6ae4a8bb6fefc66b* Response
+[source,json]
+----
+{"errors": ["CONFIG request failed"], "success": false}
+----

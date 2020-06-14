@@ -2,7 +2,7 @@
 
 A HTTP GET to `/api/edge/data.json?data=nat_stats` can be used to get a JSON formatted list of Network Address Translation (NAT) statistics.
 
-GET /api/edge/data.json?data=nat_stats Response
+.GET */api/edge/data.json?data=nat_stats* Response
 [source,json]
 ----
 {"success": "1", "output": {}}

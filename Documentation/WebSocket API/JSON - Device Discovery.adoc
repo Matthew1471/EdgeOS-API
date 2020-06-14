@@ -1,8 +1,11 @@
 = JSON - Device Discovery
+:toc: preamble
 
 This returns periodic messages containing discovered device information where EdgeOS has discovered another device (typically via UBNT Discovery).
 
-== Response Properties - Root
+== Response
+
+=== Root
 
 [cols="1,1,1,2", options="header"] 
 |===
@@ -17,7 +20,7 @@ This returns periodic messages containing discovered device information where Ed
 |An array of discovered devices or an empty string if no devices have been discovered.
 |===
 
-== Response Properties - Device
+=== `Device` Object
 
 [cols="1,1,1,2", options="header"] 
 |===
@@ -68,7 +71,7 @@ This returns periodic messages containing discovered device information where Ed
 
 |`addresses`
 |Array (Object)
-|Array of `Addresses`
+|Array of `addresses`
 |The current addresses the discovered device has on each of its interfaces.
 
 |`fwversion`
@@ -82,7 +85,7 @@ This returns periodic messages containing discovered device information where Ed
 |An unknown encoded hexadecimal value that represents the discovered device's current status.
 |===
 
-== Response Properties - Addresses
+=== `addresses` Object
 
 [cols="1,1,1,2", options="header"] 
 |===
@@ -104,6 +107,9 @@ This returns periodic messages containing discovered device information where Ed
 
 == Examples
 
+=== No Discovered Devices
+
+.No Discovered Devices Example
 [source,json]
 ----
 50
@@ -115,6 +121,9 @@ This returns periodic messages containing discovered device information where Ed
 
 ----
 
+=== Single Discovered Device
+
+.Single Discovered Device Example
 [source,json]
 ----
 871

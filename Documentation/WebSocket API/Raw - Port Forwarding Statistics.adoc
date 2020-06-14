@@ -1,0 +1,46 @@
+= Raw - Port Forwarding Statistics
+:toc: preamble
+
+This returns periodic messages containing port forwarding statistics.
+
+While similar to the destination NAT feature, this message will only contain information on the Port Forwarding rules.
+
+== Response
+
+=== Root
+
+[cols="1,1,1,2", options="header"] 
+|===
+|Name
+|Type
+|Values
+|Description
+
+|`sub_id`
+|String
+|String
+|The status of the port forwarding in the format `rule_number packets bytes\n`.
+|===
+
+== Examples
+
+
+.Port Forward Rule #1 Statistic Example
+[source,json]
+----
+39
+{
+    "pfstats": "1 62333 2897688\n"
+}
+
+----
+
+.Port Forward Rule #2 Statistic Example
+[source,json]
+----
+39
+{
+    "pfstats": "2 28618 1557029\n"
+}
+
+----

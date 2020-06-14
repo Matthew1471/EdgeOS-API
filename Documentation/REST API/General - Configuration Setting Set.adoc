@@ -4,13 +4,13 @@ The `/api/edge/set.json` endpoint allows you to set a specific part of the devic
 
 It does not support a HTTP GET.
 
-POST /api/edge/set.json
+.POST */api/edge/set.json*
 [source,json]
 ----
 {"custom-attribute":{"hi":null}}
 ----
 
-POST /api/edge/set.json Response
+.POST */api/edge/set.json* Response
 [source,json,subs="+quotes"]
 ----
 {"SET": {"failure": "0", "success": "1"}, "SESSION_ID": "742dfcc13b8d449aa36a4a1847bfcef7", "GET": {"custom-attribute": {"hi": null}}, "COMMIT": {"failure": "0", "success": "1"}, "SAVE": {"success": "1"}, "success": true}

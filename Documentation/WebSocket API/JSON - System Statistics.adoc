@@ -1,8 +1,11 @@
 = JSON - System Statistics
+:toc: preamble
 
 This returns periodic messages containing system statistics about the EdgeOS device.
 
-== Response Properties - Root
+== Response 
+
+=== Root
 
 [cols="1,1,1,2", options="header"] 
 |===
@@ -29,6 +32,9 @@ This returns periodic messages containing system statistics about the EdgeOS dev
 
 == Examples
 
+=== System Statistics
+
+.System Statistics Example
 [source,json]
 ----
 99

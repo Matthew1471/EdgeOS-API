@@ -1,8 +1,50 @@
 = Data - Default Configuration Status
+:toc: preamble
 
 A HTTP GET to `/api/edge/data.json?data=default_config` obtains information on whether the device is operating with no user supplied configuration.
 
-GET /api/edge/data.json?data=default_config Response
+== Response
+
+=== Root
+
+[cols="1,1,1,2", options="header"] 
+|===
+|Name
+|Type
+|Values
+|Description
+
+|`success`
+|Boolean
+|`true` or `false`
+|Whether the API request was successful.
+
+|`output`
+|Object
+|`output` object
+|The status of the configuration.
+|===
+
+=== `output` Object
+
+[cols="1,1,1,2", options="header"] 
+|===
+|Name
+|Type
+|Values
+|Description
+
+|`is_default`
+|String
+|`"0"` or `"1"`
+|A boolean value encapsulated in a string (e.g. "1" or "0") that represents whether the device is running the factory default configuration.
+|===
+
+== Examples
+
+=== Device Already Configured Response
+
+.GET */api/edge/data.json?data=default_config* Response
 [source,json]
 ----
 {"success": "1", "output": {"is_default": "0"}}

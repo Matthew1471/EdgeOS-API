@@ -1,8 +1,120 @@
 = Data - DHCP Leases
+:toc: preamble
 
 A HTTP GET to `/api/edge/data.json?data=dhcp_leases` can be used to get a JSON formatted list of DHCP leases.
 
-GET /api/edge/data.json?data=dhcp_leases Response
+== Response
+
+=== Root
+
+[cols="1,1,1,2", options="header"] 
+|===
+|Name
+|Type
+|Values
+|Description
+
+|`success`
+|String
+|`"0"` or `"1"`
+|A boolean value encapsulated in a string (e.g. "1" or "0") that represents whether the API request was successful.
+
+|`output`
+|Object
+|`output` object
+|The output to the data request.
+|===
+
+=== `output` Object
+
+[cols="1,1,1,2", options="header"] 
+|===
+|Name
+|Type
+|Values
+|Description
+
+|`dhcp-server-leases`
+|Object
+|`dhcp-server-leases` object
+|An object that contains each of the DHCP servers and their leases.
+|===
+
+=== `dhcp-server-leases` Object
+
+[cols="1,1,1,2", options="header"] 
+|===
+|Name
+|Type
+|Values
+|Description
+
+|Key
+|String
+|The unique name of a particular DHCP server (e.g. `LAN1`)
+|A property that represents the unique DHCP server name.
+
+|Value
+|Object or empty string
+|`leases` object
+|An object that represents a particular DHCP server's leases.
+|===
+
+=== `leases` Object
+
+[cols="1,1,1,2", options="header"] 
+|===
+|Name
+|Type
+|Values
+|Description
+
+|Key
+|String
+|The IP address of a specific lease (e.g. `192.168.0.180`)
+|A property that represents a specific DHCP lease.
+
+|Value
+|Object or empty string
+|`lease-details` object
+|An object that represents a particular DHCP server lease.
+|===
+
+=== `lease-details` Object
+
+[cols="1,1,1,2", options="header"] 
+|===
+|Name
+|Type
+|Values
+|Description
+
+|`expiration`
+|String
+|A date in `YYYY/MM/DD HH:mm:ss` format
+|The date of a specific lease expiry.
+
+|`pool`
+|String
+|DHCP pool name (e.g. `LAN1`)
+|The pool this lease corresponds to (appears to be a repetition of the DHCP server name).
+
+|`mac`
+|String
+|MAC Address (e.g. `FF:FF:FF:FF:FF:01`)
+|The MAC address of this particular DHCP server lease.
+
+|`client-hostname`
+|String
+|Client supplied hostname
+|The client supplied hostname for a DHCP server lease.
+|===
+
+== Examples
+
+=== Successful Response
+
+.GET */api/edge/data.json?data=dhcp_leases* Response
 [source,json]
 ----
 {"success": "1", "output": {"dhcp-server-leases": {"LAN2": "", "LAN1": {"192.168.0.180": {"expiration": "2020/06/08 13:07:17", "pool": "LAN1", "mac": "xx:xx:xx:xx:xx:xx", "client-hostname": "Versa"}, "192.168.0.165": {"expiration": "2020/06/08 08:42:42", "pool": "LAN1", "mac": "xx:xx:xx:xx:xx:xx", "client-hostname": ""}, "192.168.0.104": {"expiration": "2020/06/07 16:19:20", "pool": "LAN1", "mac": "xx:xx:xx:xx:xx:xx", "client-hostname": "andys-6s"}}}}}

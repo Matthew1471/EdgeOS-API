@@ -1,13 +1,58 @@
 = Config - Download Configuration
+:toc: preamble
 
-To download the configuration send a HTTP GET to `/api/edge/config/save.json`.
+To download the configuration send a HTTP GET to `/api/edge/config/save.json` and then make an additional HTTP GET request to `/files/config/`.
 
-GET /api/edge/config/save.json Response
+The saved temporary stored file will be deleted once the request has been made..
+
+== Response
+
+=== Root
+
+[cols="1,1,1,2", options="header"] 
+|===
+|Name
+|Type
+|Values
+|Description
+
+|`CONFIG`
+|Object
+|`CONFIG` object
+|The saved configuration information.
+
+|`success`
+|Boolean
+|`true` or `false`
+|Whether the API request was successful.
+|===
+
+=== `CONFIG` Object
+
+[cols="1,1,1,2", options="header"] 
+|===
+|Name
+|Type
+|Values
+|Description
+
+|`success`
+|Boolean
+|`true` or `false`
+|Whether the configuration save was successful.
+
+|`path`
+|String
+|File path (e.g. `/tmp/sysd-save.ycYPpL`)
+|A temporary file path on the local device where the configuration was saved.
+|===
+
+== Examples
+
+=== Successful Save Response
+
+.GET */api/edge/config/save.json* Response
 [source,json]
 ----
 {"CONFIG": {"success": "1", "path": "/tmp/sysd-save.ycYPpL"}, "success": true}
 ----
-
-and then make an additional HTTP GET request to `/files/config/`.
-
-The temporarily stored file will be deleted once the request has been made.

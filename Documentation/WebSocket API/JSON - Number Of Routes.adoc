@@ -1,8 +1,11 @@
 = JSON - Number Of Routes
+:toc: preamble
 
 This returns periodic messages containing counts of the EdgeOS network routes.
 
-== Response Properties - Root
+== Response 
+
+=== Root
 
 [cols="1,1,1,2", options="header"] 
 |===
@@ -29,6 +32,9 @@ This returns periodic messages containing counts of the EdgeOS network routes.
 
 == Examples
 
+=== Routes
+
+.Routes Example
 [source,json]
 ----
 100

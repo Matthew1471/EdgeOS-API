@@ -1,8 +1,95 @@
 = Data - Firewall Statistics
+:toc: preamble
 
 A HTTP GET to `/api/edge/data.json?data=fw_stats` can be used to get a JSON formatted list of firewall statistics.
 
-GET /api/edge/data.json?data=fw_stats Response
+== Response
+
+=== Root
+
+[cols="1,1,1,2", options="header"] 
+|===
+|Name
+|Type
+|Values
+|Description
+
+|`success`
+|String
+|`"0"` or `"1"`
+|A boolean value encapsulated in a string (e.g. "1" or "0") that represents whether the API request was successful.
+
+|`output`
+|Object
+|`output` object
+|The output to the data request.
+|===
+
+=== `output` Object
+
+[cols="1,1,1,2", options="header"] 
+|===
+|Name
+|Type
+|Values
+|Description
+
+|`name`
+|Array (Object)
+|`firewall-ruleset-stats` object
+|An array of `firewall-ruleset-stats` objects that contains each of the firewall rulesets and their rule statistics.
+|===
+
+=== `firewall-ruleset-stats` Object
+
+[cols="1,1,1,2", options="header"] 
+|===
+|Name
+|Type
+|Values
+|Description
+
+|Key
+|String
+|The unique name of a particular firewall ruleset (e.g. `WAN_IN`)
+|A property that represents the unique firewall ruleset name.
+
+|Value
+|Array (Object)
+|`firewall-rule-stats` object
+|An object that represents a particular firewall rule's statistics.
+|===
+
+=== `firewall-rule-stats` Object
+
+[cols="1,1,1,2", options="header"] 
+|===
+|Name
+|Type
+|Values
+|Description
+
+|`rule`
+|String
+|A number encapsulated in a string (e.g. `"10"`)
+|The rule number for this particular firewall entry.
+
+|`pkts`
+|String
+|A number encapsulated in a string (e.g. `"36837"`)
+|The number of packets that this firewall rule has matched.
+
+|`bytes`
+|String
+|A number encapsulated in a string (e.g. `"6953322"`)
+|The number of bytes that this firewall rule has matched.
+|===
+
+== Examples
+
+=== Successful Response
+
+.GET */api/edge/data.json?data=fw_stats* Response
 [source,json]
 ----
 {"success": "1", "output": {"name": [{"WAN_IN": [{"rule": "10", "pkts": "36837", "bytes": "6953322"}, {"rule": "20", "pkts": "0", "bytes": "0"}, {"rule": "21", "pkts": "3", "bytes": "184"}, {"rule": "22", "pkts": "0", "bytes": "0"}, {"rule": "10000", "pkts": "0", "bytes": "0"}], "WAN_LOCAL": [{"rule": "10", "pkts": "3875", "bytes": "589011"}, {"rule": "20", "pkts": "342", "bytes": "21329"}, {"rule": "10000", "pkts": "3236", "bytes": "262149"}]}]}}

@@ -2,7 +2,7 @@
 
 Used internally by the link:Config%20-%20Download%20Configuration.adoc[configuration download] and link:Operation%20-%20Generate%20Support%20File.adoc[generate support file] features to obtain the system section information `/api/edge/partial.json?struct={"system": null}` this allows you to access just a specific section of the configuration.
 
-GET /api/edge/partial.json?struct={"interfaces":""} Response
+.GET */api/edge/partial.json?struct={"interfaces":""}* Response
 [source,json]
 ----
 {"SESSION_ID": "742dfcc13b8d449aa36a4a1847bfcef7", "GET": {"interfaces": {"ethernet": {"eth0": {"address": ["dhcp"], "description": "WAN", "duplex": "auto", "firewall": {"in": {"name": "WAN_IN"}, "local": {"name": "WAN_LOCAL"}}, "speed": "auto"}, "eth1": {"address": ["192.168.0.254/24"], "description": "LAN", "duplex": "auto", "speed": "auto"}, "eth2": {"address": ["192.168.1.254/24"], "description": "LAN2", "duplex": "auto", "speed": "auto"}, "eth3": {"disable": null, "duplex": "auto", "speed": "auto"}}, "loopback": {"lo": null}}}, "success": true}

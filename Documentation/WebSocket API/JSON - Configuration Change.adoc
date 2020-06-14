@@ -1,10 +1,13 @@
 = JSON - Configuration Change
+:toc: preamble
 
 This message is generated only when EdgeOS is processing a configuration change.
 
 It is used by the web UI to detect when the displayed configuration is out of date and requires refreshing.
 
-== Response Properties - Root
+== Response
+
+=== Root
 
 [cols="1,1,1,2", options="header"] 
 |===
@@ -21,6 +24,9 @@ It is used by the web UI to detect when the displayed configuration is out of da
 
 == Examples
 
+=== Commit Started
+
+.Commit Started Example
 [source,json]
 ----
 61
@@ -32,6 +38,9 @@ It is used by the web UI to detect when the displayed configuration is out of da
 
 ----
 
+=== Commit Ended
+
+.Commit Ended Example
 [source,json]
 ----
 59
