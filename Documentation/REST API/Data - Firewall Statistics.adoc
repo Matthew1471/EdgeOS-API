@@ -36,7 +36,7 @@ A HTTP GET to `/api/edge/data.json?data=fw_stats` can be used to get a JSON form
 
 |`name`
 |Array (Object)
-|`firewall-ruleset-stats` object
+|Array of `firewall-ruleset-stats`
 |An array of `firewall-ruleset-stats` objects that contains each of the firewall rulesets and their rule statistics.
 |===
 
@@ -56,7 +56,7 @@ A HTTP GET to `/api/edge/data.json?data=fw_stats` can be used to get a JSON form
 
 |Value
 |Array (Object)
-|`firewall-rule-stats` object
+|Array of `firewall-rule-stats`
 |An object that represents a particular firewall rule's statistics.
 |===
 

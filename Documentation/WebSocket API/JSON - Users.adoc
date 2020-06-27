@@ -1,8 +1,11 @@
 = JSON - Users
+:toc: preamble
 
 This returns periodic messages containing the users logged into the EdgeOS device (including via SSH, Web and VPN).
 
-== Response Properties - Root
+== Response 
+
+=== Root
 
 [cols="1,1,1,2", options="header"] 
 |===
@@ -13,11 +16,11 @@ This returns periodic messages containing the users logged into the EdgeOS devic
 
 |`local`
 |Array (Object)
-|Array of `User`
+|Array of `users`
 |The users currently connected.
 |===
 
-== Response Properties - User
+=== `users` Object
 
 [cols="1,1,1,2", options="header"] 
 |===
@@ -37,7 +40,7 @@ This returns periodic messages containing the users logged into the EdgeOS devic
 |The connection details of the username currently connected.
 |===
 
-== Response Properties - UserConnection
+=== `UserConnection` Object
 
 [cols="1,1,1,2", options="header"] 
 |===
@@ -67,7 +70,7 @@ This returns periodic messages containing the users logged into the EdgeOS devic
 |How long the user has been connected for.
 |===
 
-== Response Properties - ConnectionType
+=== `ConnectionType` Types
 
 These are the currently known connection types:
 
@@ -76,6 +79,8 @@ These are the currently known connection types:
 
 == Examples
 
+=== 2 Connected Users
+.Users Example
 [source,json]
 ----
 502

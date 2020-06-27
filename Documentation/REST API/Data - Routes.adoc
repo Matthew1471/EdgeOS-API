@@ -1,6 +1,151 @@
 = Data - Routes
+:toc: preamble
 
 A HTTP GET to `/api/edge/data.json?data=routes` obtains route information.
+
+== Response
+
+=== Root
+
+[cols="1,1,1,2", options="header"] 
+|===
+|Name
+|Type
+|Values
+|Description
+
+|`success`
+|String
+|`"0"` or `"1"`
+|A boolean value encapsulated in a string (e.g. "1" or "0") that represents whether the API request was successful.
+
+|`output`
+|Array (Object)
+|Array of `output`
+|The output to the data request.
+|===
+
+=== `output` Object
+
+[cols="1,1,1,2", options="header"] 
+|===
+|Name
+|Type
+|Values
+|Description
+
+|`pfx`
+|String
+|String
+|The prefix.
+
+|`nh`
+|Object
+|`nh` Object
+|The next hop information.
+|===
+
+=== `nh` Object
+
+[cols="1,1,1,2", options="header"] 
+|===
+|Name
+|Type
+|Values
+|Description
+
+|`t`
+|String
+|String
+|The type (in the format `route-type`, `Selected`, `FIB` e.g. `S>*`).
+
+|`metric`
+|String
+|String
+|The metric information.
+
+|`bh` (Optional)
+|String
+|`1`
+|A boolean value encapsulated in a string (e.g. "1") that represents whether this interface is a blackhole.
+
+|`via` (Optional)
+|String
+|String
+|The next hop address information.
+
+|`intf` (Optional)
+|String
+|String
+|The next hop interface.
+|===
+
+=== `route-type` Types
+
+[cols="1,1,2", options="header"] 
+|===
+|Name
+|Type
+|Description
+
+|`S`
+|Static
+|A static route (used by `blackhole`, `interface`, `gateway`).
+
+|`C`
+|`connected`
+|Connected route.
+
+|`O`
+|`ospf`
+|Connected OSPF route.
+
+|`R`
+|`rip`
+|Connected RIP route.
+
+|`K`
+|`kernel`
+|Connected Kernel route.
+|===
+
+=== `Selected` Types
+
+[cols="1,1,2", options="header"] 
+|===
+|Name
+|Type
+|Description
+
+|`>`
+|Selected
+|The route is able to be used.
+
+|
+|Not Selected
+|The route is not able to be used (but is in the config file).
+|===
+
+=== `FIB` Types
+
+[cols="1,1,2", options="header"] 
+|===
+|Name
+|Type
+|Description
+
+|`*`
+|In FIB
+|The route is in the Forwarding Information Base (FIB).
+
+|
+|Not In FIB
+|The route is not in the Forwarding Information Base (FIB).
+|===
+
+== Examples
+
+=== Successful Response
 
 .GET */api/edge/data.json?data=routes* Response
 [source,json]

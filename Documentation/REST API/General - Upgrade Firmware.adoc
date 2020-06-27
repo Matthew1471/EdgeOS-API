@@ -1,5 +1,108 @@
 = General - Upgrade Firmware
+:toc: preamble
 
-A HTTP POST to `/api/edge/upgrade.json` can be used to upgrade the device firmware.
+To upgrade the device firmware send a HTTP POST to `/api/edge/upgrade.json?header=text%2Fhtml&noraw=1&X-CSRF-TOKEN=*X-CSRF-Token*` as a `multipart/form-data` request with the `qqfile` key containing a valid `.tar` firmware file.
+
+This method is CSRF protected so also requires a `X-CSRF-TOKEN` (see link:../README.adoc#Sensitive-Requests-CSRF-Protection[Sensitive Requests (CSRF Protection)]).
 
 It does not support a HTTP GET.
+
+
+== Request
+
+=== Request Querystring
+
+[cols="1,1,1,2", options="header"] 
+|===
+|Name
+|Type
+|Values
+|Description
+
+|`header`
+|String
+|`text/html`
+|Unknown hard-coded value.
+
+|`noraw`
+|Number
+|`1`
+|Unknown hard-coded value.
+
+|`X-CSRF-TOKEN`
+|String
+|A 256-bit hexadecimal CSRF token
+|The Cross-Site Request Forgery (CSRF) token from a cookie set during login.
+|===
+
+=== Request Content
+
+[cols="1,1,1,2", options="header"] 
+|===
+|Name
+|Type
+|Values
+|Description
+
+|`qqfile`
+|String
+|Configuration file
+|The configuration to restore.
+|===
+
+== Response
+
+=== Root
+
+[cols="1,1,1,2", options="header"] 
+|===
+|Name
+|Type
+|Values
+|Description
+
+|`UPGRADE`
+|Object
+|`UPGRADE` object
+|The upgrade result information.
+
+|`success`
+|Boolean
+|`true` or `false`
+|Whether the API request was successful.
+|===
+
+=== `UPGRADE` Object
+
+[cols="1,1,1,2", options="header"] 
+|===
+|Name
+|Type
+|Values
+|Description
+
+|`success`
+|String
+|`"0"` or `"1"`
+|A boolean value encapsulated in a string (e.g. "1" or "0") that represents whether the firwmare upgrade request was successful.
+|===
+
+== Examples
+
+=== Successful Firmware Upgrade Example
+
+.POST */api/edge/upgrade.json?header=text%2Fhtml&noraw=1&X-CSRF-TOKEN=56e73342f1a8938f8741fe1458767f64e33e1a9db2a69a31f06e357d27042f4c* Request
+[source,http,subs="+quotes"]
+----
+-----------------------------1201211059169276340197013685
+Content-Disposition: form-data; name="qqfile"; filename="ER-e300.v2.0.9-beta.4.5305682.tar"
+Content-Type: application/x-tar
+
+vmlinux.tmp................
+----
+
+.POST */api/edge/upgrade.json?header=text%2Fhtml&noraw=1&X-CSRF-TOKEN=56e73342f1a8938f8741fe1458767f64e33e1a9db2a69a31f06e357d27042f4c* Response
+[source,json,subs="+quotes"]
+----
+{"UPGRADE": {"success": "1"}, "success": true}
+----

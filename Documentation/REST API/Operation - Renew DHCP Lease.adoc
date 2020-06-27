@@ -1,9 +1,73 @@
 = Operation - Renew DHCP Lease
+:toc: preamble
 
 The DHCP lease can be renewed by sending a HTTP POST to `/api/edge/operation/renew-dhcp.json`
 
+== Request
+
+=== Request Content
+
+[cols="1,1,1,2", options="header"] 
+|===
+|Name
+|Type
+|Values
+|Description
+
+|`interface`
+|String
+|Interface
+|The specific interface to request to renew the DHCP lease (e.g. `eth0`).
+|===
+
+== Response
+
+=== Root
+
+[cols="1,1,1,2", options="header"] 
+|===
+|Name
+|Type
+|Values
+|Description
+
+|`OPERATION`
+|Object
+|`OPERATION` object
+|The operation result information.
+
+|`success`
+|Boolean
+|`true` or `false`
+|Whether the API request was successful.
+|===
+
+=== `OPERATION` Object
+
+[cols="1,1,1,2", options="header"] 
+|===
+|Name
+|Type
+|Values
+|Description
+
+|`success`
+|String
+|`"0"` or `"1"`
+|A boolean value encapsulated in a string (e.g. "1" or "0") that represents whether the request to renew the DHCP lease was successful.
+
+|`error` (Optional)
+|String
+|String
+|Why the API request was unsuccessful.
+|===
+
+== Examples
+
+=== Unsuccessful DHCP Lease Renewal
+
 .GET */api/edge/operation/renew-dhcp.json* Request
-[source,json]
+[source,http]
 ----
 interface=eth0
 ----

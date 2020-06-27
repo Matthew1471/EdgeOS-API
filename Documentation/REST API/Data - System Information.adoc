@@ -1,9 +1,142 @@
 = Data - System Information
+:toc: preamble
 
 A HTTP GET to `/api/edge/data.json?data=sys_info` obtains basic system information.
+
+== Response
+
+=== Root
+
+[cols="1,1,1,2", options="header"] 
+|===
+|Name
+|Type
+|Values
+|Description
+
+|`success`
+|String
+|`"0"` or `"1"`
+|A boolean value encapsulated in a string (e.g. "1" or "0") that represents whether the API request was successful.
+
+|`output`
+|Object
+|`output` object
+|The output to the data request.
+|===
+
+=== `output` Object
+
+[cols="1,1,1,2", options="header"] 
+|===
+|Name
+|Type
+|Values
+|Description
+
+|`sw_ver`
+|String
+|String
+|The installed software version.
+
+|`unms`
+|Object
+|`unms` Object
+|The UNMS status information.
+
+|`fw-latest`
+|Object
+|`fw-latest` Object
+|The latest known firmware information.
+|===
+
+=== `unms` Object
+
+[cols="1,1,1,2", options="header"] 
+|===
+|Name
+|Type
+|Values
+|Description
+
+|`daemon`
+|String
+|`Not running`
+|The UNMS daemon status.
+
+|`status`
+|Empty String
+|
+|The UNMS status information.
+
+|`last`
+|Empty String
+|
+|The UNMS' last status information.
+|===
+
+=== `fw-latest` Object
+
+[cols="1,1,1,2", options="header"] 
+|===
+|Name
+|Type
+|Values
+|Description
+
+|`version`
+|String
+|Firmware Version
+|The latest software version available online.
+
+|`url`
+|String
+|URL
+|The URL to download the latest firmware from.
+
+|`md5`
+|String
+|MD5 Hash
+|The MD5 hash of the latest firmware.
+
+|`state`
+|String
+|`up-to-date`, `can-upgrade`, `downloading`, `upgrading` or `reboot-needed`
+|The firmware upgrade status information.
+|===
+
+== Examples
+
+=== Successful Response
 
 .GET */api/edge/data.json?data=sys_info* Response
 [source,json]
 ----
 {"success": "1", "output": {"sw_ver": "EdgeRouter.ER-e300.v2.0.9-beta.3.5296219.200507.1538", "unms": {"daemon": "Not running", "status": "", "last": ""}, "fw-latest": {"version": "v2.0.8-hotfix.1", "url": "https://fw-download.ubnt.com/data/e300/669e-edgerouter-2.0.8-hotfix.1-752ed9f0476a4cb3adcce84ec537b228.tar", "md5": "d4b30e3821621f16f6e960d753eaf073", "state": "up-to-date"}}}
+----
+
+=== Bad Response
+
+.GET */api/edge/data.json?data=sys_info* Response
+----
+
+    <!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+    <html>
+        <head>
+            <title>Error: 403 Forbidden</title>
+            <style type="text/css">
+              html {background-color: #eee; font-family: sans;}
+              body {background-color: #fff; border: 1px solid #ddd;
+                    padding: 15px; margin: 15px;}
+              pre {background-color: #eee; border: 1px solid #ddd; padding: 5px;}
+            </style>
+        </head>
+        <body>
+            <h1>Error: 403 Forbidden</h1>
+            <p>Sorry, the requested URL <tt>&#039;https://router/api/edge/data.json?data=sys_info&#039;</tt>
+               caused an error:</p>
+            <pre>{&quot;errors&quot;: [&quot;You must be authenticated to perform this action.&quot;], &quot;success&quot;: false}</pre>
+        </body>
+    </html>
+
 ----

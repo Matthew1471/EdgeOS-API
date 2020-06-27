@@ -1,6 +1,39 @@
 = General - Session Heartbeat
+:toc: preamble
 
 A session can be extended with a HTTP GET to `/api/edge/heartbeat.json`.
 
 The web UI includes an ignored `t` querystring parameter to prevent a browser or network device cache from preventing the remote connection from reaching the remote device.
 The URL format the web UI uses is `/api/edge/heartbeat.json?t=*epoch*` where `epoch` is the current time in Unix epoch notation (such as `1591537772865`).
+
+== Response
+
+=== Root
+
+[cols="1,1,1,2", options="header"] 
+|===
+|Name
+|Type
+|Values
+|Description
+
+|`SESSION`
+|Boolean
+|`true` or `false`
+|Whether the user has a valid session.
+
+|`PING`
+|Boolean
+|`true` or `false`
+|Whether the ping heartbeat extension was successful.
+|===
+
+== Examples
+
+=== Successful Ping Request Response
+
+.POST */api/edge/heartbeat.json?t=1591537772865* Response
+[source,json,subs="+quotes"]
+----
+{"SESSION": true, "PING": true}
+----

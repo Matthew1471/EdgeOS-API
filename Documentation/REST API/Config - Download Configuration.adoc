@@ -3,7 +3,7 @@
 
 To download the configuration send a HTTP GET to `/api/edge/config/save.json` and then make an additional HTTP GET request to `/files/config/`.
 
-The saved temporary stored file will be deleted once the request has been made..
+The saved temporary stored file will be deleted once the request has been made.
 
 == Response
 

@@ -1,9 +1,107 @@
 = General - Configuration Settings Batch
+:toc: preamble
 
 The `/api/edge/batch.json` endpoint allows you to make batch queries/deletions/updates to specific parts of the device's configuration.
 
 It does not support a HTTP GET.
 
+== Request
+
+=== Root
+
+[cols="1,1,1,2", options="header"] 
+|===
+|Name
+|Type
+|Values
+|Description
+
+|`SET` (Optional)
+|Object
+|JSON configuration
+|The JSON configuration attributes to set.
+
+|`DELETE` (Optional)
+|Object
+|JSON configuration
+|The JSON configuration attributes to delete.
+
+|`GET` (Optional)
+|Object
+|JSON configuration
+|The JSON configuration attributes to get.
+|===
+
+== Response
+
+=== Root
+
+[cols="1,1,1,2", options="header"] 
+|===
+|Name
+|Type
+|Values
+|Description
+
+|`SET`
+|Object
+|`status` object
+|An object that contains status values for the set request.
+
+|`DELETE`
+|Object
+|`status` object
+|An object that contains status values for the deletion request.
+
+|`SESSION_ID`
+|String
+|A session ID
+|The authorisation string for this session that confirms the user is correctly authenticated.
+
+|`GET`
+|String
+|JSON configuration
+|The requested section of the after the operation is performed (defaults to the requested section for deletion/setting by default).
+
+|`COMMIT`
+|Object
+|`status` object
+|An object that contains status values for the configuration commit request.
+
+|`SAVE`
+|Object
+|`status` object
+|An object that contains status values for the configuration save request.
+
+|`success`
+|Boolean
+|`true` or `false`
+|A boolean value that represents whether the API request was successful.
+|===
+
+=== `status` Object
+
+[cols="1,1,1,2", options="header"] 
+|===
+|Name
+|Type
+|Values
+|Description
+
+|`failure` (Optional)
+|String
+|`"0"` or `"1"`
+|A boolean value encapsulated in a string (e.g. "1" or "0") that represents whether the operation failed.
+
+|`success`
+|String
+|`"0"` or `"1"`
+|A boolean value encapsulated in a string (e.g. "1" or "0") that represents whether the operation was successful.
+|===
+
+== Examples
+
+=== Set UNMS Hostname & Enable
 .POST */api/edge/batch.json* Request
 [source,json]
 ----
@@ -29,6 +127,8 @@ It does not support a HTTP GET.
     "success": true
 }
 ----
+
+=== Delete Custom Attribute
 
 .POST */api/edge/batch.json* Request
 [source,json]
