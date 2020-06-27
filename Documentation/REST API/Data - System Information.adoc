@@ -61,7 +61,7 @@ A HTTP GET to `/api/edge/data.json?data=sys_info` obtains basic system informati
 
 |`daemon`
 |String
-|`Not running`
+|`Running` or `Not running`
 |The UNMS daemon status.
 
 |`status`
@@ -72,7 +72,7 @@ A HTTP GET to `/api/edge/data.json?data=sys_info` obtains basic system informati
 |`last`
 |Empty String
 |
-|The UNMS' last status information.
+|The time the UNMS' status was last updated.
 |===
 
 === `fw-latest` Object

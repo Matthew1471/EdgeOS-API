@@ -129,4 +129,5 @@ These are defined as "<op>.json" and are passed to the closed-source `ubnt-util`
 There are a few developers who have worked on creating unofficial API wrappers:
 
  * https://github.com/matthew1471/EdgeOS-API (written in C#)
+ * https://github.com/brontide/aioedgeos (written in Python)
  * https://github.com/andrewstuart/edgeos-rest (written in Go)
