@@ -1,0 +1,34 @@
+= Raw - Log Feed
+:toc: preamble
+
+This subscription type effectively performs a tail -f /var/log/messages.
+
+== Response
+
+=== Root
+
+[cols="1,1,1,2", options="header"] 
+|===
+|Name
+|Type
+|Values
+|Description
+
+|`sub_id`
+|String
+|String
+|The raw log file contents separated by a new-line.
+|===
+
+== Examples
+
+=== Log Monitor Example
+
+.Response
+[source,json]
+----
+315
+{
+    "logmon3": "Jun 27 21:45:54 Router sudo:     root : TTY=unknown ; PWD=\/ ; USER=root ; COMMAND=\/sbin\/iptables-save -c -t nat\nJun 27 21:45:54 Router sudo: pam_unix(sudo:session): session opened for user root by (uid=0)\nJun 27 21:45:54 Router sudo: pam_unix(sudo:session): session closed for user root\n"
+}
+----

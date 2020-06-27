@@ -1,7 +1,32 @@
 = Raw - NAT Statistics
+:toc: preamble
 
-Returns per-rule NAT stats:
+Returns per-rule NAT stats.
 
+== Response
+
+The raw string response is pretty similar to a raw feed.
+
+=== Root
+
+[cols="1,1,1,2", options="header"] 
+|===
+|Name
+|Type
+|Values
+|Description
+
+|`sub_id`
+|String
+|String
+|The raw response in the format Rule Number, Packets, Action (`MASQ` or `DST`), Interface, Description separated by a new-line.
+|===
+
+== Examples
+
+=== NAT Statistics Example
+
+.Response
 [source,json]
 ----
 1115

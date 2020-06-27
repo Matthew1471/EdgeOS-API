@@ -1,22 +1,95 @@
 = Raw - Bandwidth Test
+:toc: preamble
 
-Client:
+By setting the correct parameters in the subscription request, a bandwidth test (using `iperf`) can be performed.
 
+== Request
+
+=== Client Specific Parameters
+
+[cols="1,1,1,2", options="header"] 
+|===
+|Name
+|Type
+|Values
+|Description
+
+|`server`
+|String
+|String
+|The `iperf` destination server to use to test bandwidth.
+
+|`duration` (Optional)
+|String
+|A number encapsulated in a string (e.g. `"1"`) between 0 and 1000
+|The duration in seconds.
+
+|`protocol` (Optional)
+|String
+|`tcp` or `udp`
+|The protocol to use for bandwidth testing.
+
+|`udp-bandwidth` (Optional)
+|String
+|A number encapsulated in a string (e.g. `"500"`) between 500 and 1000000 
+|The UDP bandwidth in Kbps.
+
+|`parallel-flows` (Optional)
+|String
+|A number encapsulated in a string (e.g. `"1"`) between 1 and 20
+|The number of parallel flows.
+
+|`tcp-window-size` (Optional)
+|String
+|A number encapsulated in a string (e.g. `"64"`) between 64 and 1024
+|The TCP window size.
+
+|`reverse-direction` (Optional)
+|Boolean
+|`true` or `false`
+|Whether to reverse the direction of the traffic.
+
+|===
+
+
+=== Server Specific Parameters
+
+[cols="1,1,1,2", options="header"] 
+|===
+|Name
+|Type
+|Values
+|Description
+
+|`server-mode` (Optional)
+|Boolean
+|`true` or `false`
+|Whether to operate `iperf` in server mode.
+|===
+
+== Examples
+
+=== Simple Client Request
+
+.Simple Client Request
 [source,json]
 ----
 150
 {"SUBSCRIBE":[{"name":"bwtest-feed","sub_id":"bandwidth5","server":"192.168.0.253"}],"UNSUBSCRIBE":[],"SESSION_ID":"9a00126c5bf04e29835f7c13fe5ab155"}
 ----
 
-or with advanced properties set:
+=== Advanced Client Request
 
+.Advanced Client Request
 [source,json]
 ----
 273
 {"SUBSCRIBE":[{"name":"bwtest-feed","sub_id":"bandwidth2","server":"192.168.0.254","duration":"1","protocol":"udp","udp-bandwidth":"500","parallel-flows":"1","tcp-window-size":"64","reverse-direction":true}],"UNSUBSCRIBE":[],"SESSION_ID":"9a00126c5bf04e29835f7c13fe5ab155"}
 ----
 
-Server:
+=== Server Request
+
+.Server Request
 [source,json]
 ----
 144

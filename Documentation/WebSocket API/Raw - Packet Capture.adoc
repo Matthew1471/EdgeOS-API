@@ -1,7 +1,90 @@
 = Raw - Packet Capture
+:toc: preamble
 
+By setting the correct parameters in the subscription request, a packet capture (using `tcpdump`) can be performed.
+
+== Request
+
+=== Packet Capture Specific Parameters
+
+[cols="1,1,1,2", options="header"] 
+|===
+|Name
+|Type
+|Values
+|Description
+
+|`interface`
+|String
+|String
+|The interface to capture on.
+
+|`pkt_count`
+|String
+|String
+|The packet capture limit (in number of packets).
+
+|`resolve`
+|Boolean
+|`true` or `false`
+|Whether to resolve addresses.
+
+|`f_proto`
+|String
+|String (e.g. `tcp`)
+|The protocol to filter on.
+
+|`f_address`
+|String
+|String
+|The address to filter on.
+
+|`f_port`
+|String
+|A number encapsulated in a string (e.g. `"1"`) between 1 and 65535 
+|The port to filter on.
+
+|`f_neg`
+|Boolean
+|`true` or `false`
+|Whether to negate the filter.
+|===
+
+== Response
+
+The raw string response is pretty similar to a raw feed.
+
+=== Root
+
+[cols="1,1,1,2", options="header"] 
+|===
+|Name
+|Type
+|Values
+|Description
+
+|`sub_id`
+|String
+|String
+|The raw response e.g. `"21:14:04.221110 IP xxx.xxx.xxx.xxx.42539 > xxx.xxx.xxx.xxx.443: UDP, length 23\n"`.
+|===
+
+== Examples
+
+=== Packet Capture Example
+
+.Subscription Request
 [source,json]
 ----
 224
 {"SUBSCRIBE":[{"name":"packets-feed","sub_id":"packets4","interface":"1","pkt_count":"1","resolve":true,"f_proto":"","f_address":"","f_port":"","f_neg":true}],"UNSUBSCRIBE":[],"SESSION_ID":"9a00126c5bf04e29835f7c13fe5ab155"}
 ----
+
+
+.Response
+[source,json]
+-----
+101
+{
+    "packets4": "21:14:04.221110 IP xxx.xxx.xxx.xxx.42539 > xxx.xxx.xxx.xxx.443: UDP, length 23\n"
+}

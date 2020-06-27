@@ -154,7 +154,7 @@ These are subscribed to in the same way as the JSON subscriptions above but whil
 
 |link:Raw%20-%20Log%20Feed.adoc[Log Feed]
 |`log-feed`
-|Basically a `tail -f /var/log/messages`
+|Basically a `tail -f /var/log/messages`.
 
 |link:Raw%20-%20NAT%20Statistics.adoc[NAT Statistics]
 |`nat-stats`
@@ -194,7 +194,7 @@ These are subscribed to in the same way as the JSON subscriptions above but some
 
 |link:Raw%20-%20Bandwidth%20Test.adoc[Bandwidth Test]
 |`bwtest-feed`
-|Performs or hosts a bandwidth test (using iperf).
+|Performs or hosts a bandwidth test (using `iperf`).
 
 |link:Raw%20-%20Firewall%20Statistics.adoc[Firewall Statistics]
 |`fw-stats`
@@ -206,11 +206,11 @@ These are subscribed to in the same way as the JSON subscriptions above but some
 
 |link:Raw%20-%20Traceroute.adoc[Traceroute]
 |`traceroute-feed`
-|Performs a tracert to trace a route to a host.
+|Performs a `tracert` to trace a route to a host.
 
 |link:Raw%20-%20Packet%20Capture.adoc[Packet Capture]
 |`packets-feed`
-|Performs a packet capture (using tcpdump).
+|Performs a packet capture (using `tcpdump`).
 |===
 
 === Other Endpoints

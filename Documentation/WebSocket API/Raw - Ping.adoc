@@ -1,13 +1,66 @@
 = Raw - Ping
+:toc: preamble
 
+By setting the correct parameters in the subscription request, a ping can be performed.
+
+== Request
+
+=== Ping Specific Parameters
+
+[cols="1,1,1,2", options="header"] 
+|===
+|Name
+|Type
+|Values
+|Description
+
+|`target`
+|String
+|String
+|The destination/host to ping.
+
+|`count`
+|String
+|A number encapsulated in a string (e.g. `"1"`) between 1 and 4294967295
+|How many times to ping.
+
+|`size`
+|String or empty string
+|A number encapsulated in a string (e.g. `"1"`) between 1 and 65507
+|The packet size of each ping request.
+|===
+
+== Response
+
+The raw string response is pretty similar to a raw feed.
+
+=== Root
+
+[cols="1,1,1,2", options="header"] 
+|===
+|Name
+|Type
+|Values
+|Description
+
+|`sub_id`
+|String
+|String
+|The raw response e.g. `"PING 192.168.0.1 (192.168.0.1) 56(84) bytes of data.\n\n"`.
+|===
+
+== Examples
+
+=== Ping Example
+
+.Subscription Request
 [source,json]
 ----
 163
 {"SUBSCRIBE":[{"name":"ping-feed","sub_id":"ping1","target":"192.168.0.1","count":"1","size":""}],"UNSUBSCRIBE":[],"SESSION_ID":"9a00126c5bf04e29835f7c13fe5ab155"}
 ----
 
-with the response being pretty similar to a raw feed:
-
+.Response
 [source,json]
 ----
 76

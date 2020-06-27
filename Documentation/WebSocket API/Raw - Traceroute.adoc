@@ -1,13 +1,61 @@
 = Raw - Traceroute
+:toc: preamble
 
+By setting the correct parameters in the subscription request, a traceroute can be performed.
+
+== Request
+
+=== Traceroute Specific Parameters
+
+[cols="1,1,1,2", options="header"] 
+|===
+|Name
+|Type
+|Values
+|Description
+
+|`target`
+|String
+|String
+|The destination to ping.
+
+|`resolve`
+|Boolean
+|`true` or `false`
+|Whether IP addresses should be resolved.
+|===
+
+== Response
+
+The raw string response is pretty similar to a raw feed.
+
+=== Root
+
+[cols="1,1,1,2", options="header"] 
+|===
+|Name
+|Type
+|Values
+|Description
+
+|`sub_id`
+|String
+|String
+|The raw response e.g. `"traceroute to 192.168.0.254 (192.168.0.254), 30 hops max, 38 byte packets\n 1"`.
+|===
+
+== Examples
+
+=== Traceroute Example
+
+.Subscription Request
 [source,json]
 ----
 165
 {"SUBSCRIBE":[{"name":"traceroute-feed","sub_id":"trace6","target":"192.168.0.254","resolve":true}],"UNSUBSCRIBE":[],"SESSION_ID":"9a00126c5bf04e29835f7c13fe5ab155"}
 ----
 
-with the response being pretty similar to a raw feed:
-
+.Response
 [source,json]
 ----
 98
