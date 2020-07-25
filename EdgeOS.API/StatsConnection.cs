@@ -1,5 +1,7 @@
-﻿using EdgeOS.API.Types;
+﻿using EdgeOS.API.Types.SubscriptionRequests;
+using EdgeOS.API.Types.SubscriptionResponses;
 using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.WebSockets;
 using System.Text;
@@ -30,6 +32,17 @@ namespace EdgeOS.API
 
         /// <summary>To detect redundant calls.</summary>
         private bool _disposed;
+
+        private readonly Dictionary<string, Type> responseTypeMappings = new Dictionary<string, Type>() {
+            { "config-change", typeof(ConfigurationChangeRoot) },
+            { "discover", typeof(DiscoverRoot) },
+            { "export", typeof(TrafficAnalysisRoot) },
+            { "interfaces", typeof(InterfacesRoot) },
+            { "num-routes", typeof(NumberOfRoutesRoot) },
+            { "system-stats", typeof(SystemStatsRoot) },
+            { "udapi-statistics", typeof(UDAPIStatisticsRoot) },
+            { "users", typeof(UserRoot) }
+        };
 
         /// <summary>The various states a StatsConnection connection may be in.</summary>
         public enum ConnectionStatus {
@@ -133,7 +146,7 @@ namespace EdgeOS.API
                                 while (frameReassembler.HasCompleteMessages())
                                 {
                                     // Raise an event containing the full message.
-                                    DataReceived?.Invoke(this, new SubscriptionDataEvent(frameReassembler.GetNextCompleteMessage()));
+                                    DataReceived?.Invoke(this, new SubscriptionDataEvent(frameReassembler.GetNextCompleteMessage(), responseTypeMappings));
                                 }
 
                                 break;

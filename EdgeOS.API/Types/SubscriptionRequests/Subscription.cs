@@ -1,4 +1,4 @@
-﻿namespace EdgeOS.API.Types.SubscriptionRequestTypes
+﻿namespace EdgeOS.API.Types.SubscriptionRequests
 {
     /// <summary>Represents a standard subscription with no parameters. Can be overriden to provide further parameters.</summary>
     public class Subscription

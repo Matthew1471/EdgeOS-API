@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace EdgeOS.API.Types.UDAPITypes
+namespace EdgeOS.API.Types.SubscriptionResponses.Subtypes.UDAPITypes
 {
     /// <summary>An object that contains a temperature reading.</summary>
     public class Temperature

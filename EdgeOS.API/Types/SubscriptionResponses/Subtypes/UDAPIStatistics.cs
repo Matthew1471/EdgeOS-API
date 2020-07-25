@@ -1,4 +1,4 @@
-﻿using EdgeOS.API.Types.UDAPITypes;
+﻿using EdgeOS.API.Types.SubscriptionResponses.Subtypes.UDAPITypes;
 
 namespace EdgeOS.API.Types
 {

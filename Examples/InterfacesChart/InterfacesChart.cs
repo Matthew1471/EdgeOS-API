@@ -1,6 +1,7 @@
 ﻿using EdgeOS.API;
 using EdgeOS.API.Types;
-using EdgeOS.API.Types.SubscriptionRequestTypes;
+using EdgeOS.API.Types.SubscriptionRequests;
+using EdgeOS.API.Types.SubscriptionResponses;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -126,10 +127,15 @@ namespace InterfacesChart
         /// <param name="e">The <see cref="SubscriptionDataEvent"/> instance containing the event data.</param>
         private void Connection_DataReceived(object sender, SubscriptionDataEvent e)
         {
-            if (e.rootObject.Interfaces != null)
+            // Ignore any data that isn't an Interfaces response message.
+            if (e.rootObject.GetType() != typeof(InterfacesRoot)) { return; }
+
+            InterfacesRoot interfacesRoot = (InterfacesRoot)e.rootObject;
+
+            if (interfacesRoot.Interfaces != null)
             {
                 byte manuallyAddedSeriesCount = 0;
-                foreach (KeyValuePair<string, Interface> currentInterface in e.rootObject.Interfaces)
+                foreach (KeyValuePair<string, Interface> currentInterface in interfacesRoot.Interfaces)
                 {
                     // We only care about "eth" devices.
                     if (!currentInterface.Key.StartsWith("eth")) { continue; }
@@ -149,8 +155,8 @@ namespace InterfacesChart
                         bandwidthChart.Series.Add(new Series(currentTx));
                     }
 
-                    bandwidthChart.Series[currentRx].Points.AddY(e.rootObject.Interfaces[currentInterface.Key].stats.rx_bps);
-                    bandwidthChart.Series[currentTx].Points.AddY(e.rootObject.Interfaces[currentInterface.Key].stats.tx_bps);
+                    bandwidthChart.Series[currentRx].Points.AddY(interfacesRoot.Interfaces[currentInterface.Key].stats.rx_bps);
+                    bandwidthChart.Series[currentTx].Points.AddY(interfacesRoot.Interfaces[currentInterface.Key].stats.tx_bps);
                 }
 
                 // Adjust Y & X axis scale

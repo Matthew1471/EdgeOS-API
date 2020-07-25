@@ -2,7 +2,7 @@
 using Newtonsoft.Json.Converters;
 using System.Runtime.Serialization;
 
-namespace EdgeOS.API.Types
+namespace EdgeOS.API.Types.SubscriptionRequests
 {
     /// <summary>The type of messages that EdgeOS should deliver.</summary>
     [JsonConverter(typeof(StringEnumConverter))]

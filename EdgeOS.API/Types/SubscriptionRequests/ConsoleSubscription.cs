@@ -1,4 +1,4 @@
-﻿namespace EdgeOS.API.Types.SubscriptionRequestTypes
+﻿namespace EdgeOS.API.Types.SubscriptionRequests
 {
     /// <summary>Represents a subscription that calls an application (with no parameters) that returns the data as a value to a sub_id JSON property. Can be overridden for applications that require parameters.</summary>
     public class ConsoleSubscription : Subscription

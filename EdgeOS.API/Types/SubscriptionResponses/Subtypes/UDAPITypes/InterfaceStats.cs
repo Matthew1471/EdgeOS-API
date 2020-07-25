@@ -1,4 +1,4 @@
-﻿namespace EdgeOS.API.Types.UDAPITypes
+﻿namespace EdgeOS.API.Types.SubscriptionResponses.Subtypes.UDAPITypes
 {
     /// <summary>An object that contains statistics information on a single interface.</summary>
     public class UDAPIInterfaceStats

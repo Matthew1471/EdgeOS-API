@@ -1,9 +1,9 @@
 ﻿using Newtonsoft.Json;
 
-namespace EdgeOS.API.Types.SubscriptionRequestTypes.ConsoleSubscriptionTypes
+namespace EdgeOS.API.Types.SubscriptionRequests.ConsoleSubscriptions
 {
     /// <summary>A request to run iperf as a client to an existing iperf server to test network bandwidth.</summary>
-    class BandwidthTestClient : ConsoleSubscription
+    public class BandwidthTestClient : ConsoleSubscription
     {
         /// <summary>Receiver IP.</summary>
         public string server;

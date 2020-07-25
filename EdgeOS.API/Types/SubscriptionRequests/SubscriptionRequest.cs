@@ -1,8 +1,7 @@
-﻿using EdgeOS.API.Types.SubscriptionRequestTypes;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-namespace EdgeOS.API.Types
+namespace EdgeOS.API.Types.SubscriptionRequests
 {
     /// <summary>A class representing the required subscription and unsubscription of EdgeOS.</summary>
     public class SubscriptionRequest

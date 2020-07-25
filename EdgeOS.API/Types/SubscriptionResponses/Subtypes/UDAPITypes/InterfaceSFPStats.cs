@@ -1,4 +1,4 @@
-﻿namespace EdgeOS.API.Types.UDAPITypes
+﻿namespace EdgeOS.API.Types.SubscriptionResponses.Subtypes.UDAPITypes
 {
     /// <summary>An object that contains information on an interface's Small Form-factor Pluggable (SFP).</summary>
     public class InterfaceSFPStats

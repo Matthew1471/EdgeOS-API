@@ -1,7 +1,7 @@
-﻿namespace EdgeOS.API.Types.SubscriptionRequestTypes.ConsoleSubscriptionTypes
+﻿namespace EdgeOS.API.Types.SubscriptionRequests.ConsoleSubscriptions
 {
     /// <summary>A request to run tracert to trace a route to a host.</summary>
-    class TracertSubscription : ConsoleSubscription
+    public class TracertSubscription : ConsoleSubscription
     {
         /// <summary>The destination host.</summary>
         public string target;
