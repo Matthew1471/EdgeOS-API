@@ -1,15 +1,15 @@
-﻿using System.Resources;
-using System.Reflection;
+﻿using System.Reflection;
+using System.Resources;
 using System.Runtime.InteropServices;
 
 // General Information about an assembly is controlled through the following set of attributes.
 // Change these attribute values to modify the information associated with an assembly.
-[assembly: AssemblyTitle("EdgeOS.API")]
-[assembly: AssemblyDescription("Provides a framework for communicating with EdgeOS.")]
-[assembly: AssemblyConfiguration("Production")]
+[assembly: AssemblyTitle("LogFeed")]
+[assembly: AssemblyDescription("Connects to an EdgeOS device and retrieves its syslog messages.")]
+[assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Matthew1471!")]
-[assembly: AssemblyProduct("EdgeOS.API")]
-[assembly: AssemblyCopyright("Copyright © Matthew1471! 2020")]
+[assembly: AssemblyProduct("LogFeed")]
+[assembly: AssemblyCopyright("Copyright © Matthew1471 2020")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -18,7 +18,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("7293f771-90db-4d52-a651-4bd061b25d1e")]
+[assembly: Guid("09f1f624-43e2-4618-a448-2f015878d446")]
 
 // Version information for an assembly consists of the following four values:
 //

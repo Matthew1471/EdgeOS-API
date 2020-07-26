@@ -57,12 +57,12 @@
     <Compile Include="Types\SubscriptionRequests\Subscription.cs" />
     <Compile Include="Types\SubscriptionRequests\SubscriptionMessageType.cs" />
     <Compile Include="Types\SubscriptionRequests\SubscriptionRequest.cs" />
-    <Compile Include="Types\SubscriptionResponses\ConfigurationChangeRoot.cs" />
-    <Compile Include="Types\SubscriptionResponses\ConsoleRoot.cs" />
-    <Compile Include="Types\SubscriptionResponses\DiscoverRoot.cs" />
-    <Compile Include="Types\SubscriptionResponses\InterfacesRoot.cs" />
-    <Compile Include="Types\SubscriptionResponses\NumberOfRoutesRoot.cs" />
-    <Compile Include="Types\SubscriptionResponses\RootObject.cs" />
+    <Compile Include="Types\SubscriptionResponses\ConfigurationChangeResponse.cs" />
+    <Compile Include="Types\SubscriptionResponses\ConsoleResponse.cs" />
+    <Compile Include="Types\SubscriptionResponses\DiscoverResponse.cs" />
+    <Compile Include="Types\SubscriptionResponses\InterfacesResponse.cs" />
+    <Compile Include="Types\SubscriptionResponses\NumberOfRoutesResponse.cs" />
+    <Compile Include="Types\SubscriptionResponses\IResponse.cs" />
     <Compile Include="Types\SubscriptionResponses\Subtypes\ApplicationStats.cs" />
     <Compile Include="Types\SubscriptionResponses\Subtypes\ConfigurationChange.cs" />
     <Compile Include="Types\SubscriptionResponses\Subtypes\Interface.cs" />
@@ -82,10 +82,10 @@
     <Compile Include="Types\SubscriptionResponses\Subtypes\UDAPITypes\Storage.cs" />
     <Compile Include="Types\SubscriptionResponses\Subtypes\UDAPITypes\Temperature.cs" />
     <Compile Include="Types\SubscriptionResponses\Subtypes\Users.cs" />
-    <Compile Include="Types\SubscriptionResponses\SystemStatsRoot.cs" />
-    <Compile Include="Types\SubscriptionResponses\TrafficAnalysisRoot.cs" />
-    <Compile Include="Types\SubscriptionResponses\UDAPIStatisticsRoot.cs" />
-    <Compile Include="Types\SubscriptionResponses\UserRoot.cs" />
+    <Compile Include="Types\SubscriptionResponses\SystemStatsResponse.cs" />
+    <Compile Include="Types\SubscriptionResponses\TrafficAnalysisResponse.cs" />
+    <Compile Include="Types\SubscriptionResponses\UDAPIStatisticsResponse.cs" />
+    <Compile Include="Types\SubscriptionResponses\UserResponse.cs" />
     <Compile Include="WebClient.cs" />
   </ItemGroup>
   <ItemGroup>

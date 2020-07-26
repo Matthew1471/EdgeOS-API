@@ -34,14 +34,14 @@ namespace EdgeOS.API
         private bool _disposed;
 
         private readonly Dictionary<string, Type> responseTypeMappings = new Dictionary<string, Type>() {
-            { "config-change", typeof(ConfigurationChangeRoot) },
-            { "discover", typeof(DiscoverRoot) },
-            { "export", typeof(TrafficAnalysisRoot) },
-            { "interfaces", typeof(InterfacesRoot) },
-            { "num-routes", typeof(NumberOfRoutesRoot) },
-            { "system-stats", typeof(SystemStatsRoot) },
-            { "udapi-statistics", typeof(UDAPIStatisticsRoot) },
-            { "users", typeof(UserRoot) }
+            { "config-change", typeof(ConfigurationChangeResponse) },
+            { "discover", typeof(DiscoverResponse) },
+            { "export", typeof(TrafficAnalysisResponse) },
+            { "interfaces", typeof(InterfacesResponse) },
+            { "num-routes", typeof(NumberOfRoutesResponse) },
+            { "system-stats", typeof(SystemStatsResponse) },
+            { "udapi-statistics", typeof(UDAPIStatisticsResponse) },
+            { "users", typeof(UserResponse) }
         };
 
         /// <summary>The various states a StatsConnection connection may be in.</summary>

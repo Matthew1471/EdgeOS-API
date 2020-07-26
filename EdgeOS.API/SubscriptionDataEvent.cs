@@ -11,9 +11,9 @@ namespace EdgeOS.API
     public class SubscriptionDataEvent : EventArgs
     {
         /// <summary>A C# object representing all of the JSON data EdgeOS has returned.</summary>
-        public RootObject rootObject;
+        public IResponse rootObject;
 
-        /// <summary>Constructor, deserializes a JSON message into the RootObject.</summary>
+        /// <summary>Constructor, deserializes a JSON message into the IResponse.</summary>
         /// <param name="message">The JSON message from EdgeOS.</param>
         /// <param name="responseTypeMappings">The mappings for the JSON result types.</param>
         public SubscriptionDataEvent(string message, Dictionary<string, Type> responseTypeMappings = null)
@@ -34,14 +34,14 @@ namespace EdgeOS.API
                         JsonSerializerSettings settings = new JsonSerializerSettings { MissingMemberHandling = MissingMemberHandling.Error };
 
                         // Deserialize the JSON into C# objects.
-                        rootObject = (RootObject)JsonConvert.DeserializeObject(message, requestedType, settings);
+                        rootObject = (IResponse)JsonConvert.DeserializeObject(message, requestedType, settings);
                     }
                     else
                     {
                         // The property name is dynamic for console types.
                         if (reader.Read() && reader.TokenType == JsonToken.String)
                         {
-                            rootObject = new ConsoleRoot
+                            rootObject = new ConsoleResponse
                             {
                                 sub_id = propertyName,
                                 Message = reader.Value.ToString()

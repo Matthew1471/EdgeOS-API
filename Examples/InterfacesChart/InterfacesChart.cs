@@ -128,9 +128,9 @@ namespace InterfacesChart
         private void Connection_DataReceived(object sender, SubscriptionDataEvent e)
         {
             // Ignore any data that isn't an Interfaces response message.
-            if (e.rootObject.GetType() != typeof(InterfacesRoot)) { return; }
+            if (e.rootObject.GetType() != typeof(InterfacesResponse)) { return; }
 
-            InterfacesRoot interfacesRoot = (InterfacesRoot)e.rootObject;
+            InterfacesResponse interfacesRoot = (InterfacesResponse)e.rootObject;
 
             if (interfacesRoot.Interfaces != null)
             {
