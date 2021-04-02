@@ -16,6 +16,12 @@ namespace InterfacesChart
         // This holds the StatsConnection for the whole form.
         private StatsConnection statsConnection;
 
+        // EdgeOS requires logins and session heartbeats to be sent via the REST API.
+        private WebClient webClient;
+
+        // EdgeOS requires the session to be renewed or it will expire (we renew every 30s)
+        private readonly System.Timers.Timer sessionHeartbeatTimer = new System.Timers.Timer(30000);
+
         // How many eth0, eth1 etc. interfaces the EdgeOS device has (this only impacts colouring).
         private const byte NumberOfEthInterfaces = 4;
 
@@ -71,27 +77,29 @@ namespace InterfacesChart
                 bandwidthChart.Series.Add(new Series("eth" + count + "Tx") { ChartArea = "ChartAreaTx", ChartType = SeriesChartType.StackedColumn, Color = paletteColors[count] });
             }
 
+            // This method will be invoked each time the timer has elapsed.
+            sessionHeartbeatTimer.Elapsed += (s, a) => webClient.Heartbeat();
+
             // The WebClient allows us to get a valid SessionID to then use with the StatsConnection.
-            using (WebClient webClient = new WebClient(ConfigurationManager.AppSettings["Username"], ConfigurationManager.AppSettings["Password"], "https://" + ConfigurationManager.AppSettings["Host"] + "/"))
-            {
-                // Login to the router.
-                webClient.Login();
+            webClient = new WebClient(ConfigurationManager.AppSettings["Username"], ConfigurationManager.AppSettings["Password"], "https://" + ConfigurationManager.AppSettings["Host"] + "/");
 
-                // Share a valid SessionID with a new StatsConnection object.
-                statsConnection = new StatsConnection(webClient.SessionID);
+            // Login to the Router.
+            webClient.Login();
 
-                // Ignore TLS certificate errors if there is a ".crt" file present that matches this host.
-                statsConnection.AllowLocalCertificates();
+            // Share a valid SessionID with a new StatsConnection object.
+            statsConnection = new StatsConnection(webClient.SessionID);
 
-                // Connect to the router.
-                statsConnection.ConnectAsync(new Uri("wss://" + ConfigurationManager.AppSettings["Host"] + "/ws/stats"));
+            // Ignore TLS certificate errors if there is a ".crt" file present that matches this host.
+            statsConnection.AllowLocalCertificates();
 
-                // Setup an event handler for when data is received.
-                statsConnection.DataReceived += Connection_DataReceived;
+            // Connect to the router.
+            statsConnection.ConnectAsync(new Uri("wss://" + ConfigurationManager.AppSettings["Host"] + "/ws/stats"));
 
-                // Setup an event handler for when the connection state changes.
-                statsConnection.ConnectionStatusChanged += Connection_ConnectionStatusChanged;
-            }
+            // Setup an event handler for when data is received.
+            statsConnection.DataReceived += Connection_DataReceived;
+
+            // Setup an event handler for when the connection state changes.
+            statsConnection.ConnectionStatusChanged += Connection_ConnectionStatusChanged;
         }
 
         /// <summary>Method which when a StatsConnection is established requests Interface statistics.</summary>
@@ -118,6 +126,20 @@ namespace InterfacesChart
 
                     // Ask for events to be delivered.
                     statsConnection.SubscribeForEvents(subscriptionRequest);
+
+                    // Start the heartbeat timer.
+                    sessionHeartbeatTimer.Enabled = true;
+
+                    break;
+                // The router has disconnected (usually due to session expiry due to lack of heartbeats).
+                case StatsConnection.ConnectionStatus.DisconnectedByHost:
+
+                    // Stop the heartbeat timer.
+                    sessionHeartbeatTimer.Enabled = false;
+
+                    // End the program.
+                    Close();
+
                     break;
             }
         }
@@ -179,6 +201,24 @@ namespace InterfacesChart
                 // Invalidate chart
                 bandwidthChart.Invalidate();
             }
+        }
+
+        /// <summary>Clean up any resources being used.</summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                if (components != null) { components.Dispose(); }
+
+                // Dispose of the statsConnection.
+                if (statsConnection != null) { statsConnection.Dispose(); }
+
+                // Dispose the sessionHeartbeatTimer and webClient.
+                if (sessionHeartbeatTimer != null) { sessionHeartbeatTimer.Dispose(); }
+                if (webClient != null) { webClient.Dispose(); }
+            }
+            base.Dispose(disposing);
         }
     }
 }

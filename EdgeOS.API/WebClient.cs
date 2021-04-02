@@ -97,6 +97,12 @@ namespace EdgeOS.API
             }
         }
 
+        /// <summary>Attempt to keep the session alive on the EdgeOS device.</summary>
+        public void Heartbeat()
+        {
+            _httpClient.GetAsync("/api/edge/heartbeat.json?_=" + (DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalSeconds);
+        }
+
         /// <summary>Ensures proper clean up of the resources.</summary>
         public void Dispose()
         {

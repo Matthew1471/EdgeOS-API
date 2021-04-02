@@ -3,7 +3,6 @@ using EdgeOS.API.Types.SubscriptionRequests;
 using EdgeOS.API.Types.SubscriptionResponses;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Net;
 using System.Net.WebSockets;
 using System.Text;
@@ -31,6 +30,9 @@ namespace EdgeOS.API
 
         /// <summary>Event that gets raised when the connection state of the underlying ClientWebSocket changes.</summary>
         public event EventHandler<ConnectionStatus> ConnectionStatusChanged;
+
+        /// <summary>Heartbeat timer (every 30s)</summary>
+        private readonly System.Timers.Timer _heartbeatTimer = new System.Timers.Timer(30000);
 
         /// <summary>To detect redundant calls.</summary>
         private bool _disposed;
@@ -81,11 +83,11 @@ namespace EdgeOS.API
         /// <param name="sessionID">The EdgeOS SessionID returned after logging in.</param>
         public StatsConnection(string sessionID)
         {
-            // Implementation of timeout of 5000ms.
-            //_cancellationTokenSource.CancelAfter(5000);
-
             // Store a reference to the SessionID as used by the ping (heartbeat).
             SessionID = sessionID;
+
+            // This method will be invoked each time the timer has elapsed.
+            _heartbeatTimer.Elapsed += (s, a) => SendHeartbeat();
         }
 
         /// <summary>Allows a local .crt certificate file to be used to validate a host.</summary>
@@ -105,14 +107,8 @@ namespace EdgeOS.API
             // Perform the connection.
             await _clientWebSocket.ConnectAsync(uri, _cancellationTokenSource.Token);
 
-            // Heartbeat (every 30s)
-            System.Timers.Timer timer = new System.Timers.Timer(30000);
-
-            // This method will be invoked each time the time has elapsed.
-            timer.Elapsed += (s, a) => SendHeartbeat();
-
             // Start the heartbeat timer.
-            timer.Enabled = true;
+            _heartbeatTimer.Enabled = true;
 
             // Raise an event.
             ConnectionStatusChanged?.Invoke(this, ConnectionStatus.Connected);
@@ -127,7 +123,7 @@ namespace EdgeOS.API
             ArraySegment<byte> bytesToSend = new ArraySegment<byte>(Encoding.UTF8.GetBytes(pingRequestJSON.Length + "\r\n" + pingRequestJSON));
 
             // Send to the EdgeOS device our request.
-            await _clientWebSocket.SendAsync(bytesToSend, WebSocketMessageType.Text, true, _cancellationTokenSource.Token);
+            if (_clientWebSocket.State == WebSocketState.Open) { await _clientWebSocket.SendAsync(bytesToSend, WebSocketMessageType.Text, true, _cancellationTokenSource.Token); }
         }
 
         /// <summary>EdgeOS requires a subscription on its WebSocket for anything to be sent to it, this method will request a subscription to start seeing requested events.</summary>
@@ -176,19 +172,14 @@ namespace EdgeOS.API
                                 // Does the frameReassembler have any complete messages?
                                 while (frameReassembler.HasCompleteMessages())
                                 {
-                                    string completeMessage = frameReassembler.GetNextCompleteMessage();
-
-                                    // Debug
-                                    Debug.Print(completeMessage.Length > 20 ? completeMessage.Substring(0, 20).Replace("\n", "") : completeMessage.Replace("\n", ""));
-
                                     // Raise an event containing the full message.
-                                    DataReceived?.Invoke(this, new SubscriptionDataEvent(completeMessage, responseTypeMappings));
+                                    DataReceived?.Invoke(this, new SubscriptionDataEvent(frameReassembler.GetNextCompleteMessage(), responseTypeMappings));
                                 }
 
                                 break;
                             case WebSocketMessageType.Close:
                                 // We have been asked to close the socket gracefully.
-                                await _clientWebSocket.CloseAsync(WebSocketCloseStatus.NormalClosure, string.Empty, CancellationToken.None);
+                                if (_clientWebSocket != null) { await _clientWebSocket.CloseAsync(WebSocketCloseStatus.NormalClosure, string.Empty, _cancellationTokenSource.Token); }
 
                                 // Raise an event.
                                 ConnectionStatusChanged?.Invoke(this, ConnectionStatus.DisconnectedByHost);
@@ -198,8 +189,18 @@ namespace EdgeOS.API
                         }
 
                         // Although EdgeOS does set the EndOfMessage flag, it lies.
-                    } while (!result.EndOfMessage || frameReassembler.IsMissingData());
+                    } while (_clientWebSocket.State == WebSocketState.Open && (!result.EndOfMessage || frameReassembler.IsMissingData()));
                 }
+            }
+            // EdgeOS non-gracefully closes the socket when a session ends.
+            catch (WebSocketException exception)
+            {
+                if (!exception.Message.Equals("The remote party closed the WebSocket connection without completing the close handshake.")) { throw; }
+                ConnectionStatusChanged?.Invoke(this, ConnectionStatus.DisconnectedByHost);
+            }
+            catch (OperationCanceledException)
+            {
+                // We cancelled the receive.
             }
             finally
             {
@@ -213,6 +214,25 @@ namespace EdgeOS.API
             _cancellationTokenSource.Cancel();
         }
 
+        /// <summary>Gracefully close the connection.</summary>
+        public void Close()
+        {
+            // Stop the heartbeat timer.
+            _heartbeatTimer.Stop();
+
+            // Close the socket (if open).
+            if (_clientWebSocket.State == WebSocketState.Open)
+            {
+                _clientWebSocket.CloseOutputAsync(WebSocketCloseStatus.NormalClosure, "Program exiting", _cancellationTokenSource.Token).Wait();
+
+                // Raise an event.
+                ConnectionStatusChanged?.Invoke(this, ConnectionStatus.DisconnectedByUser);
+            }
+
+            // Stop receiving data by setting the thread's cancellation token.
+            EndReceive();
+        }
+
         /// <summary>Protected implementation of Dispose pattern.</summary>
         /// <param name="disposing">The disposing parameter should be false when called from a finalizer, and true when called from the IDisposable.Dispose method. In other words, it is true when deterministically called and false when non-deterministically called.</param>
         protected virtual void Dispose(bool disposing)
@@ -223,17 +243,17 @@ namespace EdgeOS.API
                 // The disposing parameter should be false when called from a finalizer, and true when called from the IDisposable.Dispose method. In other words, it is true when deterministically called and false when non-deterministically called.
                 if (disposing)
                 {
-                    // Close the socket (if open).
-                    if (_clientWebSocket.State == WebSocketState.Open) { _clientWebSocket.CloseAsync(WebSocketCloseStatus.NormalClosure, "Program exiting", _cancellationTokenSource.Token).Wait(); }
-
-                    // Stop receiving data by setting the thread's cancellation token.
-                    EndReceive();
-
+                    // Close the connection.
+                    Close();
+                    
                     // Release the socket resources.
                     _clientWebSocket.Dispose();
 
                     // Release the cancellation token.
                     _cancellationTokenSource.Dispose();
+
+                    // Release the heartbeat timer.
+                    _heartbeatTimer.Dispose();
                 }
 
                 // We are marked as disposed.
