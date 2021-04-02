@@ -38,8 +38,8 @@ A HTTP POST to `\https://host-or-ip/` with the username and password encoded as 
 
 |`success`
 |String
-|`"0"` or `"1"`
-|A boolean value encapsulated in a string (e.g. "1" or "0") that represents whether the API request was successful.
+|A boolean encapsulated in a string (e.g. `"0"` or `"1"`)
+|Whether the API request was successful.
 
 |`level`
 |String
@@ -53,7 +53,7 @@ A HTTP POST to `\https://host-or-ip/` with the username and password encoded as 
 
 |`default-config`
 |String
-|A boolean value encapsulated in a string (e.g. `"false"` or `"true"`)
+|A boolean encapsulated in a string (e.g. `"false"` or `"true"`)
 |Unknown.
 
 |`platform`
@@ -98,8 +98,8 @@ A HTTP POST to `\https://host-or-ip/` with the username and password encoded as 
 
 |Value
 |String
-|`"1"`, `"0"` or `"-1"`
-|A signed numeric value encapsulated in a string that represents the Power over Ethernet (PoE) capabilities of a specific physical interface.
+|A signed numeric value encapsulated in a string  (e.g. `"1"`, `"0"` or `"-1"`)
+|The Power over Ethernet (PoE) capabilities of a specific physical interface.
 |===
 
 == Examples

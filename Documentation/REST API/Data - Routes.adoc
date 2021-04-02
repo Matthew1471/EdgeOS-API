@@ -16,8 +16,8 @@ A HTTP GET to `/api/edge/data.json?data=routes` obtains route information.
 
 |`success`
 |String
-|`"0"` or `"1"`
-|A boolean value encapsulated in a string (e.g. "1" or "0") that represents whether the API request was successful.
+|A boolean encapsulated in a string (e.g. `"0"` or `"1"`)
+|Whether the API request was successful.
 
 |`output`
 |Array (Object)
@@ -66,8 +66,8 @@ A HTTP GET to `/api/edge/data.json?data=routes` obtains route information.
 
 |`bh` (Optional)
 |String
-|`1`
-|A boolean value encapsulated in a string (e.g. "1") that represents whether this interface is a blackhole.
+|A boolean encapsulated in a string (e.g. `"0"` or `"1"`)
+|Whether this interface is a blackhole.
 
 |`via` (Optional)
 |String

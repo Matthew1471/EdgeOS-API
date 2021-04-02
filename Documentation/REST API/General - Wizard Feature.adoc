@@ -1,4 +1,5 @@
 = General - Wizard Feature
+:toc: preamble
 
 The `/api/edge/feature.json` endpoint allows you to view and make changes to specific parts of the device's configuration with a user-friendly form.
 

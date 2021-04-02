@@ -36,8 +36,8 @@ The device can be rebooted by sending a HTTP POST to `/api/edge/operation/reboot
 
 |`success`
 |String
-|`"0"` or `"1"`
-|A boolean value encapsulated in a string (e.g. "1" or "0") that represents whether the reboot request was successful.
+|A boolean encapsulated in a string (e.g. `"0"` or `"1"`)
+|Whether the reboot request was successful.
 |===
 
 == Examples
