@@ -14,7 +14,7 @@ namespace InterfacesChart
     public partial class InterfacesChart : Form
     {
         // This holds the StatsConnection for the whole form.
-        private readonly StatsConnection statsConnection = new StatsConnection();
+        private StatsConnection statsConnection;
 
         // How many eth0, eth1 etc. interfaces the EdgeOS device has (this only impacts colouring).
         private const byte NumberOfEthInterfaces = 4;
@@ -77,8 +77,8 @@ namespace InterfacesChart
                 // Login to the router.
                 webClient.Login();
 
-                // Share a valid SessionID with the StatsConnection object.
-                statsConnection.SessionID = webClient.SessionID;
+                // Share a valid SessionID with a new StatsConnection object.
+                statsConnection = new StatsConnection(webClient.SessionID);
 
                 // Ignore TLS certificate errors if there is a ".crt" file present that matches this host.
                 statsConnection.AllowLocalCertificates();

@@ -13,7 +13,7 @@ namespace LogFeed
         private static readonly ManualResetEvent WantToQuit = new ManualResetEvent(false);
 
         // This holds the StatsConnection for the whole form.
-        private static readonly StatsConnection statsConnection = new StatsConnection();
+        private static StatsConnection statsConnection;
 
         static void Main(string[] args)
         {
@@ -26,8 +26,8 @@ namespace LogFeed
                 // Login to the router.
                 webClient.Login();
 
-                // Share a valid SessionID with the StatsConnection object.
-                statsConnection.SessionID = webClient.SessionID;
+                // Share a valid SessionID with a new StatsConnection object.
+                statsConnection = new StatsConnection(webClient.SessionID);
 
                 // Ignore TLS certificate errors if there is a ".crt" file present that matches this host.
                 statsConnection.AllowLocalCertificates();
