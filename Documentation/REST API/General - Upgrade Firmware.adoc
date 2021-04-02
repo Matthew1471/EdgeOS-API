@@ -7,7 +7,6 @@ This method is CSRF protected so also requires a `X-CSRF-TOKEN` (see link:../REA
 
 It does not support a HTTP GET.
 
-
 == Request
 
 === Request Querystring
@@ -83,8 +82,8 @@ It does not support a HTTP GET.
 
 |`success`
 |String
-|`"0"` or `"1"`
-|A boolean value encapsulated in a string (e.g. "1" or "0") that represents whether the firwmare upgrade request was successful.
+|A boolean encapsulated in a string (e.g. `"0"` or `"1"`)
+|Whether the firwmare upgrade request was successful.
 |===
 
 == Examples

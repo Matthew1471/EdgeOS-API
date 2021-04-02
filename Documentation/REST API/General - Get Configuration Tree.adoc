@@ -1,18 +1,191 @@
 = General - Get Configuration Tree
+:toc: preamble
 
 A HTTP GET to `/api/edge/getcfg.json` can be used to get a JSON formatted object of the requested configuration tree.
 
+== Request
+
+=== Request Querystring
+
+[cols="1,1,1,2", options="header"] 
+|===
+|Name
+|Type
+|Values
+|Description
+
+|`node[]` (Optional)
+|String
+|String
+|The JSON key name to filter on. This can be repeated to provide JSON path functionality.
+|===
+
+== Response
+
+=== Root
+
+[cols="1,1,1,2", options="header"] 
+|===
+|Name
+|Type
+|Values
+|Description
+
+|`GETCFG`
+|Object
+|`getcfg` object
+|An object that contains the sections of the configuration for the request.
+
+|`success`
+|Boolean
+|`true` or `false`
+|A boolean value that represents whether the API request was successful.
+|===
+
+=== `getcfg` Object
+
+[cols="1,1,1,2", options="header"] 
+|===
+|Name
+|Type
+|Values
+|Description
+
+|`children` (Optional)
+|Array (String, Object or empty string)
+|Array of children
+|An array of strings of further keys or of an object of key value pairs  of only the configured children contained within the search criteria.
+
+|`defs` (Optional)
+|Object
+|`defs` object
+|An object defining the definition of any children and/or values within this parent node.
+
+|`tags` (Optional)
+|Array (String)
+|Array of `tags`
+|An array of values contained within this configuration node.
+
+|`success`
+|String
+|A boolean encapsulated in a string (e.g. `"0"` or `"1"`)
+|Whether the operation was successful.
+
+|`error` (Optional)
+|String
+|An error (e.g. `Invalid GETCFG node (std::exception)`)
+|The error that occurred while trying to process this GETCFG request. 
+|===
+
+=== `defs` Object
+
+[cols="1,1,1,2", options="header"] 
+|===
+|Name
+|Type
+|Values
+|Description
+
+|Key
+|String
+|The unique name of a particular child or value (e.g. `firewall`)
+|A property that represents the configuration child or value.
+
+|Value
+|Object
+|`definition` object
+|An object that represents a particular configuration key or value.
+|===
+
+=== `definition` Object
+
+[cols="1,1,1,2", options="header"] 
+|===
+|Name
+|Type
+|Values
+|Description
+
+|type (Optional)
+|String
+|The type of the value (e.g. `"txt"`)
+|The type of the configurable value (in the format `type`).
+
+|multi (Optional)
+|String
+|A boolean encapsulated in a string (e.g. `"true"` or `"false"`)
+|Whether this value can be specified multiple times.
+
+|tag (Optional)
+|Boolean
+|A boolean encapsulated in a string (e.g. `"true"` or `"false"`)
+|Whether this is a tag (list in web UI) that can contain children.
+
+|help (Optional)
+|String
+|Help text
+|An explanation of the key or value that is used in the web UI as the tooltip text.
+|===
+
+=== `type` Types
+
+[cols="1,1,2", options="header"] 
+|===
+|Name
+|Type
+|Description
+
+|txt
+|String
+|A string of text.
+
+|u32
+|UInt32
+|Unsigned 32bit number.
+
+|ipv4
+|IPv4 Address
+|An IPv4 Address.
+
+|ipv6
+|IPv6 Address
+|An IPv6 Address.
+
+|bool
+|Boolean
+|A `true` or `false`.
+
+|macaddr
+|MAC Address
+|A MAC Address.
+
+|ipv4net
+|IPv4 Network
+|An IPv4 Network (CIDR).
+
+|ipv6net
+|IPv6 Network
+|An IPv6 Network (CIDR).
+|===
+
+== Examples
+
+=== Get Root Level Configuration
 .GET */api/edge/getcfg.json* Response
 [source,json]
 ----
 {"GETCFG": {"children": ["firewall", "interfaces", "port-forward", "service", "system"], "defs": {"custom-attribute": {"type": "txt", "tag": "true", "help": "Custom attribute name\n"}, "firewall": {"help": "Firewall\n"}, "interfaces": {"help": "Network interfaces\n"}, "load-balance": {"help": "Load Balance\n"}, "policy": {"help": "Routing policy\n"}, "port-forward": {"help": "Port forwarding"}, "protocols": {"help": "Routing protocol parameters\n"}, "service": {"help": "Services\n"}, "system": {"help": "System parameters\n"}, "traffic-control": {"help": "Traffic control (QOS) type\n"}, "traffic-policy": {"help": "Quality of Service (QOS) policy type\n"}, "vpn": {"help": "Virtual Private Network (VPN)"}, "zone-policy": {"help": "Configure zone-policy\n"}}, "success": "1"}, "success": true}
 ----
 
+=== Get `system.ntp.server` Configuration
+
 .GET */api/edge/getcfg.json?node[]=system&node[]=ntp&node[]=server* Response
 [source,json]
 ----
 {"GETCFG": {"tags": ["0.ubnt.pool.ntp.org", "1.ubnt.pool.ntp.org", "2.ubnt.pool.ntp.org", "3.ubnt.pool.ntp.org"], "success": "1"}, "success": true}
 ----
+
+=== Get `system.crash-handler` Configuration
 
 .GET */api/edge/getcfg.json?node[]=system&node[]=crash-handler* Response
 [source,json]

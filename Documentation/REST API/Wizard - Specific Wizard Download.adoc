@@ -1,4 +1,5 @@
 = Wizard - Download Specific Wizard
+:toc: preamble
 
 A specific wizard can be downloaded by sending a HTTP GET to `/api/wizard/*Type*/*Key*.json` substituting the type and key.
 

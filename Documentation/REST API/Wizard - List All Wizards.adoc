@@ -1,7 +1,69 @@
 = Wizard - List All Wizards
+:toc: preamble
 
 A list of all the available wizards can be obtained by sending a HTTP GET to `/api/wizard/all.json`
 
+== Response
+
+=== Root
+
+[cols="1,1,1,2", options="header"] 
+|===
+|Name
+|Type
+|Values
+|Description
+
+|`wizards`
+|Object
+|`wizards` object
+|An object that contains the wizards.
+
+|`success`
+|Boolean
+|`true` or `false`
+|A boolean value that represents whether the API request was successful.
+|===
+
+=== `wizards` Object
+
+[cols="1,1,1,2", options="header"] 
+|===
+|Name
+|Type
+|Values
+|Description
+
+|`custom`
+|Boolean
+|`true` or `false`
+|Whether the wizard is user defined.
+
+|`type`
+|String
+|`"feature"` or `"setup"`
+|Whether the wizard should be categorised as a configurable feature wizard or one used to setup the router.
+
+|`id`
+|String
+|System ID
+|The unique ID to refer to this wizard (typically `type`-`key`).
+
+|`key`
+|String
+|Wizard key
+|The unique wizard's key for its type.
+
+|`name`
+|String
+|Wizard Name
+|The name as it should appear in the web UI. 
+|===
+
+
+== Examples
+
+=== Get All Wizards
 .GET */api/wizard/all.json* Response
 [source,json]
 ----

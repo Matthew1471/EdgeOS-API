@@ -36,8 +36,8 @@ A check for firmware updates can be performed by sending an empty HTTP POST to `
 
 |`success`
 |String
-|`"0"` or `"1"`
-|A boolean value encapsulated in a string (e.g. "1" or "0") that represents whether the check for firmware updates request was successful.
+|A boolean encapsulated in a string (e.g. `"0"` or `"1"`)
+|Whether the check for firmware updates request was successful.
 |===
 
 == Examples

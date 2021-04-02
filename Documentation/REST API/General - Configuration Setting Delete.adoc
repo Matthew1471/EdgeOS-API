@@ -62,13 +62,13 @@ A HTTP POST to `/api/edge/delete.json` with the JSON configuration attributes to
 
 |`failure`
 |String
-|`"0"` or `"1"`
-|A boolean value encapsulated in a string (e.g. "1" or "0") that represents whether the operation failed.
+|A boolean encapsulated in a string (e.g. `"0"` or `"1"`)
+|Whether the operation failed.
 
 |`success`
 |String
-|`"0"` or `"1"`
-|A boolean value encapsulated in a string (e.g. "1" or "0") that represents whether the operation was successful.
+|A boolean encapsulated in a string (e.g. `"0"` or `"1"`)
+|Whether the operation was successful.
 |===
 
 == Examples
