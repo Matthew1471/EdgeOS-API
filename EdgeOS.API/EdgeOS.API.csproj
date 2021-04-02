@@ -47,6 +47,7 @@
     <Compile Include="ServerCertificateValidationCallback.cs" />
     <Compile Include="StatsConnection.cs" />
     <Compile Include="SubscriptionDataEvent.cs" />
+    <Compile Include="Types\PingRequest.cs" />
     <Compile Include="Types\SubscriptionRequests\ConsoleSubscription.cs" />
     <Compile Include="Types\SubscriptionRequests\ConsoleSubscriptions\BandwidthTestClient.cs" />
     <Compile Include="Types\SubscriptionRequests\ConsoleSubscriptions\BandwidthTestServer.cs" />

@@ -1,7 +1,9 @@
-﻿using EdgeOS.API.Types.SubscriptionRequests;
+﻿using EdgeOS.API.Types;
+using EdgeOS.API.Types.SubscriptionRequests;
 using EdgeOS.API.Types.SubscriptionResponses;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Net;
 using System.Net.WebSockets;
 using System.Text;
@@ -45,37 +47,45 @@ namespace EdgeOS.API
         };
 
         /// <summary>The various states a StatsConnection connection may be in.</summary>
-        public enum ConnectionStatus {
+        public enum ConnectionStatus
+        {
             /// <summary>The socket is currently connecting.</summary>
             Connecting,
-            
+
             /// <summary>The socket is currently connected.</summary>
             Connected,
-            
+
             /// <summary>The user has closed the connection.</summary>
             DisconnectedByUser,
-            
+
             /// <summary>The remote server has closed the connection.</summary>
             DisconnectedByHost,
-            
+
             /// <summary>The host did not respond to our connection in the specified time.</summary>
             ConnectFail_Timeout,
-            
+
             /// <summary>The host did not send data in the specified time.</summary>
             ReceiveFail_Timeout,
-            
+
             /// <summary>The message failed to send in time.</summary>
             SendFail_Timeout,
 
             /// <summary>An error has occurred.</summary>
             Error
         };
-        
+
+        /// <summary>Prevent the compiler from creating a default constructor without the SessionID.</summary>
+        private StatsConnection() { }
+
         /// <summary>Creates an instance of the StatsConnection for connecting to a single EdgeOS device.</summary>
-        public StatsConnection()
+        /// <param name="sessionID">The EdgeOS SessionID returned after logging in.</param>
+        public StatsConnection(string sessionID)
         {
             // Implementation of timeout of 5000ms.
             //_cancellationTokenSource.CancelAfter(5000);
+
+            // Store a reference to the SessionID as used by the ping (heartbeat).
+            SessionID = sessionID;
         }
 
         /// <summary>Allows a local .crt certificate file to be used to validate a host.</summary>
@@ -95,8 +105,29 @@ namespace EdgeOS.API
             // Perform the connection.
             await _clientWebSocket.ConnectAsync(uri, _cancellationTokenSource.Token);
 
+            // Heartbeat (every 30s)
+            System.Timers.Timer timer = new System.Timers.Timer(30000);
+
+            // This method will be invoked each time the time has elapsed.
+            timer.Elapsed += (s, a) => SendHeartbeat();
+
+            // Start the heartbeat timer.
+            timer.Enabled = true;
+
             // Raise an event.
             ConnectionStatusChanged?.Invoke(this, ConnectionStatus.Connected);
+        }
+
+        private async void SendHeartbeat()
+        {
+            // We need the SubscriptionMessage in JSON format.
+            string pingRequestJSON = new PingRequest(SessionID).ToJson();
+
+            // The client web socket is expecting bytes and we also need to include the ping message length.
+            ArraySegment<byte> bytesToSend = new ArraySegment<byte>(Encoding.UTF8.GetBytes(pingRequestJSON.Length + "\r\n" + pingRequestJSON));
+
+            // Send to the EdgeOS device our request.
+            await _clientWebSocket.SendAsync(bytesToSend, WebSocketMessageType.Text, true, _cancellationTokenSource.Token);
         }
 
         /// <summary>EdgeOS requires a subscription on its WebSocket for anything to be sent to it, this method will request a subscription to start seeing requested events.</summary>
@@ -145,8 +176,13 @@ namespace EdgeOS.API
                                 // Does the frameReassembler have any complete messages?
                                 while (frameReassembler.HasCompleteMessages())
                                 {
+                                    string completeMessage = frameReassembler.GetNextCompleteMessage();
+
+                                    // Debug
+                                    Debug.Print(completeMessage.Length > 20 ? completeMessage.Substring(0, 20).Replace("\n", "") : completeMessage.Replace("\n", ""));
+
                                     // Raise an event containing the full message.
-                                    DataReceived?.Invoke(this, new SubscriptionDataEvent(frameReassembler.GetNextCompleteMessage(), responseTypeMappings));
+                                    DataReceived?.Invoke(this, new SubscriptionDataEvent(completeMessage, responseTypeMappings));
                                 }
 
                                 break;
@@ -161,7 +197,7 @@ namespace EdgeOS.API
                                 throw new NotImplementedException(result.MessageType.ToString() + " is not implemented.");
                         }
 
-                    // Although EdgeOS does set the EndOfMessage flag, it lies.
+                        // Although EdgeOS does set the EndOfMessage flag, it lies.
                     } while (!result.EndOfMessage || frameReassembler.IsMissingData());
                 }
             }
