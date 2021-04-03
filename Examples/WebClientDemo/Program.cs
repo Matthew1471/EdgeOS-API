@@ -1,5 +1,5 @@
 ﻿using EdgeOS.API;
-using EdgeOS.API.Types.REST.Configuration;
+using EdgeOS.API.Types.Configuration;
 using EdgeOS.API.Types.REST.Requests;
 using EdgeOS.API.Types.REST.Responses;
 using System;
@@ -47,7 +47,7 @@ namespace WebClientDemo
         {
             ConfigurationSettingsBatchRequest batchRequest = new ConfigurationSettingsBatchRequest
             {
-                Set = new EdgeOS.API.Types.REST.Configuration.Configuration()
+                Set = new EdgeOS.API.Types.Configuration.Configuration()
                 {
                     Firewall = new Firewall()
                     {
@@ -67,7 +67,7 @@ namespace WebClientDemo
                 },
 
                 // Cut down on the amount of bytes being returned by selecting a hopefully empty node.
-                Get = new EdgeOS.API.Types.REST.Configuration.Configuration() { CustomAttribute = new[] { "" } }
+                Get = new EdgeOS.API.Types.Configuration.Configuration() { CustomAttribute = new[] { "" } }
             };
 
             // Add the new data.

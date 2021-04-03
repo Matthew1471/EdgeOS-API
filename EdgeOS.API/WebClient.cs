@@ -1,4 +1,4 @@
-﻿using EdgeOS.API.Types.REST.Configuration;
+﻿using EdgeOS.API.Types.Configuration;
 using EdgeOS.API.Types.REST.Requests;
 using EdgeOS.API.Types.REST.Responses;
 using Newtonsoft.Json;

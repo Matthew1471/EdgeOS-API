@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
 
-namespace EdgeOS.API.Types.REST.Configuration
+namespace EdgeOS.API.Types.Configuration
 {
     /// <summary>A class representing a complete EdgeOS Firewall Group configuration tree.</summary>
     public class FirewallGroup
