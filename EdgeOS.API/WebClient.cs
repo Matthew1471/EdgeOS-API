@@ -1,4 +1,6 @@
-﻿using EdgeOS.API.Types.REST;
+﻿using EdgeOS.API.Types.REST.Configuration;
+using EdgeOS.API.Types.REST.Requests;
+using EdgeOS.API.Types.REST.Responses;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -25,7 +27,7 @@ namespace EdgeOS.API
         /// <param name="host">The EdgeOS hostname this instance will contact.</param>
         public WebClient(string host)
         {
-            // Prevent .NET from consuming the HTTP 303 that contains our authentication session.
+            // Prevent .NET from consuming the HTTP 303 that contains our session tokens.
             _httpClient = new HttpClient(new HttpClientHandler() { AllowAutoRedirect = false, CookieContainer = new CookieContainer() })
             {
                 // A EdgeOS API endpoint is the hostname.
@@ -43,7 +45,7 @@ namespace EdgeOS.API
             ServicePointManager.ServerCertificateValidationCallback = ServerCertificateValidationCallback.PinPublicKey;
         }
 
-        /// <summary>Attempt to authenticate with the EdgeOS device and will internally create a session but will not return session tokens to allow further requests. See <see cref="Login(string, string)"/> to actually login to obtain a session.</summary>
+        /// <summary>Attempt to authenticate with the EdgeOS device and will internally create a session but will not return session tokens to allow further requests. See <see cref="Login"/> to actually login to obtain a session.</summary>
         public AuthenticateResponse Authenticate(string username, string password)
         {
             // Build up the HTML Form.
@@ -108,7 +110,7 @@ namespace EdgeOS.API
                     HttpResponseHeaders headers = httpResponse.Headers;
 
                     // If for whatever reason login fails then a cookie will not be present.
-                    if (!(headers.Contains("Set-Cookie"))) { throw new FormatException("Expected header used for Authentication was not present in the response message back from the server."); }
+                    if (!(headers.Contains("Set-Cookie"))) { throw new FormatException("Expected session cookie headers were not present in the response back from the server."); }
 
                     // The stats connection requires the session ID for authentication.
                     const string sessionNeedle = "PHPSESSID=";
@@ -154,8 +156,8 @@ namespace EdgeOS.API
         }
 
         /// <summary>Make a batch query/deletion/update request to specific parts of the device’s configuration.</summary>
-        /// <param name="batchRequest"></param>
-        public BatchResponse Batch(BatchRequest batchRequest)
+        /// <param name="batchRequest">A request of operations to perform.</param>
+        public ConfigurationSettingsBatchResponse ConfigurationSettingsBatch(ConfigurationSettingsBatchRequest batchRequest)
         {
             // Serialize our concrete class into a JSON String.
             string requestContent = JsonConvert.SerializeObject(batchRequest, new JsonSerializerSettings() { NullValueHandling = NullValueHandling.Ignore });
@@ -178,7 +180,41 @@ namespace EdgeOS.API
                 string responseContent = httpResponse.Content.ReadAsStringAsync().Result;
 
                 // Deserialize the responseContent to a BatchResponse.
-                return JsonConvert.DeserializeObject<BatchResponse>(responseContent);
+                return JsonConvert.DeserializeObject<ConfigurationSettingsBatchResponse>(responseContent);
+            }
+            else
+            {
+                // No content returned.
+                return null;
+            }
+        }
+
+        /// <summary>Delete specific parts of the device’s configuration.</summary>
+        /// <param name="deleteRequest">The Configuration options to delete from the configuration.</param>
+        public ConfigurationSettingsDeleteResponse ConfigurationSettingsDelete(Configuration deleteRequest)
+        {
+            // Serialize our concrete class into a JSON String.
+            string requestContent = JsonConvert.SerializeObject(deleteRequest, new JsonSerializerSettings() { NullValueHandling = NullValueHandling.Ignore });
+
+            // We build up our request.
+            HttpRequestMessage httpRequest = new HttpRequestMessage(HttpMethod.Post, "/api/edge/delete.json") { Content = new StringContent(requestContent, Encoding.UTF8, "application/json") };
+
+            // This end-point is protected with a Cross-Site Request Forgery (CSRF) token.
+            //httpRequest.Headers.Add("X-CSRF-TOKEN", CSRFToken);
+
+            // Send it to the Configuration Settings Batch end-point with the appropriate CSRF header.
+            HttpResponseMessage httpResponse = _httpClient.SendAsync(httpRequest).Result;
+
+            // Check the result is what we are expecting (and throw an exception if not).
+            httpResponse.EnsureSuccessStatusCode();
+
+            // If the response contains content we want to read it.
+            if (httpResponse.Content != null)
+            {
+                string responseContent = httpResponse.Content.ReadAsStringAsync().Result;
+
+                // Deserialize the responseContent to a BatchResponse.
+                return JsonConvert.DeserializeObject<ConfigurationSettingsDeleteResponse>(responseContent);
             }
             else
             {

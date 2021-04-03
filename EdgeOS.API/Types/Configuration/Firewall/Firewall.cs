@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace EdgeOS.API.Types.REST
+namespace EdgeOS.API.Types.REST.Configuration
 {
     /// <summary>A class representing a complete EdgeOS Firewall configuration tree.</summary>
     public class Firewall

@@ -1,7 +1,6 @@
 ﻿using EdgeOS.API;
-using EdgeOS.API.Types;
-using EdgeOS.API.Types.SubscriptionRequests;
-using EdgeOS.API.Types.SubscriptionResponses;
+using EdgeOS.API.Types.Subscription.Requests;
+using EdgeOS.API.Types.Subscription.Responses;
 using System;
 using System.Collections.Generic;
 using System.Configuration;

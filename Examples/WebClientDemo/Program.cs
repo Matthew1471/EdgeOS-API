@@ -1,5 +1,7 @@
 ﻿using EdgeOS.API;
-using EdgeOS.API.Types.REST;
+using EdgeOS.API.Types.REST.Configuration;
+using EdgeOS.API.Types.REST.Requests;
+using EdgeOS.API.Types.REST.Responses;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -35,17 +37,17 @@ namespace WebClientDemo
             AuthenticateResponse authenticateResponse = webClient.Authenticate(ConfigurationManager.AppSettings["Username"], ConfigurationManager.AppSettings["Password"]);
 
             // Add an IP to a FirewallAddressGroup.
-            //BatchConfigurationTest(webClient);
+            //ConfigurationSettingsBatchTest(webClient);
 
             // Logout of the router.
             webClient.Logout();
         }
 
-        private static void BatchConfigurationTest(WebClient webClient)
+        private static void ConfigurationSettingsBatchTest(WebClient webClient)
         {
-            BatchRequest batchRequest = new BatchRequest
+            ConfigurationSettingsBatchRequest batchRequest = new ConfigurationSettingsBatchRequest
             {
-                Set = new EdgeOS.API.Types.REST.Configuration()
+                Set = new EdgeOS.API.Types.REST.Configuration.Configuration()
                 {
                     Firewall = new Firewall()
                     {
@@ -65,11 +67,11 @@ namespace WebClientDemo
                 },
 
                 // Cut down on the amount of bytes being returned by selecting a hopefully empty node.
-                Get = new EdgeOS.API.Types.REST.Configuration() { CustomAttribute = new[] { "" } }
+                Get = new EdgeOS.API.Types.REST.Configuration.Configuration() { CustomAttribute = new[] { "" } }
             };
 
             // Add the new data.
-            BatchResponse batchResponse = webClient.Batch(batchRequest);
+            ConfigurationSettingsBatchResponse batchResponse = webClient.ConfigurationSettingsBatch(batchRequest);
         }
     }
 }

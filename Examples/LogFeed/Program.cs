@@ -1,6 +1,6 @@
 ﻿using EdgeOS.API;
-using EdgeOS.API.Types.SubscriptionRequests;
-using EdgeOS.API.Types.SubscriptionResponses;
+using EdgeOS.API.Types.Subscription.Requests;
+using EdgeOS.API.Types.Subscription.Responses;
 using System;
 using System.Configuration;
 using System.Threading;
@@ -21,7 +21,7 @@ namespace LogFeed
         // This holds the StatsConnection for the whole class.
         private static StatsConnection statsConnection;
 
-        static void Main(string[] args)
+        static void Main()
         {
             // Set the window title to something a bit more interesting.
             if (!Console.IsOutputRedirected) { Console.Title = "LogFeed V0.1"; }

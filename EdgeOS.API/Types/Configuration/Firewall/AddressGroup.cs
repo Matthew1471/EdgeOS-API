@@ -1,7 +1,6 @@
 ﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
 
-namespace EdgeOS.API.Types.REST
+namespace EdgeOS.API.Types.REST.Configuration
 {
     /// <summary>A class representing a complete EdgeOS Firewall Group Address-Group configuration tree.</summary>
     public class FirewallAddressGroupEntry
