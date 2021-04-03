@@ -46,38 +46,6 @@ namespace EdgeOS.API
             ServicePointManager.ServerCertificateValidationCallback = ServerCertificateValidationCallback.PinPublicKey;
         }
 
-        /// <summary>Attempt to authenticate with the EdgeOS device and will internally create a session but will not return session tokens to allow further requests. See <see cref="Login"/> to actually login to obtain a session.</summary>
-        /// <returns>The response from the device.</returns>
-        public AuthenticateResponse Authenticate(string username, string password)
-        {
-            // Build up the HTML Form.
-            List<KeyValuePair<string, string>> loginForm = new List<KeyValuePair<string, string>>
-            {
-                new KeyValuePair<string, string>("username", username),
-                new KeyValuePair<string, string>("password", password)
-            };
-
-            // Perform the HTTP POST.
-            HttpResponseMessage httpResponse = _httpClient.PostAsync("/api/edge/auth.json", new FormUrlEncodedContent(loginForm)).Result;
-
-            // Check the result is what we are expecting (and throw an exception if not).
-            httpResponse.EnsureSuccessStatusCode();
-
-            // If the response contains content we want to read it.
-            if (httpResponse.Content != null)
-            {
-                string responseContent = httpResponse.Content.ReadAsStringAsync().Result;
-
-                // Deserialize the responseContent to a AuthenticateResponse.
-                return JsonConvert.DeserializeObject<AuthenticateResponse>(responseContent);
-            }
-            else
-            {
-                // No content returned.
-                return null;
-            }
-        }
-
         /// <summary>Attempt to login to the EdgeOS device and configure the <seealso cref="HttpClient"/> with the session credentials for future usage.</summary>
         /// <param name="username">The username this instance will use to login to the EdgeOS device.</param>
         /// <param name="password">The password this instance will use to login to the EdgeOS device.</param>
@@ -149,6 +117,38 @@ namespace EdgeOS.API
         public void Logout()
         {
             _httpClient.GetAsync("/logout");
+        }
+
+        /// <summary>Attempt to authenticate with the EdgeOS device and will internally create a session but will not return session tokens to allow further requests. See <see cref="Login"/> to actually login to obtain a session.</summary>
+        /// <returns>The response from the device.</returns>
+        public AuthenticateResponse Authenticate(string username, string password)
+        {
+            // Build up the HTML Form.
+            List<KeyValuePair<string, string>> loginForm = new List<KeyValuePair<string, string>>
+            {
+                new KeyValuePair<string, string>("username", username),
+                new KeyValuePair<string, string>("password", password)
+            };
+
+            // Perform the HTTP POST.
+            HttpResponseMessage httpResponse = _httpClient.PostAsync("/api/edge/auth.json", new FormUrlEncodedContent(loginForm)).Result;
+
+            // Check the result is what we are expecting (and throw an exception if not).
+            httpResponse.EnsureSuccessStatusCode();
+
+            // If the response contains content we want to read it.
+            if (httpResponse.Content != null)
+            {
+                string responseContent = httpResponse.Content.ReadAsStringAsync().Result;
+
+                // Deserialize the responseContent to a AuthenticateResponse.
+                return JsonConvert.DeserializeObject<AuthenticateResponse>(responseContent);
+            }
+            else
+            {
+                // No content returned.
+                return null;
+            }
         }
 
         /// <summary>Make a batch query/deletion/update request to specific parts of the device’s configuration.</summary>
@@ -347,15 +347,15 @@ namespace EdgeOS.API
             _httpClient.GetAsync("/api/edge/heartbeat.json?_=" + (DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalSeconds);
         }
 
-        //TODO: Upgrade Firmware methods.
+        //TODO: Upgrade Firmware method.
 
         //TODO: Wizard Feature method.
 
         //TODO: Wizard Setup method.
 
-        //TODO: Download Configuration.
+        //TODO: Download Configuration methods.
 
-        //TODO: Restore Configuration.
+        //TODO: Restore Configuration method.
 
         //TODO: ONU Upgrade method.
 
@@ -365,7 +365,7 @@ namespace EdgeOS.API
 
         //TODO: Clear Traffic Analysis method.
 
-        //TODO: Generate Support File method.
+        //TODO: Generate Support File methods.
 
         //TODO: Reboot method.
 
@@ -379,7 +379,7 @@ namespace EdgeOS.API
 
         //TODO: OLT Get Connected ONU method.
 
-        //TODO: OLT Generate ONU Support method.
+        //TODO: OLT Generate ONU Support methods.
 
         //TODO: OLT Get Connected WiFi Clients method.
 
