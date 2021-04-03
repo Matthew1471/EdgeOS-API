@@ -1,4 +1,4 @@
-= General - Configuration Setting Delete
+= General - Configuration Settings Delete
 :toc: preamble
 
 The `/api/edge/delete.json` endpoint allows you to delete a specific part of the device's configuration.

@@ -1,4 +1,4 @@
-= General - Configuration Setting Set
+= General - Configuration Settings Set
 :toc: preamble
 
 The `/api/edge/set.json` endpoint allows you to set a specific part of the device's configuration.

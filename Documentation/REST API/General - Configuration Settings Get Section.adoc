@@ -1,4 +1,4 @@
-= General - Get Configuration Section
+= General - Configuration Settings Get Section
 :toc: preamble
 
 Used internally by the link:Config%20-%20Download%20Configuration.adoc[configuration download] and link:Operation%20-%20Generate%20Support%20File.adoc[generate support file] features to obtain the system section information `/api/edge/partial.json?struct={"system": null}` this allows you to access just a specific section of the configuration.

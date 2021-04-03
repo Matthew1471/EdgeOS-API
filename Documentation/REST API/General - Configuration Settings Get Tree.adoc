@@ -1,4 +1,4 @@
-= General - Get Configuration Tree
+= General - Configuration Settings Get Tree
 :toc: preamble
 
 A HTTP GET to `/api/edge/getcfg.json` can be used to get a JSON formatted object of the requested configuration tree.
