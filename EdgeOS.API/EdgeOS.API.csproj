@@ -40,6 +40,7 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Web" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FrameReassembler.cs" />
@@ -53,6 +54,9 @@
     <Compile Include="Types\Configuration\Firewall\AddressGroup.cs" />
     <Compile Include="Types\PingRequest.cs" />
     <Compile Include="Types\REST\Responses\AuthenticateResponse.cs" />
+    <Compile Include="Types\REST\Responses\ConfigurationSettingsSetResponse.cs" />
+    <Compile Include="Types\REST\Responses\ConfigurationSettingsGetTreeResponse.cs" />
+    <Compile Include="Types\REST\Responses\ConfigurationSettingsGetResponse.cs" />
     <Compile Include="Types\REST\Responses\ConfigurationSettingsDeleteResponse.cs" />
     <Compile Include="Types\REST\Responses\ConfigurationSettingsBatchResponse.cs" />
     <Compile Include="Types\REST\Requests\ConfigurationSettingsBatchRequest.cs" />

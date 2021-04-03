@@ -34,44 +34,73 @@ namespace WebClientDemo
             webClient.Login(ConfigurationManager.AppSettings["Username"], ConfigurationManager.AppSettings["Password"]);
 
             // Test the Authenticate method.
-            AuthenticateResponse authenticateResponse = webClient.Authenticate(ConfigurationManager.AppSettings["Username"], ConfigurationManager.AppSettings["Password"]);
+            //AuthenticateResponse authenticateResponse = webClient.Authenticate(ConfigurationManager.AppSettings["Username"], ConfigurationManager.AppSettings["Password"]);
 
-            // Add an IP to a FirewallAddressGroup.
-            //ConfigurationSettingsBatchTest(webClient);
-
-            // Logout of the router.
-            webClient.Logout();
-        }
-
-        private static void ConfigurationSettingsBatchTest(WebClient webClient)
-        {
-            ConfigurationSettingsBatchRequest batchRequest = new ConfigurationSettingsBatchRequest
+            EdgeOS.API.Types.Configuration.Configuration exampleConfiguration = new EdgeOS.API.Types.Configuration.Configuration()
             {
-                Set = new EdgeOS.API.Types.Configuration.Configuration()
+                Firewall = new Firewall()
                 {
-                    Firewall = new Firewall()
+                    Group = new FirewallGroup()
                     {
-                        Group = new FirewallGroup()
-                        {
-                            AddressGroup = new Dictionary<string, FirewallAddressGroupEntry>()
+                        AddressGroup = new Dictionary<string, FirewallAddressGroupEntry>()
                             {
                                 {
-                                    "BannedAddresses", new FirewallAddressGroupEntry()
+                                    "APITestAddresses", new FirewallAddressGroupEntry()
                                     {
                                         Address = new[] { "4.3.2.1" }
                                     }
                                 }
                             }
-                        }
                     }
-                },
+                }
+            };
+
+            // Add an IP to a FirewallAddressGroup (creating it if it doesn't already exist).
+            //ConfigurationSettingsBatchTest(webClient, exampleConfiguration);
+
+            // Delete BannedAddresses.
+            //exampleConfiguration.Firewall.Group.AddressGroup["APITestAddresses"] = null;
+
+            // Remove the FirewallAddressGroup.
+            //ConfigurationSettingsDeleteTest(webClient, exampleConfiguration);
+
+            // Get predefined config list.
+            //ConfigurationSettingsGetResponse configurationSettingsGetPredefinedListResponse = webClient.ConfigurationSettingsGetPredefinedList();
+
+            // Get partial config.
+            //ConfigurationSettingsGetResponse configurationSettingsGetSectionsResponse = webClient.ConfigurationSettingsGetSections("{\"firewall\":null, \"protocols\":null}");
+
+            // Get tree config.
+            //ConfigurationSettingsGetTreeResponse configurationSettingsGetTreeResponse = webClient.ConfigurationSettingsGetTree(new[] { "system", "ntp" });
+            //configurationSettingsGetTreeResponse = webClient.ConfigurationSettingsGetTree(new[] { "system" });
+            //configurationSettingsGetTreeResponse = webClient.ConfigurationSettingsGetTree(new[] { "firewall", "group", "address-group" });
+
+            // Set a FirewallAddressGroup.
+            //ConfigurationSettingsSetResponse configurationSettingsSetResponse = webClient.ConfigurationSettingsSet(exampleConfiguration);
+
+            // Logout of the router.
+            webClient.Logout();
+        }
+
+        private static void ConfigurationSettingsBatchTest(WebClient webClient, EdgeOS.API.Types.Configuration.Configuration exampleConfiguration)
+        {
+            ConfigurationSettingsBatchRequest configurationSettingsBatchRequest = new ConfigurationSettingsBatchRequest
+            {
+                // Add an IP address group.
+                Set = exampleConfiguration,
 
                 // Cut down on the amount of bytes being returned by selecting a hopefully empty node.
                 Get = new EdgeOS.API.Types.Configuration.Configuration() { CustomAttribute = new[] { "" } }
             };
 
             // Add the new data.
-            ConfigurationSettingsBatchResponse batchResponse = webClient.ConfigurationSettingsBatch(batchRequest);
+            ConfigurationSettingsBatchResponse configurationSettingsBatchResponse = webClient.ConfigurationSettingsBatch(configurationSettingsBatchRequest);
+        }
+
+        private static void ConfigurationSettingsDeleteTest(WebClient webClient, EdgeOS.API.Types.Configuration.Configuration exampleConfiguration)
+        {
+            // Delete the new data.
+            ConfigurationSettingsDeleteResponse configurationSettingsDeleteResponse = webClient.ConfigurationSettingsDelete(exampleConfiguration);
         }
     }
 }

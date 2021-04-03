@@ -2,18 +2,18 @@
 
 namespace EdgeOS.API.Types.REST.Responses
 {
-    /// <summary>A class representing a delete configuration response from EdgeOS.</summary>
-    public class ConfigurationSettingsDeleteResponse
+    /// <summary>A class representing a set configuration response from EdgeOS.</summary>
+    public class ConfigurationSettingsSetResponse
     {
-        /// <summary>Status values for the deletion request.</summary>
-        [JsonProperty(PropertyName = "DELETE")]
-        public ConfigurationSettingsStatus Delete;
+        /// <summary>Status values for the insertion request.</summary>
+        [JsonProperty(PropertyName = "SET")]
+        public ConfigurationSettingsStatus Set;
 
         /// <summary>The authorisation string for this session that confirms the user is correctly authenticated.</summary>
         [JsonProperty(PropertyName = "SESSION_ID")]
         public string SessionID;
 
-        /// <summary>The parent section of the deleted value after the deletion.</summary>
+        /// <summary>The parent section of the set value after the set.</summary>
         [JsonProperty(PropertyName = "GET")]
         public Configuration.Configuration Get;
 

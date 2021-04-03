@@ -1,7 +1,9 @@
-= General - Configuration Settings Get Section
+= General - Configuration Settings Get Sections
 :toc: preamble
 
 Used internally by the link:Config%20-%20Download%20Configuration.adoc[configuration download] and link:Operation%20-%20Generate%20Support%20File.adoc[generate support file] features to obtain the system section information `/api/edge/partial.json?struct={"system": null}` this allows you to access just a specific section of the configuration.
+
+To get the full configuration you can use `/api/edge/partial.json`, `/api/edge/partial.json?struct=null` or `/api/edge/partial.json?struct={}`
 
 == Request
 
@@ -14,30 +16,10 @@ Used internally by the link:Config%20-%20Download%20Configuration.adoc[configura
 |Values
 |Description
 
-|`struct`
-|Object
-|`struct` object
+|`struct` (Optional)
+|List (Object)
+|JSON configuration
 |The specific configuration sections requested.
-|===
-
-=== `struct` Object
-
-[cols="1,1,1,2", options="header"] 
-|===
-|Name
-|Type
-|Values
-|Description
-
-|Key
-|String
-|Config Key Section
-|The specified config section required (e.g. `interfaces`).
-
-|Value
-|Null
-|Null
-|The value is not used.
 |===
 
 == Response

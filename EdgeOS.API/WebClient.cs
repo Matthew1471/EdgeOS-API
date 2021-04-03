@@ -8,6 +8,7 @@ using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
+using System.Web;
 
 namespace EdgeOS.API
 {
@@ -46,6 +47,7 @@ namespace EdgeOS.API
         }
 
         /// <summary>Attempt to authenticate with the EdgeOS device and will internally create a session but will not return session tokens to allow further requests. See <see cref="Login"/> to actually login to obtain a session.</summary>
+        /// <returns>The response from the device.</returns>
         public AuthenticateResponse Authenticate(string username, string password)
         {
             // Build up the HTML Form.
@@ -143,12 +145,6 @@ namespace EdgeOS.API
             }
         }
 
-        /// <summary>Attempt to keep the session alive on the EdgeOS device.</summary>
-        public void Heartbeat()
-        {
-            _httpClient.GetAsync("/api/edge/heartbeat.json?_=" + (DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalSeconds);
-        }
-
         /// <summary>Log out of the EdgeOS device.</summary>
         public void Logout()
         {
@@ -156,7 +152,8 @@ namespace EdgeOS.API
         }
 
         /// <summary>Make a batch query/deletion/update request to specific parts of the device’s configuration.</summary>
-        /// <param name="batchRequest">A request of operations to perform.</param>
+        /// <param name="batchRequest">An object containing DELETE/SET/GET operations to perform.</param>
+        /// <returns>The response from the device.</returns>
         public ConfigurationSettingsBatchResponse ConfigurationSettingsBatch(ConfigurationSettingsBatchRequest batchRequest)
         {
             // Serialize our concrete class into a JSON String.
@@ -179,7 +176,7 @@ namespace EdgeOS.API
             {
                 string responseContent = httpResponse.Content.ReadAsStringAsync().Result;
 
-                // Deserialize the responseContent to a BatchResponse.
+                // Deserialize the responseContent to a ConfigurationSettingsBatchResponse.
                 return JsonConvert.DeserializeObject<ConfigurationSettingsBatchResponse>(responseContent);
             }
             else
@@ -191,6 +188,7 @@ namespace EdgeOS.API
 
         /// <summary>Delete specific parts of the device’s configuration.</summary>
         /// <param name="deleteRequest">The Configuration options to delete from the configuration.</param>
+        /// <returns>The response from the device.</returns>
         public ConfigurationSettingsDeleteResponse ConfigurationSettingsDelete(Configuration deleteRequest)
         {
             // Serialize our concrete class into a JSON String.
@@ -200,9 +198,9 @@ namespace EdgeOS.API
             HttpRequestMessage httpRequest = new HttpRequestMessage(HttpMethod.Post, "/api/edge/delete.json") { Content = new StringContent(requestContent, Encoding.UTF8, "application/json") };
 
             // This end-point is protected with a Cross-Site Request Forgery (CSRF) token.
-            //httpRequest.Headers.Add("X-CSRF-TOKEN", CSRFToken);
+            httpRequest.Headers.Add("X-CSRF-TOKEN", CSRFToken);
 
-            // Send it to the Configuration Settings Batch end-point with the appropriate CSRF header.
+            // Send it to the Configuration Settings Delete end-point with the appropriate CSRF header.
             HttpResponseMessage httpResponse = _httpClient.SendAsync(httpRequest).Result;
 
             // Check the result is what we are expecting (and throw an exception if not).
@@ -213,7 +211,7 @@ namespace EdgeOS.API
             {
                 string responseContent = httpResponse.Content.ReadAsStringAsync().Result;
 
-                // Deserialize the responseContent to a BatchResponse.
+                // Deserialize the responseContent to a ConfigurationSettingsDeleteResponse.
                 return JsonConvert.DeserializeObject<ConfigurationSettingsDeleteResponse>(responseContent);
             }
             else
@@ -222,6 +220,182 @@ namespace EdgeOS.API
                 return null;
             }
         }
+
+        /// <summary>Get a predefined part of the device's configuration.</summary>
+        /// <returns>The response from the device.</returns>
+        public ConfigurationSettingsGetResponse ConfigurationSettingsGetPredefinedList()
+        {
+            // Send it to the Configuration Settings Get Predefined List end-point.
+            HttpResponseMessage httpResponse = _httpClient.GetAsync("/api/edge/get.json").Result;
+
+            // Check the result is what we are expecting (and throw an exception if not).
+            httpResponse.EnsureSuccessStatusCode();
+
+            // If the response contains content we want to read it.
+            if (httpResponse.Content != null)
+            {
+                string responseContent = httpResponse.Content.ReadAsStringAsync().Result;
+
+                // Deserialize the responseContent to a ConfigurationSettingsGetResponse.
+                return JsonConvert.DeserializeObject<ConfigurationSettingsGetResponse>(responseContent);
+            }
+            else
+            {
+                // No content returned.
+                return null;
+            }
+        }
+
+        /// <summary>Get specific part(s) of the device's configuration.</summary>
+        /// <returns>The response from the device.</returns>
+        public ConfigurationSettingsGetResponse ConfigurationSettingsGetSections(string requestContent)
+        {
+            // Send it to the Configuration Settings Get Partial end-point.
+            HttpResponseMessage httpResponse = _httpClient.GetAsync("/api/edge/partial.json?struct=" + HttpUtility.UrlEncode(requestContent)).Result;
+
+            // Check the result is what we are expecting (and throw an exception if not).
+            httpResponse.EnsureSuccessStatusCode();
+
+            // If the response contains content we want to read it.
+            if (httpResponse.Content != null)
+            {
+                string responseContent = httpResponse.Content.ReadAsStringAsync().Result;
+
+                // Deserialize the responseContent to a ConfigurationSettingsGetResponse.
+                return JsonConvert.DeserializeObject<ConfigurationSettingsGetResponse>(responseContent);
+            }
+            else
+            {
+                // No content returned.
+                return null;
+            }
+        }
+
+        /// <summary>Get specific tree part(s) of the device's configuration.</summary>
+        /// <returns>The response from the device.</returns>
+        public ConfigurationSettingsGetTreeResponse ConfigurationSettingsGetTree(string[] requestPath)
+        {
+            // Build the querystring.
+            StringBuilder queryString = new StringBuilder();
+            for (int count = 0; count < requestPath.Length; count++)
+            {
+                if (count > 0) { queryString.Append('&'); }
+                queryString.Append("node[]=" + HttpUtility.UrlEncode(requestPath[count]));
+            }
+
+            // Send it to the Configuration Settings Get Tree end-point.
+            HttpResponseMessage httpResponse = _httpClient.GetAsync("/api/edge/getcfg.json" + (requestPath.Length > 0 ? "?" + queryString.ToString() : null)).Result;
+
+            // Check the result is what we are expecting (and throw an exception if not).
+            httpResponse.EnsureSuccessStatusCode();
+
+            // If the response contains content we want to read it.
+            if (httpResponse.Content != null)
+            {
+                string responseContent = httpResponse.Content.ReadAsStringAsync().Result;
+
+                // Deserialize the responseContent to a ConfigurationSettingsGetTreeResponse.
+                return JsonConvert.DeserializeObject<ConfigurationSettingsGetTreeResponse>(responseContent);
+            }
+            else
+            {
+                // No content returned.
+                return null;
+            }
+        }
+
+        /// <summary>Set specific parts of the device’s configuration.</summary>
+        /// <param name="setRequest">The Configuration options to set in the configuration.</param>
+        /// <returns>The response from the device.</returns>
+        public ConfigurationSettingsSetResponse ConfigurationSettingsSet(Configuration setRequest)
+        {
+            // Serialize our concrete class into a JSON String.
+            string requestContent = JsonConvert.SerializeObject(setRequest, new JsonSerializerSettings() { NullValueHandling = NullValueHandling.Ignore });
+
+            // We build up our request.
+            HttpRequestMessage httpRequest = new HttpRequestMessage(HttpMethod.Post, "/api/edge/set.json") { Content = new StringContent(requestContent, Encoding.UTF8, "application/json") };
+
+            // This end-point is protected with a Cross-Site Request Forgery (CSRF) token.
+            httpRequest.Headers.Add("X-CSRF-TOKEN", CSRFToken);
+
+            // Send it to the Configuration Settings Set end-point with the appropriate CSRF header.
+            HttpResponseMessage httpResponse = _httpClient.SendAsync(httpRequest).Result;
+
+            // Check the result is what we are expecting (and throw an exception if not).
+            httpResponse.EnsureSuccessStatusCode();
+
+            // If the response contains content we want to read it.
+            if (httpResponse.Content != null)
+            {
+                string responseContent = httpResponse.Content.ReadAsStringAsync().Result;
+
+                // Deserialize the responseContent to a ConfigurationSettingsSetResponse.
+                return JsonConvert.DeserializeObject<ConfigurationSettingsSetResponse>(responseContent);
+            }
+            else
+            {
+                // No content returned.
+                return null;
+            }
+        }
+
+        //TODO: Data methods.
+
+        /// <summary>Attempt to keep the session alive on the EdgeOS device.</summary>
+        public void Heartbeat()
+        {
+            _httpClient.GetAsync("/api/edge/heartbeat.json?_=" + (DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalSeconds);
+        }
+
+        //TODO: Upgrade Firmware methods.
+
+        //TODO: Wizard Feature method.
+
+        //TODO: Wizard Setup method.
+
+        //TODO: Download Configuration.
+
+        //TODO: Restore Configuration.
+
+        //TODO: ONU Upgrade method.
+
+        //TODO: ONU Reboot method.
+
+        //TODO: Check for Firmware Updates method.
+
+        //TODO: Clear Traffic Analysis method.
+
+        //TODO: Generate Support File method.
+
+        //TODO: Reboot method.
+
+        //TODO: Release DHCP lease method.
+
+        //TODO: Renew DHCP lease method.
+
+        //TODO: Reset Default Configuration method.
+
+        //TODO: Shutdown method.
+
+        //TODO: OLT Get Connected ONU method.
+
+        //TODO: OLT Generate ONU Support method.
+
+        //TODO: OLT Get Connected WiFi Clients method.
+
+        //TODO: OLT Locate ONU method.
+
+        //TODO: OLT Reset ONU method.
+
+        //TODO: Wizards List All Wizards method.
+
+        //TODO: Wizards Specific Wizard Crete method.
+
+        //TODO: Wizards Specific Wizard Download method.
+
+        //TODO: Wizards Specific Wizard Remove method.
+
+        //TODO: Wizards Specific Wizard Upload method.
 
         /// <summary>Ensures proper clean up of the resources.</summary>
         public void Dispose()

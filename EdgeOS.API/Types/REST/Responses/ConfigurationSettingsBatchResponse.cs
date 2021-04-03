@@ -29,7 +29,7 @@ namespace EdgeOS.API.Types.REST.Responses
         [JsonProperty(PropertyName = "SAVE")]
         public ConfigurationSettingsStatus Save;
 
-        /// <summary>Whether the API request was successful..</summary>
+        /// <summary>Whether the API request was successful.</summary>
         [JsonProperty(PropertyName = "success")]
         public bool Success;
     }

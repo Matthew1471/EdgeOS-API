@@ -5,6 +5,8 @@ The `/api/edge/delete.json` endpoint allows you to delete a specific part of the
 
 It does not support a HTTP GET.
 
+This method is CSRF protected so also requires a `X-CSRF-TOKEN` (see link:../README.adoc#Sensitive-Requests-CSRF-Protection[Sensitive Requests (CSRF Protection)]).
+
 == Request
 
 A HTTP POST to `/api/edge/delete.json` with the JSON configuration attributes to delete as the request content.

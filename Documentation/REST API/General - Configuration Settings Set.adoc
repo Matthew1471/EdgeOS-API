@@ -5,6 +5,8 @@ The `/api/edge/set.json` endpoint allows you to set a specific part of the devic
 
 It does not support a HTTP GET.
 
+This method is CSRF protected so also requires a `X-CSRF-TOKEN` (see link:../README.adoc#Sensitive-Requests-CSRF-Protection[Sensitive Requests (CSRF Protection)]).
+
 == Request
 
 A HTTP POST to `/api/edge/set.json` with the JSON configuration attributes to set as the request content.
