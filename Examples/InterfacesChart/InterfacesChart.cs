@@ -13,14 +13,14 @@ namespace InterfacesChart
 {
     public partial class InterfacesChart : Form
     {
-        // This holds the StatsConnection for the whole form.
-        private StatsConnection statsConnection;
-
         // EdgeOS requires logins and session heartbeats to be sent via the REST API.
         private WebClient webClient;
 
         // EdgeOS requires the session to be renewed or it will expire (we renew every 30s)
         private readonly System.Timers.Timer sessionHeartbeatTimer = new System.Timers.Timer(30000);
+
+        // This holds the StatsConnection for the whole form.
+        private StatsConnection statsConnection;
 
         // How many eth0, eth1 etc. interfaces the EdgeOS device has (this only impacts colouring).
         private const byte NumberOfEthInterfaces = 4;

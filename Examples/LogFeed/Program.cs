@@ -12,7 +12,13 @@ namespace LogFeed
         // Signals when we want to quit.
         private static readonly ManualResetEvent WantToQuit = new ManualResetEvent(false);
 
-        // This holds the StatsConnection for the whole form.
+        // EdgeOS requires logins and session heartbeats to be sent via the REST API.
+        private static WebClient webClient;
+
+        // EdgeOS requires the session to be renewed or it will expire (we renew every 30s)
+        private static readonly System.Timers.Timer sessionHeartbeatTimer = new System.Timers.Timer(30000);
+
+        // This holds the StatsConnection for the whole class.
         private static StatsConnection statsConnection;
 
         static void Main(string[] args)
@@ -20,27 +26,39 @@ namespace LogFeed
             // Set the window title to something a bit more interesting.
             if (!Console.IsOutputRedirected) { Console.Title = "LogFeed V0.1"; }
 
-            // The WebClient allows us to get a valid SessionID to then use with the StatsConnection.
-            using (WebClient webClient = new WebClient(ConfigurationManager.AppSettings["Username"], ConfigurationManager.AppSettings["Password"], "https://" + ConfigurationManager.AppSettings["Host"] + "/"))
+            // Check the credentials are provided in the application's configuration file.
+            if (ConfigurationManager.AppSettings["Username"] == null || ConfigurationManager.AppSettings["Password"] == null || ConfigurationManager.AppSettings["Host"] == null)
             {
-                // Login to the router.
-                webClient.Login();
+                Console.WriteLine("Program cannot start, some credentials were missing in the program's configuration file.");
 
-                // Share a valid SessionID with a new StatsConnection object.
-                statsConnection = new StatsConnection(webClient.SessionID);
-
-                // Ignore TLS certificate errors if there is a ".crt" file present that matches this host.
-                statsConnection.AllowLocalCertificates();
-
-                // Connect to the router.
-                statsConnection.ConnectAsync(new Uri("wss://" + ConfigurationManager.AppSettings["Host"] + "/ws/stats"));
-
-                // Setup an event handler for when data is received.
-                statsConnection.DataReceived += Connection_DataReceived;
-
-                // Setup an event handler for when the connection state changes.
-                statsConnection.ConnectionStatusChanged += Connection_ConnectionStatusChanged;
+                // Exit the application.
+                Environment.Exit(1610);
             }
+
+            // This method will be invoked each time the timer has elapsed.
+            sessionHeartbeatTimer.Elapsed += (s, a) => webClient.Heartbeat();
+
+            // The WebClient allows us to get a valid SessionID to then use with the StatsConnection.
+            webClient = new WebClient(ConfigurationManager.AppSettings["Username"], ConfigurationManager.AppSettings["Password"], "https://" + ConfigurationManager.AppSettings["Host"] + "/");
+
+            // Login to the router.
+            webClient.Login();
+
+            // Share a valid SessionID with a new StatsConnection object.
+            statsConnection = new StatsConnection(webClient.SessionID);
+
+            // Ignore TLS certificate errors if there is a ".crt" file present that matches this host.
+            statsConnection.AllowLocalCertificates();
+
+            // Connect to the router.
+            statsConnection.ConnectAsync(new Uri("wss://" + ConfigurationManager.AppSettings["Host"] + "/ws/stats"));
+
+            // Setup an event handler for when data is received.
+            statsConnection.DataReceived += Connection_DataReceived;
+
+            // Setup an event handler for when the connection state changes.
+            statsConnection.ConnectionStatusChanged += Connection_ConnectionStatusChanged;
+
 
             // We want the user (and the program itself) to be able to choose to exit.
             Console.CancelKeyPress += delegate (object sender, ConsoleCancelEventArgs eventArgs)
@@ -81,10 +99,18 @@ namespace LogFeed
 
                     // Ask for events to be delivered.
                     statsConnection.SubscribeForEvents(subscriptionRequest);
+
+                    // Start the heartbeat timer.
+                    sessionHeartbeatTimer.Enabled = true;
+
                     break;
 
+                // The router has disconnected (usually due to session expiry due to lack of heartbeats).
                 case StatsConnection.ConnectionStatus.DisconnectedByHost:
-                    
+
+                    // Stop the heartbeat timer.
+                    sessionHeartbeatTimer.Enabled = false;
+
                     // Just close this program.
                     WantToQuit.Set();
 
@@ -102,6 +128,22 @@ namespace LogFeed
 
             ConsoleResponse consoleRoot = (ConsoleResponse)e.rootObject;
             Console.WriteLine(consoleRoot.Message);
+        }
+
+
+        /// <summary>Clean up any resources being used.</summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                // Dispose of the statsConnection.
+                if (statsConnection != null) { statsConnection.Dispose(); }
+
+                // Dispose the sessionHeartbeatTimer and webClient.
+                if (sessionHeartbeatTimer != null) { sessionHeartbeatTimer.Dispose(); }
+                if (webClient != null) { webClient.Dispose(); }
+            }
         }
     }
 }
