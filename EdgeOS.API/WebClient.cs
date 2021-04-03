@@ -55,6 +55,37 @@ namespace EdgeOS.API
             ServicePointManager.ServerCertificateValidationCallback += ServerCertificateValidationCallback.PinPublicKey;
         }
 
+        /// <summary>Attempt to authenticate with the EdgeOS device and will internally create a session but will not return session tokens to allow further requests. See <see cref="Login()"/> to actually login to obtain a session.</summary>
+        public AuthenticateResponse Authenticate(string username, string password)
+        {
+            // Build up the HTML Form.
+            List<KeyValuePair<string, string>> loginForm = new List<KeyValuePair<string, string>>
+            {
+                new KeyValuePair<string, string>("username", username),
+                new KeyValuePair<string, string>("password", password)
+            };
+
+            // Perform the HTTP POST.
+            HttpResponseMessage httpResponse = _httpClient.PostAsync("/api/edge/auth.json", new FormUrlEncodedContent(loginForm)).Result;
+
+            // Check the result is what we are expecting (and throw an exception if not).
+            httpResponse.EnsureSuccessStatusCode();
+
+            // If the response contains content we want to read it.
+            if (httpResponse.Content != null)
+            {
+                string responseContent = httpResponse.Content.ReadAsStringAsync().Result;
+
+                // Deserialize the responseContent to a AuthenticateResponse.
+                return JsonConvert.DeserializeObject<AuthenticateResponse>(responseContent);
+            }
+            else
+            {
+                // No content returned.
+                return null;
+            }
+        }
+
         /// <summary>Attempt to login to the EdgeOS device and configure the <seealso cref="HttpClient"/> with the session credentials for future usage.</summary>
         public void Login()
         {
@@ -69,13 +100,13 @@ namespace EdgeOS.API
             };
 
             // Perform the HTTP POST.
-            HttpResponseMessage httpResponseMessage = _httpClient.PostAsync("/", new FormUrlEncodedContent(loginForm)).Result;
+            HttpResponseMessage httpResponse = _httpClient.PostAsync("/", new FormUrlEncodedContent(loginForm)).Result;
 
             // The server does not correctly use HTTP Status codes.
-            switch (httpResponseMessage.StatusCode)
+            switch (httpResponse.StatusCode)
             {
                 case HttpStatusCode.OK:
-                    string response = httpResponseMessage.Content.ReadAsStringAsync().Result;
+                    string response = httpResponse.Content.ReadAsStringAsync().Result;
 
                     // Check if the login failed (it likely did).
                     if (response.Contains("The username or password you entered is incorrect")) { throw new FormatException("The username or password you entered is incorrect"); }
@@ -83,7 +114,7 @@ namespace EdgeOS.API
                     break;
                 case HttpStatusCode.SeeOther:
                     // The response headers will contain the session in a cookie if successful.
-                    HttpResponseHeaders headers = httpResponseMessage.Headers;
+                    HttpResponseHeaders headers = httpResponse.Headers;
 
                     // If for whatever reason login fails then a cookie will not be present.
                     if (!(headers.Contains("Set-Cookie"))) { throw new FormatException("Expected header used for Authentication was not present in the response message back from the server."); }
@@ -96,7 +127,7 @@ namespace EdgeOS.API
 
                     foreach (string cookie in headers.GetValues("Set-Cookie"))
                     {
-                        // We are only interested in the PHPSESSID.
+                        // We are only interested in the PHPSESSID and X-CSRF-TOKEN.
                         if (cookie.StartsWith(sessionNeedle))
                         {
                             int semicolon = cookie.IndexOf(';');
@@ -123,6 +154,12 @@ namespace EdgeOS.API
         public void Heartbeat()
         {
             _httpClient.GetAsync("/api/edge/heartbeat.json?_=" + (DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalSeconds);
+        }
+
+        /// <summary>Log out of the EdgeOS device.</summary>
+        public void Logout()
+        {
+            _httpClient.GetAsync("/logout");
         }
 
         /// <summary>Make a batch query/deletion/update request to specific parts of the device’s configuration.</summary>

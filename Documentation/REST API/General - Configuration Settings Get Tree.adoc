@@ -73,7 +73,7 @@ A HTTP GET to `/api/edge/getcfg.json` can be used to get a JSON formatted object
 
 |`error` (Optional)
 |String
-|An error (e.g. `Invalid GETCFG node (std::exception)`)
+|An error message (e.g. `"Invalid GETCFG node (std::exception)"`)
 |The error that occurred while trying to process this GETCFG request. 
 |===
 

@@ -1,4 +1,4 @@
-﻿namespace EdgeOS.API.Types.SubscriptionResponses.Subtypes.UDAPITypes
+﻿namespace EdgeOS.API.Types.SubscriptionResponses.UDAPITypes
 {
     /// <summary>An object that contains Interface information on a single interface.</summary>
     public class Interface

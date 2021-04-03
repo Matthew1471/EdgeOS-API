@@ -7,6 +7,13 @@ namespace EdgeOS.API.Types.SubscriptionResponses
     {
         /// <summary>The object that contains status information when EdgeOS is processing a configuration change.</summary>
         [JsonProperty(PropertyName = "config-change")]
-        public ConfigurationChange ConfigurationChange;
+        public ConfigurationChangeDetails ConfigurationChange;
+
+        /// <summary>An object that contains status information when EdgeOS is processing a configuration change.</summary>
+        public class ConfigurationChangeDetails
+        {
+            /// <summary>The configuration change status message.</summary>
+            public string commit;
+        }
     }
 }

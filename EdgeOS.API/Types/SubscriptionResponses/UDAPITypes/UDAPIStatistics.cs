@@ -1,6 +1,4 @@
-﻿using EdgeOS.API.Types.SubscriptionResponses.Subtypes.UDAPITypes;
-
-namespace EdgeOS.API.Types
+﻿namespace EdgeOS.API.Types.SubscriptionResponses.UDAPITypes
 {
     /// <summary>An object containing device statistics in a specific API format, potentially used by UNMS.</summary>
     public class UDAPIStatistics

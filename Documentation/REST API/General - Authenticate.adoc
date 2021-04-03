@@ -41,6 +41,11 @@ A HTTP POST to `\https://host-or-ip/` with the username and password encoded as 
 |A boolean encapsulated in a string (e.g. `"0"` or `"1"`)
 |Whether the API request was successful.
 
+|`error` (Optional)
+|String
+|An error message (e.g. `"The username or password you entered is incorrect"`)
+|The error that occurred while trying to process this authentication request.
+
 |`level`
 |String
 |`"admin"` or `"operator"`
@@ -49,12 +54,12 @@ A HTTP POST to `\https://host-or-ip/` with the username and password encoded as 
 |`started`
 |String
 |A number encapsulated in a string (e.g. `"1513"`)
-|Unknown.
+|Device uptime in seconds.
 
 |`default-config`
 |String
 |A boolean encapsulated in a string (e.g. `"false"` or `"true"`)
-|Unknown.
+|Whether the device is running the factory default configuration.
 
 |`platform`
 |Object
@@ -77,9 +82,9 @@ A HTTP POST to `\https://host-or-ip/` with the username and password encoded as 
 |A string that represents a device model from `devices.json`.
 
 |`poe_cap`
-|Object
-|`poe_cap` object
-|An object that represents the device Power over Ethernet (PoE) capabilities.
+|Dictionary
+|`poe_cap` object(s)
+|A dictionary that represents the device Power over Ethernet (PoE) capabilities.
 |===
 
 === `poe_cap` Object

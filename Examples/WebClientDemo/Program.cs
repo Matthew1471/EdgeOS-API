@@ -31,6 +31,18 @@ namespace WebClientDemo
             // Login to the router.
             webClient.Login();
 
+            // Test the Authenticate method.
+            AuthenticateResponse authenticateResponse = webClient.Authenticate(ConfigurationManager.AppSettings["Username"], ConfigurationManager.AppSettings["Password"]);
+
+            // Add an IP to a FirewallAddressGroup.
+            BatchConfigurationTest(webClient);
+
+            // Logout of the router.
+            webClient.Logout();
+        }
+
+        private static void BatchConfigurationTest(WebClient webClient)
+        {
             BatchRequest batchRequest = new BatchRequest
             {
                 Set = new EdgeOS.API.Types.REST.Configuration()

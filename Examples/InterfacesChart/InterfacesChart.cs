@@ -160,7 +160,7 @@ namespace InterfacesChart
             if (interfacesRoot.Interfaces != null)
             {
                 byte manuallyAddedSeriesCount = 0;
-                foreach (KeyValuePair<string, Interface> currentInterface in interfacesRoot.Interfaces)
+                foreach (KeyValuePair<string, InterfacesResponse.Interface> currentInterface in interfacesRoot.Interfaces)
                 {
                     // We only care about "eth" devices.
                     if (!currentInterface.Key.StartsWith("eth")) { continue; }
