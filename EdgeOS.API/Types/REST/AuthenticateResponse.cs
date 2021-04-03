@@ -31,13 +31,6 @@ namespace EdgeOS.API.Types.REST
         [JsonProperty(PropertyName = "platform")]
         public EdgeOSPlatform Platform;
 
-        /// <summary>Represents the class as a JSON string suitable for sending to the EdgeOS device.</summary>
-        /// <returns>An EdgeOS friendly JSON string.</returns>
-        public string ToJson()
-        {
-            return JsonConvert.SerializeObject(this, new StringEnumConverter());
-        }
-
         /// <summary>A value that represents the role / privilege level of a user.</summary>
         public enum PermissionLevel
         {
@@ -60,14 +53,7 @@ namespace EdgeOS.API.Types.REST
 
             /// <summary>A dictionary that represents the device Power over Ethernet (PoE) capabilities.</summary>
             [JsonProperty(PropertyName = "poe_cap")]
-            public Dictionary<string, short> PoECapabilities;
-
-            /// <summary>Represents the class as a JSON string suitable for sending to the EdgeOS device.</summary>
-            /// <returns>An EdgeOS friendly JSON string.</returns>
-            public string ToJson()
-            {
-                return JsonConvert.SerializeObject(this, new StringEnumConverter());
-            }
+            public Dictionary<string, sbyte> PoECapabilities;
         }
     }
 }

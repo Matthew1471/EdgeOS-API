@@ -13,12 +13,5 @@ namespace EdgeOS.API.Types.REST
         /// <summary>Address-group description</summary>
         [JsonProperty(PropertyName = "description")]
         public string Description;
-
-        /// <summary>Represents the class as a JSON string suitable for sending to the EdgeOS device.</summary>
-        /// <returns>An EdgeOS friendly JSON string.</returns>
-        public string ToJson()
-        {
-            return JsonConvert.SerializeObject(this, new StringEnumConverter());
-        }
     }
 }

@@ -10,12 +10,5 @@ namespace EdgeOS.API.Types.REST
         /// <summary>Firewall address-group</summary>
         [JsonProperty(PropertyName = "address-group")]
         public Dictionary<string, FirewallAddressGroupEntry> AddressGroup;
-
-        /// <summary>Represents the class as a JSON string suitable for sending to the EdgeOS device.</summary>
-        /// <returns>An EdgeOS friendly JSON string.</returns>
-        public string ToJson()
-        {
-            return JsonConvert.SerializeObject(this, new StringEnumConverter());
-        }
     }
 }

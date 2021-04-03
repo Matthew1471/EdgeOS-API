@@ -12,12 +12,6 @@ namespace EdgeOS.API
     /// <summary>Provides an API into EdgeOS based off the official API.</summary>
     public class WebClient : IDisposable
     {
-        /// <summary>The EdgeOS username used to login.</summary>
-        private readonly string username;
-
-        /// <summary>The EdgeOS password used to login.</summary>
-        private readonly string password;
-
         /// <summary>The EdgeOS SessionID returned after logging in.</summary>
         public string SessionID;
 
@@ -28,15 +22,9 @@ namespace EdgeOS.API
         private readonly HttpClient _httpClient;
 
         /// <summary>Creates an instance of the WebClient which can be used to call EdgeOS API methods.</summary>
-        /// <param name="username">The username this instance will use to authenticate with the EdgeOS device.</param>
-        /// <param name="password">The password this instance will use to authenticate with the EdgeOS device.</param>
         /// <param name="host">The EdgeOS hostname this instance will contact.</param>
-        public WebClient(string username, string password, string host)
+        public WebClient(string host)
         {
-            // Store the credentials into a private field.
-            this.username = username;
-            this.password = password;
-
             // Prevent .NET from consuming the HTTP 303 that contains our authentication session.
             _httpClient = new HttpClient(new HttpClientHandler() { AllowAutoRedirect = false, CookieContainer = new CookieContainer() })
             {
@@ -87,10 +75,13 @@ namespace EdgeOS.API
         }
 
         /// <summary>Attempt to login to the EdgeOS device and configure the <seealso cref="HttpClient"/> with the session credentials for future usage.</summary>
-        public void Login()
+        /// <param name="username">The username this instance will use to login to the EdgeOS device.</param>
+        /// <param name="password">The password this instance will use to login to the EdgeOS device.</param>
+        public void Login(string username, string password)
         {
             // Teardown any previous session.
             SessionID = null;
+            CSRFToken = null;
 
             // Build up the HTML Form.
             List<KeyValuePair<string, string>> loginForm = new List<KeyValuePair<string, string>>

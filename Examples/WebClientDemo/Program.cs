@@ -23,19 +23,19 @@ namespace WebClientDemo
             }
 
             // EdgeOS requires logins and session heartbeats to be sent via the REST API.
-            WebClient webClient = new WebClient(ConfigurationManager.AppSettings["Username"], ConfigurationManager.AppSettings["Password"], "https://" + ConfigurationManager.AppSettings["Host"] + "/");
+            WebClient webClient = new WebClient("https://" + ConfigurationManager.AppSettings["Host"] + "/");
 
             // Ignore TLS certificate errors if there is a ".crt" file present that matches this host.
             webClient.AllowLocalCertificates();
 
             // Login to the router.
-            webClient.Login();
+            webClient.Login(ConfigurationManager.AppSettings["Username"], ConfigurationManager.AppSettings["Password"]);
 
             // Test the Authenticate method.
             AuthenticateResponse authenticateResponse = webClient.Authenticate(ConfigurationManager.AppSettings["Username"], ConfigurationManager.AppSettings["Password"]);
 
             // Add an IP to a FirewallAddressGroup.
-            BatchConfigurationTest(webClient);
+            //BatchConfigurationTest(webClient);
 
             // Logout of the router.
             webClient.Logout();

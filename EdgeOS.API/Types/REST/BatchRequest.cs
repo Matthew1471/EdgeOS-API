@@ -17,12 +17,5 @@ namespace EdgeOS.API.Types.REST
         /// <summary>The JSON configuration attributes to get.</summary>
         [JsonProperty(PropertyName = "GET")]
         public Configuration Get;
-
-        /// <summary>Represents the class as a JSON string suitable for sending to the EdgeOS device.</summary>
-        /// <returns>An EdgeOS friendly JSON string.</returns>
-        public string ToJson()
-        {
-            return JsonConvert.SerializeObject(this, new StringEnumConverter());
-        }
     }
 }

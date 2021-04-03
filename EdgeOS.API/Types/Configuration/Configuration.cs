@@ -57,12 +57,5 @@ namespace EdgeOS.API.Types.REST
         /// <summary>Configure zone-policy</summary>
         [JsonProperty(PropertyName = "zone-policy")]
         public object ZonePolicy;
-
-        /// <summary>Represents the class as a JSON string suitable for sending to the EdgeOS device.</summary>
-        /// <returns>An EdgeOS friendly JSON string.</returns>
-        public string ToJson()
-        {
-            return JsonConvert.SerializeObject(this, new StringEnumConverter());
-        }
     }
 }

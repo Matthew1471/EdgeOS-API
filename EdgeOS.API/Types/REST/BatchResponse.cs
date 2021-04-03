@@ -34,11 +34,16 @@ namespace EdgeOS.API.Types.REST
         [JsonProperty(PropertyName = "success")]
         public bool Success;
 
-        /// <summary>Represents the class as a JSON string suitable for sending to the EdgeOS device.</summary>
-        /// <returns>An EdgeOS friendly JSON string.</returns>
-        public string ToJson()
+        /// <summary>A class representing a single status item for the batch configuration response from EdgeOS.</summary>
+        public class BatchResponseStatus
         {
-            return JsonConvert.SerializeObject(this, new StringEnumConverter());
+            /// <summary>Whether the operation failed.</summary>
+            [JsonProperty(PropertyName = "failure")]
+            public string Failure;
+
+            /// <summary>Whether the operation was successful.</summary>
+            [JsonProperty(PropertyName = "success")]
+            public string Success;
         }
     }
 }

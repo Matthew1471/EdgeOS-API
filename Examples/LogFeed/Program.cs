@@ -39,13 +39,13 @@ namespace LogFeed
             sessionHeartbeatTimer.Elapsed += (s, a) => webClient.Heartbeat();
 
             // The WebClient allows us to get a valid SessionID to then use with the StatsConnection.
-            webClient = new WebClient(ConfigurationManager.AppSettings["Username"], ConfigurationManager.AppSettings["Password"], "https://" + ConfigurationManager.AppSettings["Host"] + "/");
+            webClient = new WebClient("https://" + ConfigurationManager.AppSettings["Host"] + "/");
 
             // Ignore TLS certificate errors if there is a ".crt" file present that matches this host.
             webClient.AllowLocalCertificates();
 
             // Login to the router.
-            webClient.Login();
+            webClient.Login(ConfigurationManager.AppSettings["Username"], ConfigurationManager.AppSettings["Password"]);
 
             // Share a valid SessionID with a new StatsConnection object.
             statsConnection = new StatsConnection(webClient.SessionID);

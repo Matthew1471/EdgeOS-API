@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using EdgeOS.API.Types.SubscriptionResponses.UDAPITypes;
+using Newtonsoft.Json;
 
 namespace EdgeOS.API.Types.SubscriptionResponses
 {
