@@ -1,8 +1,11 @@
-﻿using System;
+﻿using EdgeOS.API.Types.REST;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Text;
 
 namespace EdgeOS.API
 {
@@ -17,6 +20,9 @@ namespace EdgeOS.API
 
         /// <summary>The EdgeOS SessionID returned after logging in.</summary>
         public string SessionID;
+
+        /// <summary>The EdgeOS Cross-Site Request Forgery (CSRF) token returned after logging in.</summary>
+        public string CSRFToken;
 
         /// <summary>The HTTP Client object that all requests will be performed from. It may have valid credentials pre-configured if <see cref="Login"/> is invoked.</summary>
         private readonly HttpClient _httpClient;
@@ -40,8 +46,12 @@ namespace EdgeOS.API
 
             // Be a good net citizen and reveal who we are.
             _httpClient.DefaultRequestHeaders.Add("User-Agent", "C#-EdgeOS-API");
+        }
 
-            // Allow only our trusted certificate (if there is one) but otherwise reject any certificate errors.
+        /// <summary>Allows a local .crt certificate file to be used to validate a host.</summary>
+        public void AllowLocalCertificates()
+        {
+            // Ignore certificate trust errors if there is a saved public key pinned.
             ServicePointManager.ServerCertificateValidationCallback += ServerCertificateValidationCallback.PinPublicKey;
         }
 
@@ -80,14 +90,26 @@ namespace EdgeOS.API
 
                     // The stats connection requires the session ID for authentication.
                     const string sessionNeedle = "PHPSESSID=";
+
+                    // The X-CSRF-TOKEN is used to validate sensitive HTTP POSTs.
+                    const string csrfNeedle = "X-CSRF-TOKEN=";
+
                     foreach (string cookie in headers.GetValues("Set-Cookie"))
                     {
                         // We are only interested in the PHPSESSID.
-                        if (cookie.StartsWith(sessionNeedle)) {
+                        if (cookie.StartsWith(sessionNeedle))
+                        {
                             int semicolon = cookie.IndexOf(';');
                             SessionID = semicolon == -1 ? cookie.Substring(sessionNeedle.Length) : cookie.Substring(sessionNeedle.Length, semicolon - sessionNeedle.Length);
-                            break;
                         }
+                        else if (cookie.StartsWith(csrfNeedle))
+                        {
+                            int semicolon = cookie.IndexOf(';');
+                            CSRFToken = semicolon == -1 ? cookie.Substring(csrfNeedle.Length) : cookie.Substring(csrfNeedle.Length, semicolon - sessionNeedle.Length);
+                        }
+
+                        // Do we have everything to break out of the loop?
+                        if (SessionID != null && CSRFToken != null) { break; }
                     }
 
                     // There's a chance the authentication has changed and we are no longer reliant on a PHPSESSID.
@@ -101,6 +123,40 @@ namespace EdgeOS.API
         public void Heartbeat()
         {
             _httpClient.GetAsync("/api/edge/heartbeat.json?_=" + (DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalSeconds);
+        }
+
+        /// <summary>Make a batch query/deletion/update request to specific parts of the device’s configuration.</summary>
+        /// <param name="batchRequest"></param>
+        public BatchResponse Batch(BatchRequest batchRequest)
+        {
+            // Serialize our concrete class into a JSON String.
+            string requestContent = JsonConvert.SerializeObject(batchRequest, new JsonSerializerSettings() { NullValueHandling = NullValueHandling.Ignore });
+
+            // We build up our request.
+            HttpRequestMessage httpRequest = new HttpRequestMessage(HttpMethod.Post, "/api/edge/batch.json") { Content = new StringContent(requestContent, Encoding.UTF8, "application/json") };
+
+            // This end-point is protected with a Cross-Site Request Forgery (CSRF) token.
+            httpRequest.Headers.Add("X-CSRF-TOKEN", CSRFToken);
+
+            // Send it to the Configuration Settings Batch end-point with the appropriate CSRF header.
+            HttpResponseMessage httpResponse = _httpClient.SendAsync(httpRequest).Result;
+
+            // Check the result is what we are expecting (and throw an exception if not).
+            httpResponse.EnsureSuccessStatusCode();
+
+            // If the response contains content we want to read it.
+            if (httpResponse.Content != null)
+            {
+                string responseContent = httpResponse.Content.ReadAsStringAsync().Result;
+
+                // Deserialize the responseContent to a BatchResponse.
+                return JsonConvert.DeserializeObject<BatchResponse>(responseContent);
+            }
+            else
+            {
+                // No content returned.
+                return null;
+            }
         }
 
         /// <summary>Ensures proper clean up of the resources.</summary>

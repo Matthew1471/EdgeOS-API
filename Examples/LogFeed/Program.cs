@@ -41,6 +41,9 @@ namespace LogFeed
             // The WebClient allows us to get a valid SessionID to then use with the StatsConnection.
             webClient = new WebClient(ConfigurationManager.AppSettings["Username"], ConfigurationManager.AppSettings["Password"], "https://" + ConfigurationManager.AppSettings["Host"] + "/");
 
+            // Ignore TLS certificate errors if there is a ".crt" file present that matches this host.
+            webClient.AllowLocalCertificates();
+
             // Login to the router.
             webClient.Login();
 

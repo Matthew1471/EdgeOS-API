@@ -5,6 +5,8 @@ The `/api/edge/batch.json` endpoint allows you to make batch queries/deletions/u
 
 It does not support a HTTP GET.
 
+This method is CSRF protected so also requires a `X-CSRF-TOKEN` (see link:../README.adoc#Sensitive-Requests-CSRF-Protection[Sensitive Requests (CSRF Protection)]).
+
 == Request
 
 === Root
@@ -61,7 +63,7 @@ It does not support a HTTP GET.
 |`GET`
 |String
 |JSON configuration
-|The requested section of the after the operation is performed (defaults to the requested section for deletion/setting by default).
+|The requested section of the configuration after the operation is performed (defaults to the requested section for deletion/setting by default).
 
 |`COMMIT`
 |Object

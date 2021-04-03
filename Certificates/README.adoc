@@ -1,0 +1,20 @@
+= Certificates Folder =
+:toc:
+
+== Introduction ==
+
+The Examples projects all have a post-build task to run `xcopy "$(SolutionDir)Certificates\*.crt" "$(TargetDir)" /Y /D` on a successful build so that your router's self-signed certificate can be trusted.
+
+== Usage ==
+
+The library itself when the function(s) are called to `AllowLocalCertificates()` will look for a file with the `%hostname%`.crt (with any `-` or `.` characters removed) to perform certificate validation.
+
+Should the certificate already be valid there is no need to place a certificate in this folder (unless you want to otherwise pin the validation to a specific certificate) and standard certificate validation occurs.
+
+== Obtaining Certificates ==
+
+Visiting your router's web UI in your web-browser and using the functionality to save a website's certificate to a file will usually suffice in obtaining the public certificate for your router.
+
+This of course varies based off the browser you use but a helpful site for most common browsers is at : https://medium.com/@menakajain/export-download-ssl-certificate-from-server-site-url-bcfc41ea46a2
+
+WARNING: You will want to override the filename to have a `.crt` file extention not the default `.cer` as the library only looks for `.crt` ending filenames.

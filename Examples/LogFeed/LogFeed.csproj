@@ -44,9 +44,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="Router.crt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\EdgeOS.API\EdgeOS.API.csproj">
@@ -55,4 +52,8 @@
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>echo Copying any new authorised self-signed or pinned certificate(s) to trust.
+xcopy "$(SolutionDir)Certificates\*.crt" "$(TargetDir)" /Y /D</PostBuildEvent>
+  </PropertyGroup>
 </Project>

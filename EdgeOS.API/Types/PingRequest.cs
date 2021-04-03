@@ -3,7 +3,7 @@ using Newtonsoft.Json.Converters;
 
 namespace EdgeOS.API.Types
 {
-    /// <summary>A class representing the required ping message to renew a session ID on EdgeOS.</summary>
+    /// <summary>A class representing an ignored ping message to keep-alive the EdgeOS connection.</summary>
     public class PingRequest
     {
         /// <summary>EdgeOS empty string.</summary>
