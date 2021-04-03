@@ -61,19 +61,7 @@ namespace EdgeOS.API
             DisconnectedByUser,
 
             /// <summary>The remote server has closed the connection.</summary>
-            DisconnectedByHost,
-
-            /// <summary>The host did not respond to our connection in the specified time.</summary>
-            ConnectFail_Timeout,
-
-            /// <summary>The host did not send data in the specified time.</summary>
-            ReceiveFail_Timeout,
-
-            /// <summary>The message failed to send in time.</summary>
-            SendFail_Timeout,
-
-            /// <summary>An error has occurred.</summary>
-            Error
+            DisconnectedByHost
         };
 
         /// <summary>Prevent the compiler from creating a default constructor without the SessionID.</summary>
@@ -94,7 +82,7 @@ namespace EdgeOS.API
         public void AllowLocalCertificates()
         {
             // Ignore certificate trust errors if there is a saved public key pinned.
-            ServicePointManager.ServerCertificateValidationCallback += ServerCertificateValidationCallback.PinPublicKey;
+            ServicePointManager.ServerCertificateValidationCallback = ServerCertificateValidationCallback.PinPublicKey;
         }
 
         /// <summary>Tells the underlying ClientWebSocket to connect and raises various connection events.</summary>

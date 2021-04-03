@@ -40,10 +40,10 @@ namespace EdgeOS.API
         public void AllowLocalCertificates()
         {
             // Ignore certificate trust errors if there is a saved public key pinned.
-            ServicePointManager.ServerCertificateValidationCallback += ServerCertificateValidationCallback.PinPublicKey;
+            ServicePointManager.ServerCertificateValidationCallback = ServerCertificateValidationCallback.PinPublicKey;
         }
 
-        /// <summary>Attempt to authenticate with the EdgeOS device and will internally create a session but will not return session tokens to allow further requests. See <see cref="Login()"/> to actually login to obtain a session.</summary>
+        /// <summary>Attempt to authenticate with the EdgeOS device and will internally create a session but will not return session tokens to allow further requests. See <see cref="Login(string, string)"/> to actually login to obtain a session.</summary>
         public AuthenticateResponse Authenticate(string username, string password)
         {
             // Build up the HTML Form.
