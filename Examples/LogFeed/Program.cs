@@ -12,9 +12,6 @@ namespace LogFeed
         // Signals when we want to quit.
         private static readonly ManualResetEvent WantToQuit = new ManualResetEvent(false);
 
-        // EdgeOS requires logins and session heartbeats to be sent via the REST API.
-        private static WebClient webClient;
-
         // EdgeOS requires the session to be renewed or it will expire (we renew every 30s)
         private static readonly System.Timers.Timer sessionHeartbeatTimer = new System.Timers.Timer(30000);
 
@@ -35,46 +32,49 @@ namespace LogFeed
                 Environment.Exit(1610);
             }
 
-            // This method will be invoked each time the timer has elapsed.
-            sessionHeartbeatTimer.Elapsed += (s, a) => webClient.Heartbeat();
-
             // The WebClient allows us to get a valid SessionID to then use with the StatsConnection.
-            webClient = new WebClient("https://" + ConfigurationManager.AppSettings["Host"] + "/");
-
-            // Ignore TLS certificate errors if there is a ".crt" file present that matches this host.
-            webClient.AllowLocalCertificates();
-
-            // Login to the router.
-            webClient.Login(ConfigurationManager.AppSettings["Username"], ConfigurationManager.AppSettings["Password"]);
-
-            // Share a valid SessionID with a new StatsConnection object.
-            statsConnection = new StatsConnection(webClient.SessionID);
-
-            // Ignore TLS certificate errors if there is a ".crt" file present that matches this host.
-            statsConnection.AllowLocalCertificates();
-
-            // Connect to the router.
-            statsConnection.ConnectAsync(new Uri("wss://" + ConfigurationManager.AppSettings["Host"] + "/ws/stats"));
-
-            // Setup an event handler for when data is received.
-            statsConnection.DataReceived += Connection_DataReceived;
-
-            // Setup an event handler for when the connection state changes.
-            statsConnection.ConnectionStatusChanged += Connection_ConnectionStatusChanged;
-
-
-            // We want the user (and the program itself) to be able to choose to exit.
-            Console.CancelKeyPress += delegate (object sender, ConsoleCancelEventArgs eventArgs)
+            using (WebClient webClient = new WebClient("https://" + ConfigurationManager.AppSettings["Host"] + "/"))
             {
+                // This method will be invoked each time the timer has elapsed.
+                sessionHeartbeatTimer.Elapsed += (s, a) => webClient.Heartbeat();
+
+                // Ignore TLS certificate errors if there is a ".crt" file present that matches this host.
+                webClient.AllowLocalCertificates();
+
+                // Login to the router.
+                webClient.Login(ConfigurationManager.AppSettings["Username"], ConfigurationManager.AppSettings["Password"]);
+
+                // Share a valid SessionID with a new StatsConnection object.
+                statsConnection = new StatsConnection(webClient.SessionID);
+
+                // Ignore TLS certificate errors if there is a ".crt" file present that matches this host.
+                statsConnection.AllowLocalCertificates();
+
+                // Connect to the router.
+                statsConnection.ConnectAsync(new Uri("wss://" + ConfigurationManager.AppSettings["Host"] + "/ws/stats"));
+
+                // Setup an event handler for when data is received.
+                statsConnection.DataReceived += Connection_DataReceived;
+
+                // Setup an event handler for when the connection state changes.
+                statsConnection.ConnectionStatusChanged += Connection_ConnectionStatusChanged;
+
+                // We want the user (and the program itself) to be able to choose to exit.
+                Console.CancelKeyPress += delegate (object sender, ConsoleCancelEventArgs eventArgs)
+                {
                 // Mark as handled by us, as we will want to clean up.
                 eventArgs.Cancel = true;
 
                 // Signal to the program that the user wishes to quit.
                 WantToQuit.Set();
-            };
+                };
 
-            // Wait for something (user requested to quit, program finished..) to signal we should resume.
-            WantToQuit.WaitOne();
+                // Wait for something (user requested to quit, program finished..) to signal we should resume.
+                WantToQuit.WaitOne();
+
+                // Gracefully log out.
+                webClient.Logout();
+            }
         }
 
 
@@ -143,9 +143,8 @@ namespace LogFeed
                 // Dispose of the statsConnection.
                 if (statsConnection != null) { statsConnection.Dispose(); }
 
-                // Dispose the sessionHeartbeatTimer and webClient.
+                // Dispose the sessionHeartbeatTimer.
                 if (sessionHeartbeatTimer != null) { sessionHeartbeatTimer.Dispose(); }
-                if (webClient != null) { webClient.Dispose(); }
             }
         }
     }
