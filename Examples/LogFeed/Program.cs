@@ -71,9 +71,6 @@ namespace LogFeed
 
                 // Wait for something (user requested to quit, program finished..) to signal we should resume.
                 WantToQuit.WaitOne();
-
-                // Gracefully log out.
-                webClient.Logout();
             }
         }
 

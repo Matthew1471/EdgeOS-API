@@ -116,7 +116,7 @@ namespace EdgeOS.API
         /// <summary>Log out of the EdgeOS device.</summary>
         public void Logout()
         {
-            _httpClient.GetAsync("/logout");
+            _= _httpClient.GetAsync("/logout").Result;
         }
 
         /// <summary>Attempt to authenticate with the EdgeOS device and will internally create a session but will not return session tokens to allow further requests. See <see cref="Login"/> to actually login to obtain a session.</summary>
@@ -400,7 +400,14 @@ namespace EdgeOS.API
         /// <summary>Ensures proper clean up of the resources.</summary>
         public void Dispose()
         {
-            if (_httpClient != null) { _httpClient.Dispose(); }
+            if (_httpClient != null) {
+
+                // Attempt to log out.
+                if (SessionID != null) { Logout(); }
+
+                // Dispose of the _httpClient field.
+                _httpClient.Dispose(); 
+            }
         }
     }
 }
