@@ -39,7 +39,7 @@ A HTTP GET to `/api/edge/getcfg.json` can be used to get a JSON formatted object
 |`success`
 |Boolean
 |`true` or `false`
-|A boolean value that represents whether the API request was successful.
+|Whether the API request was successful.
 |===
 
 === `getcfg` Object
@@ -69,7 +69,7 @@ A HTTP GET to `/api/edge/getcfg.json` can be used to get a JSON formatted object
 |`success`
 |String
 |A boolean encapsulated in a string (e.g. `"0"` or `"1"`)
-|Whether the operation was successful.
+|Whether the configuration settings get tree operation was successful.
 
 |`error` (Optional)
 |String

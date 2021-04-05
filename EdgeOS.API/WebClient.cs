@@ -116,7 +116,7 @@ namespace EdgeOS.API
         /// <summary>Log out of the EdgeOS device.</summary>
         public void Logout()
         {
-            _= _httpClient.GetAsync("/logout").Result;
+            _ = _httpClient.GetAsync("/logout").Result;
         }
 
         /// <summary>Attempt to authenticate with the EdgeOS device and will internally create a session but will not return session tokens to allow further requests. See <see cref="Login"/> to actually login to obtain a session.</summary>
@@ -365,17 +365,178 @@ namespace EdgeOS.API
 
         //TODO: Clear Traffic Analysis method.
 
+        /// <summary>Reset the device back to its factory-default state (erasing all user-generated files and deleting backup firmware image).</summary>
+        /// <returns>The response from the device.</returns>
+        public OperationResponse OperationFactoryReset()
+        {
+            // We build up our request.
+            HttpRequestMessage httpRequest = new HttpRequestMessage(HttpMethod.Post, "/api/edge/operation/factory-reset.json");
+
+            // This end-point is protected with a Cross-Site Request Forgery (CSRF) token.
+            httpRequest.Headers.Add("X-CSRF-TOKEN", CSRFToken);
+
+            // Send it to the Operation Factory Reset end-point with the appropriate CSRF header.
+            HttpResponseMessage httpResponse = _httpClient.SendAsync(httpRequest).Result;
+
+            // Check the result is what we are expecting (and throw an exception if not).
+            httpResponse.EnsureSuccessStatusCode();
+
+            // If the response contains content we want to read it.
+            if (httpResponse.Content != null)
+            {
+                string responseContent = httpResponse.Content.ReadAsStringAsync().Result;
+
+                // Deserialize the responseContent to a OperationResponse.
+                return JsonConvert.DeserializeObject<OperationResponse>(responseContent);
+            }
+            else
+            {
+                // No content returned.
+                return null;
+            }
+        }
+
         //TODO: Generate Support File methods.
 
         //TODO: Reboot method.
 
-        //TODO: Release DHCP lease method.
+        /// <summary>Release the DHCP Lease for a specific interface (defective in most EdgeRouter firmware).</summary>
+        /// <param name="interface">The specific interface to request to release the DHCP lease (e.g. eth0).</param>
+        /// <returns>The response from the device.</returns>
+        public OperationResponse OperationReleaseDHCP(string @interface)
+        {
+            // Build up the HTML Form.
+            List<KeyValuePair<string, string>> releaseDHCPform = new List<KeyValuePair<string, string>>
+            {
+                new KeyValuePair<string, string>("interface", @interface)
+            };
 
-        //TODO: Renew DHCP lease method.
+            // We build up our request.
+            HttpRequestMessage httpRequest = new HttpRequestMessage(HttpMethod.Post, "/api/edge/operation/release-dhcp.json") { Content = new FormUrlEncodedContent(releaseDHCPform) };
 
-        //TODO: Reset Default Configuration method.
+            // This end-point is protected with a Cross-Site Request Forgery (CSRF) token.
+            httpRequest.Headers.Add("X-CSRF-TOKEN", CSRFToken);
 
-        //TODO: Shutdown method.
+            // Send it to the Operation Release DHCP end-point with the appropriate CSRF header.
+            HttpResponseMessage httpResponse = _httpClient.SendAsync(httpRequest).Result;
+
+            // Check the result is what we are expecting (and throw an exception if not).
+            httpResponse.EnsureSuccessStatusCode();
+
+            // If the response contains content we want to read it.
+            if (httpResponse.Content != null)
+            {
+                string responseContent = httpResponse.Content.ReadAsStringAsync().Result;
+
+                // Deserialize the responseContent to a OperationResponse.
+                return JsonConvert.DeserializeObject<OperationResponse>(responseContent);
+            }
+            else
+            {
+                // No content returned.
+                return null;
+            }
+        }
+
+        /// <summary>Renew the DHCP Lease for a specific interface (defective in most EdgeRouter firmware).</summary>
+        /// <param name="interface">The specific interface to request to renew the DHCP lease (e.g. eth0).</param>
+        /// <returns>The response from the device.</returns>
+        public OperationResponse OperationRenewDHCP(string @interface)
+        {
+            // Build up the HTML Form.
+            List<KeyValuePair<string, string>> renewDHCPform = new List<KeyValuePair<string, string>>
+            {
+                new KeyValuePair<string, string>("interface", @interface)
+            };
+
+            // We build up our request.
+            HttpRequestMessage httpRequest = new HttpRequestMessage(HttpMethod.Post, "/api/edge/operation/renew-dhcp.json") { Content = new FormUrlEncodedContent(renewDHCPform) };
+
+            // This end-point is protected with a Cross-Site Request Forgery (CSRF) token.
+            httpRequest.Headers.Add("X-CSRF-TOKEN", CSRFToken);
+
+            // Send it to the Operation Renew DHCP end-point with the appropriate CSRF header.
+            HttpResponseMessage httpResponse = _httpClient.SendAsync(httpRequest).Result;
+
+            // Check the result is what we are expecting (and throw an exception if not).
+            httpResponse.EnsureSuccessStatusCode();
+
+            // If the response contains content we want to read it.
+            if (httpResponse.Content != null)
+            {
+                string responseContent = httpResponse.Content.ReadAsStringAsync().Result;
+
+                // Deserialize the responseContent to a OperationResponse.
+                return JsonConvert.DeserializeObject<OperationResponse>(responseContent);
+            }
+            else
+            {
+                // No content returned.
+                return null;
+            }
+        }
+
+        /// <summary>Reset the device configuration back to default values (backup firmware image and user-generated files will remain intact).</summary>
+        /// <returns>The response from the device.</returns>
+        public OperationResponse OperationResetDefaultConfiguration()
+        {
+            // We build up our request.
+            HttpRequestMessage httpRequest = new HttpRequestMessage(HttpMethod.Post, "/api/edge/operation/reset-default-config.json");
+
+            // This end-point is protected with a Cross-Site Request Forgery (CSRF) token.
+            httpRequest.Headers.Add("X-CSRF-TOKEN", CSRFToken);
+
+            // Send it to the Operation Reset Default Configuration end-point with the appropriate CSRF header.
+            HttpResponseMessage httpResponse = _httpClient.SendAsync(httpRequest).Result;
+
+            // Check the result is what we are expecting (and throw an exception if not).
+            httpResponse.EnsureSuccessStatusCode();
+
+            // If the response contains content we want to read it.
+            if (httpResponse.Content != null)
+            {
+                string responseContent = httpResponse.Content.ReadAsStringAsync().Result;
+
+                // Deserialize the responseContent to a OperationResponse.
+                return JsonConvert.DeserializeObject<OperationResponse>(responseContent);
+            }
+            else
+            {
+                // No content returned.
+                return null;
+            }
+        }
+
+        /// <summary>Shutdown the device.</summary>
+        /// <returns>The response from the device.</returns>
+        public OperationResponse OperationShutdown()
+        {
+            // We build up our request.
+            HttpRequestMessage httpRequest = new HttpRequestMessage(HttpMethod.Post, "/api/edge/operation/shutdown.json");
+
+            // This end-point is protected with a Cross-Site Request Forgery (CSRF) token.
+            httpRequest.Headers.Add("X-CSRF-TOKEN", CSRFToken);
+
+            // Send it to the Operation Shutdown end-point with the appropriate CSRF header.
+            HttpResponseMessage httpResponse = _httpClient.SendAsync(httpRequest).Result;
+
+            // Check the result is what we are expecting (and throw an exception if not).
+            httpResponse.EnsureSuccessStatusCode();
+
+            // If the response contains content we want to read it.
+            if (httpResponse.Content != null)
+            {
+                string responseContent = httpResponse.Content.ReadAsStringAsync().Result;
+
+                // Deserialize the responseContent to a OperationResponse.
+                return JsonConvert.DeserializeObject<OperationResponse>(responseContent);
+            }
+            else
+            {
+                // No content returned.
+                return null;
+            }
+        }
 
         //TODO: OLT Get Connected ONU method.
 
@@ -400,13 +561,14 @@ namespace EdgeOS.API
         /// <summary>Ensures proper clean up of the resources.</summary>
         public void Dispose()
         {
-            if (_httpClient != null) {
+            if (_httpClient != null)
+            {
 
                 // Attempt to log out.
                 if (SessionID != null) { Logout(); }
 
                 // Dispose of the _httpClient field.
-                _httpClient.Dispose(); 
+                _httpClient.Dispose();
             }
         }
     }

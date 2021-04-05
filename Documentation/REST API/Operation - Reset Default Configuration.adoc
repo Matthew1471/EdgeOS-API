@@ -1,3 +1,7 @@
 = Operation - Reset Default Configuration
 
-The device configuration can be reset by sending a HTTP POST to `/api/edge/operation/reset-default-config.json`
+The device configuration can be reset back to default values by sending a HTTP POST to `/api/edge/operation/reset-default-config.json`. Backup firmware image and user-generated files will remain intact.
+
+It does not support a HTTP GET.
+
+This method is CSRF protected so also requires a `X-CSRF-TOKEN` (see link:../README.adoc#Sensitive-Requests-CSRF-Protection[Sensitive Requests (CSRF Protection)]).

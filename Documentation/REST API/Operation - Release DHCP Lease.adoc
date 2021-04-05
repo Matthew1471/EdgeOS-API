@@ -1,3 +1,82 @@
 = Operation - Release DHCP Lease
 
-The DHCP lease can be released by sending a HTTP POST to `/api/edge/operation/release-dhcp.json`
+The DHCP lease can be released by sending a HTTP POST to `/api/edge/operation/release-dhcp.json`.
+
+It does not support a HTTP GET.
+
+This method is CSRF protected so also requires a `X-CSRF-TOKEN` (see link:../README.adoc#Sensitive-Requests-CSRF-Protection[Sensitive Requests (CSRF Protection)]).
+
+== Request
+
+=== Request Content
+
+[cols="1,1,1,2", options="header"] 
+|===
+|Name
+|Type
+|Values
+|Description
+
+|`interface`
+|String
+|Interface
+|The specific interface to request to release the DHCP lease (e.g. `eth0`).
+|===
+
+== Response
+
+=== Root
+
+[cols="1,1,1,2", options="header"] 
+|===
+|Name
+|Type
+|Values
+|Description
+
+|`OPERATION`
+|Object
+|`OPERATION` object
+|The operation result information.
+
+|`success`
+|Boolean
+|`true` or `false`
+|Whether the API request was successful.
+|===
+
+=== `OPERATION` Object
+
+[cols="1,1,1,2", options="header"] 
+|===
+|Name
+|Type
+|Values
+|Description
+
+|`success`
+|String
+|A boolean encapsulated in a string (e.g. `"0"` or `"1"`)
+|Whether the request to release the DHCP lease was successful.
+
+|`error` (Optional)
+|String
+|String
+|Why the API request was unsuccessful.
+|===
+
+== Examples
+
+=== Unsuccessful DHCP Lease Release
+
+.GET */api/edge/operation/release-dhcp.json* Request
+[source,http]
+----
+interface=eth0
+----
+
+.GET */api/edge/operation/release-dhcp.json* Response
+[source,json]
+----
+{"OPERATION": {"success": "0", "error": "OPERATION request failed"}, "success": true}
+----

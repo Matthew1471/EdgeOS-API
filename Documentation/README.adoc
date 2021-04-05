@@ -91,6 +91,7 @@ These are defined as "<op>.json" and are passed to the closed-source `ubnt-util`
 
 * link:REST%20API/Operation%20-%20Check%20For%20Firmware%20Updates.adoc[Check For Firmware Updates]
 * link:REST%20API/Operation%20-%20Clear%20Traffic%20Analysis.adoc[Clear Traffic Analysis]
+* link:REST%20API/Operation%20-%20Factory%20Reset.adoc[Factory Reset]
 * link:REST%20API/Operation%20-%20Generate%20Support%20File.adoc[Generate Support File]
 * link:REST%20API/Operation%20-%20Reboot.adoc[Reboot]
 * link:REST%20API/Operation%20-%20Release%20DHCP%20Lease.adoc[Release DHCP Lease]

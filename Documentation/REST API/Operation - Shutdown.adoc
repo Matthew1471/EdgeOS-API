@@ -1,3 +1,7 @@
 = Operation - Shutdown
 
-The device can be shutdown by sending a HTTP POST to `/api/edge/operation/shutdown.json`
+The device can be shutdown by sending a HTTP POST to `/api/edge/operation/shutdown.json`.
+
+It does not support a HTTP GET.
+
+This method is CSRF protected so also requires a `X-CSRF-TOKEN` (see link:../README.adoc#Sensitive-Requests-CSRF-Protection[Sensitive Requests (CSRF Protection)]).

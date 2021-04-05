@@ -1,0 +1,7 @@
+= Operation - Factory Reset
+
+The device can be reset back to factory-default state by sending a HTTP POST to `/api/edge/operation/factory-reset.json`. This erases all user-generated files and deletes the backup firmware image.
+
+It does not support a HTTP GET.
+
+This method is CSRF protected so also requires a `X-CSRF-TOKEN` (see link:../README.adoc#Sensitive-Requests-CSRF-Protection[Sensitive Requests (CSRF Protection)]).

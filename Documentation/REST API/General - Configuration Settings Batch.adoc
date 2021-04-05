@@ -78,7 +78,7 @@ This method is CSRF protected so also requires a `X-CSRF-TOKEN` (see link:../REA
 |`success`
 |Boolean
 |`true` or `false`
-|A boolean value that represents whether the API request was successful.
+|Whether the API request was successful.
 |===
 
 === `status` Object
@@ -98,7 +98,7 @@ This method is CSRF protected so also requires a `X-CSRF-TOKEN` (see link:../REA
 |`success`
 |String
 |A boolean encapsulated in a string (e.g. `"0"` or `"1"`)
-|Whether the operation was successful.
+|Whether the configuration settings batch operation was successful.
 |===
 
 == Examples

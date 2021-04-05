@@ -50,7 +50,7 @@ A HTTP POST to `/api/edge/delete.json` with the JSON configuration attributes to
 |`success`
 |Boolean
 |`true` or `false`
-|A boolean value that represents whether the API request was successful.
+|Whether the API request was successful.
 |===
 
 === `status` Object
@@ -70,7 +70,7 @@ A HTTP POST to `/api/edge/delete.json` with the JSON configuration attributes to
 |`success`
 |String
 |A boolean encapsulated in a string (e.g. `"0"` or `"1"`)
-|Whether the operation was successful.
+|Whether the configuration settings delete operation was successful.
 |===
 
 == Examples

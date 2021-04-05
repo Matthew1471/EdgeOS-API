@@ -1,7 +1,11 @@
 = Operation - Renew DHCP Lease
 :toc: preamble
 
-The DHCP lease can be renewed by sending a HTTP POST to `/api/edge/operation/renew-dhcp.json`
+The DHCP lease can be renewed by sending a HTTP POST to `/api/edge/operation/renew-dhcp.json`.
+
+It does not support a HTTP GET.
+
+This method is CSRF protected so also requires a `X-CSRF-TOKEN` (see link:../README.adoc#Sensitive-Requests-CSRF-Protection[Sensitive Requests (CSRF Protection)]).
 
 == Request
 

@@ -50,7 +50,7 @@ A HTTP POST to `/api/edge/set.json` with the JSON configuration attributes to se
 |`success`
 |Boolean
 |`true` or `false`
-|A boolean value that represents whether the API request was successful.
+|Whether the API request was successful.
 |===
 
 === `status` Object
@@ -65,12 +65,12 @@ A HTTP POST to `/api/edge/set.json` with the JSON configuration attributes to se
 |`failure`
 |String
 |A boolean encapsulated in a string (e.g. `"0"` or `"1"`)
-|Whether the operation failed.
+|Whether the configuration settings set operation failed.
 
 |`success`
 |String
 |A boolean encapsulated in a string (e.g. `"0"` or `"1"`)
-|Whether the operation was successful.
+|Whether the configuration settings set operation was successful.
 |===
 
 == Examples

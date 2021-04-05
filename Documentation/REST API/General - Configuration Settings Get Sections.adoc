@@ -46,7 +46,7 @@ To get the full configuration you can use `/api/edge/partial.json`, `/api/edge/p
 |`success`
 |Boolean
 |`true` or `false`
-|A boolean value that represents whether the API request was successful.
+|Whether the API request was successful.
 |===
 
 == Examples

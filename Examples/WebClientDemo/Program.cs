@@ -10,7 +10,7 @@ namespace WebClientDemo
 {
     class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
             // Set the window title to something a bit more interesting.
             if (!Console.IsOutputRedirected) { Console.Title = "WebClient Demo V0.1"; }
@@ -58,7 +58,7 @@ namespace WebClientDemo
             // Add an IP to a FirewallAddressGroup (creating it if it doesn't already exist).
             //ConfigurationSettingsBatchTest(webClient, exampleConfiguration);
 
-            // Delete BannedAddresses.
+            // Delete APITestAddresses.
             //exampleConfiguration.Firewall.Group.AddressGroup["APITestAddresses"] = null;
 
             // Remove the FirewallAddressGroup.
@@ -67,7 +67,7 @@ namespace WebClientDemo
             // Get predefined config list.
             //ConfigurationSettingsGetResponse configurationSettingsGetPredefinedListResponse = webClient.ConfigurationSettingsGetPredefinedList();
 
-            // Get partial config.
+            // Get sections of partial config.
             //ConfigurationSettingsGetResponse configurationSettingsGetSectionsResponse = webClient.ConfigurationSettingsGetSections("{\"firewall\":null, \"protocols\":null}");
 
             // Get tree config.
@@ -77,6 +77,15 @@ namespace WebClientDemo
 
             // Set a FirewallAddressGroup.
             //ConfigurationSettingsSetResponse configurationSettingsSetResponse = webClient.ConfigurationSettingsSet(exampleConfiguration);
+
+            // Release and Renew DHCP lease.
+            //OperationResponse operationReleaseResponse = webClient.OperationReleaseDHCP("eth0");
+            //OperationResponse operationRenewResponse = webClient.OperationRenewDHCP("eth0");
+
+            // Test other operations.
+            //OperationResponse operationShutdown = webClient.OperationShutdown();
+            //OperationResponse operationResetDefaultConfiguration = webClient.OperationResetDefaultConfiguration();
+            //OperationResponse operationFactoryReset = webClient.OperationFactoryReset();
 
             // Logout of the router.
             webClient.Logout();

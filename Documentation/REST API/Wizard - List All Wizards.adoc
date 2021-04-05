@@ -22,7 +22,7 @@ A list of all the available wizards can be obtained by sending a HTTP GET to `/a
 |`success`
 |Boolean
 |`true` or `false`
-|A boolean value that represents whether the API request was successful.
+|Whether the API request was successful.
 |===
 
 === `wizards` Object
