@@ -1,3 +1,55 @@
 = Operation - Clear Traffic Analysis
+:toc: preamble
 
-The Traffic Analysis data can be cleared by sending a HTTP POST to `/api/edge/operation/clear-traffic-analysis.json`
+The Traffic Analysis data can be cleared by sending a HTTP POST to `/api/edge/operation/clear-traffic-analysis.json`.
+
+It does not support a HTTP GET.
+
+This method is CSRF protected so also requires a `X-CSRF-TOKEN` (see link:../README.adoc#Sensitive-Requests-CSRF-Protection[Sensitive Requests (CSRF Protection)]).
+
+== Response
+
+=== Root
+
+[cols="1,1,1,2", options="header"] 
+|===
+|Name
+|Type
+|Values
+|Description
+
+|`OPERATION`
+|Object
+|`OPERATION` object
+|The operation result information.
+
+|`success`
+|Boolean
+|`true` or `false`
+|Whether the API request was successful.
+|===
+
+=== `OPERATION` Object
+
+[cols="1,1,1,2", options="header"] 
+|===
+|Name
+|Type
+|Values
+|Description
+
+|`success`
+|String
+|A boolean encapsulated in a string (e.g. `"0"` or `"1"`)
+|Whether the clear Traffic Analysis data request was successful.
+|===
+
+== Examples
+
+=== Successful Clear Traffic Analysis data
+
+.POST */api/edge/operation/clear-traffic-analysis.json* Response
+[source,json]
+----
+{"OPERATION": {"success": "1"}, "success": true}
+----

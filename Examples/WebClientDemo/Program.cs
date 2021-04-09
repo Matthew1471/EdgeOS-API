@@ -5,6 +5,7 @@ using EdgeOS.API.Types.REST.Responses;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.IO;
 
 namespace WebClientDemo
 {
@@ -78,6 +79,12 @@ namespace WebClientDemo
             // Set a FirewallAddressGroup.
             //ConfigurationSettingsSetResponse configurationSettingsSetResponse = webClient.ConfigurationSettingsSet(exampleConfiguration);
 
+            // Test operations.
+            //OperationResponse operationCheckForFirmwareUpdates = webClient.OperationCheckForFirmwareUpdates();
+            //OperationResponse operationClearTrafficAnalysis = webClient.OperationClearTrafficAnalysis();
+            //OperationResponse operationFactoryReset = webClient.OperationFactoryReset();
+            //OperationResponse operationReboot = webClient.OperationReboot();
+
             // Release and Renew DHCP lease.
             //OperationResponse operationReleaseResponse = webClient.OperationReleaseDHCP("eth0");
             //OperationResponse operationRenewResponse = webClient.OperationRenewDHCP("eth0");
@@ -85,7 +92,17 @@ namespace WebClientDemo
             // Test other operations.
             //OperationResponse operationShutdown = webClient.OperationShutdown();
             //OperationResponse operationResetDefaultConfiguration = webClient.OperationResetDefaultConfiguration();
-            //OperationResponse operationFactoryReset = webClient.OperationFactoryReset();
+
+            // Download the configuration.
+            /*
+            ConfigurationDownloadPrepareResponse configurationDownloadResponse = webClient.ConfigurationDownloadPrepare();
+
+            using (FileStream fileStream = new FileStream("Config.tar.gz", FileMode.Create, FileAccess.Write))
+            using (Stream stream = webClient.ConfigurationDownload())
+            {
+                stream.CopyTo(fileStream);
+            }
+            */
 
             // Logout of the router.
             webClient.Logout();

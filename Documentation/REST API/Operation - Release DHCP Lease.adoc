@@ -1,4 +1,5 @@
 = Operation - Release DHCP Lease
+:toc: preamble
 
 The DHCP lease can be released by sending a HTTP POST to `/api/edge/operation/release-dhcp.json`.
 

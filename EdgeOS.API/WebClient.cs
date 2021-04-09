@@ -4,6 +4,7 @@ using EdgeOS.API.Types.REST.Responses;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -118,6 +119,8 @@ namespace EdgeOS.API
         {
             _ = _httpClient.GetAsync("/logout").Result;
         }
+
+        #region Edge - General
 
         /// <summary>Attempt to authenticate with the EdgeOS device and will internally create a session but will not return session tokens to allow further requests. See <see cref="Login"/> to actually login to obtain a session.</summary>
         /// <returns>The response from the device.</returns>
@@ -272,6 +275,7 @@ namespace EdgeOS.API
         }
 
         /// <summary>Get specific tree part(s) of the device's configuration.</summary>
+        /// <param name="requestPath">The JSON key(s) to filter on, such as ["firewall", "group", "address-group"].</param>
         /// <returns>The response from the device.</returns>
         public ConfigurationSettingsGetTreeResponse ConfigurationSettingsGetTree(string[] requestPath)
         {
@@ -353,17 +357,133 @@ namespace EdgeOS.API
 
         //TODO: Wizard Setup method.
 
-        //TODO: Download Configuration methods.
+        #endregion
+
+        #region Edge - Configuration
+
+        /// <summary>Save the device's entire configuration to a temporary file on the disk in preparation to download it (see <see cref="ConfigurationDownload"/>).</summary>
+        /// <returns>The response from the device.</returns>
+        public ConfigurationDownloadPrepareResponse ConfigurationDownloadPrepare()
+        {
+            // Send it to the Download Configuration end-point.
+            HttpResponseMessage httpResponse = _httpClient.GetAsync("/api/edge/config/save.json").Result;
+
+            // Check the result is what we are expecting (and throw an exception if not).
+            httpResponse.EnsureSuccessStatusCode();
+
+            // If the response contains content we want to read it.
+            if (httpResponse.Content != null)
+            {
+                string responseContent = httpResponse.Content.ReadAsStringAsync().Result;
+
+                // Deserialize the responseContent to a ConfigurationDownloadPrepareResponse.
+                return JsonConvert.DeserializeObject<ConfigurationDownloadPrepareResponse>(responseContent);
+            }
+            else
+            {
+                // No content returned.
+                return null;
+            }
+        }
+
+        /// <summary>Get the device's entire configuration from the temporary file on disk that it was saved into (see <see cref="ConfigurationDownloadPrepare"/>.</summary>
+        /// <returns>The response from the device.</returns>
+        public Stream ConfigurationDownload()
+        {
+            // Send it to the Download Configuration end-point.
+            HttpResponseMessage httpResponse = _httpClient.GetAsync("/files/config/").Result;
+
+            // Check the result is what we are expecting (and throw an exception if not).
+            httpResponse.EnsureSuccessStatusCode();
+
+            // If the response contains content we want to read it.
+            if (httpResponse.Content != null)
+            {
+                // Return the stream.
+                return httpResponse.Content.ReadAsStreamAsync().Result;
+            }
+            else
+            {
+                // No content returned.
+                return null;
+            }
+        }
 
         //TODO: Restore Configuration method.
+
+        #endregion
+
+        #region Edge - Optical Network Unit (ONU)
 
         //TODO: ONU Upgrade method.
 
         //TODO: ONU Reboot method.
 
-        //TODO: Check for Firmware Updates method.
+        #endregion
 
-        //TODO: Clear Traffic Analysis method.
+        #region Edge - Operations
+
+        /// <summary>Check for firmware updates for the device.</summary>
+        /// <returns>The response from the device.</returns>
+        public OperationResponse OperationCheckForFirmwareUpdates()
+        {
+            // We build up our request.
+            HttpRequestMessage httpRequest = new HttpRequestMessage(HttpMethod.Post, "/api/edge/operation/refresh-fw-latest-status.json");
+
+            // This end-point is protected with a Cross-Site Request Forgery (CSRF) token.
+            httpRequest.Headers.Add("X-CSRF-TOKEN", CSRFToken);
+
+            // Send it to the Operation Check For Firmware Updates end-point with the appropriate CSRF header.
+            HttpResponseMessage httpResponse = _httpClient.SendAsync(httpRequest).Result;
+
+            // Check the result is what we are expecting (and throw an exception if not).
+            httpResponse.EnsureSuccessStatusCode();
+
+            // If the response contains content we want to read it.
+            if (httpResponse.Content != null)
+            {
+                string responseContent = httpResponse.Content.ReadAsStringAsync().Result;
+
+                // Deserialize the responseContent to a OperationResponse.
+                return JsonConvert.DeserializeObject<OperationResponse>(responseContent);
+            }
+            else
+            {
+                // No content returned.
+                return null;
+            }
+        }
+
+        /// <summary>Clear Traffic Analysis data.</summary>
+        /// <returns>The response from the device.</returns>
+        public OperationResponse OperationClearTrafficAnalysis()
+        {
+            // We build up our request.
+            HttpRequestMessage httpRequest = new HttpRequestMessage(HttpMethod.Post, "/api/edge/operation/clear-traffic-analysis.json");
+
+            // This end-point is protected with a Cross-Site Request Forgery (CSRF) token.
+            httpRequest.Headers.Add("X-CSRF-TOKEN", CSRFToken);
+
+            // Send it to the Operation Clear Traffic Analysis end-point with the appropriate CSRF header.
+            HttpResponseMessage httpResponse = _httpClient.SendAsync(httpRequest).Result;
+
+            // Check the result is what we are expecting (and throw an exception if not).
+            httpResponse.EnsureSuccessStatusCode();
+
+            // If the response contains content we want to read it.
+            if (httpResponse.Content != null)
+            {
+                string responseContent = httpResponse.Content.ReadAsStringAsync().Result;
+
+                // Deserialize the responseContent to a OperationResponse.
+                return JsonConvert.DeserializeObject<OperationResponse>(responseContent);
+            }
+            else
+            {
+                // No content returned.
+                return null;
+            }
+        }
 
         /// <summary>Reset the device back to its factory-default state (erasing all user-generated files and deleting backup firmware image).</summary>
         /// <returns>The response from the device.</returns>
@@ -398,7 +518,36 @@ namespace EdgeOS.API
 
         //TODO: Generate Support File methods.
 
-        //TODO: Reboot method.
+        /// <summary>Reboot the device.</summary>
+        /// <returns>The response from the device.</returns>
+        public OperationResponse OperationReboot()
+        {
+            // We build up our request.
+            HttpRequestMessage httpRequest = new HttpRequestMessage(HttpMethod.Post, "/api/edge/operation/shutdown.json");
+
+            // This end-point is protected with a Cross-Site Request Forgery (CSRF) token.
+            httpRequest.Headers.Add("X-CSRF-TOKEN", CSRFToken);
+
+            // Send it to the Operation Reboot end-point with the appropriate CSRF header.
+            HttpResponseMessage httpResponse = _httpClient.SendAsync(httpRequest).Result;
+
+            // Check the result is what we are expecting (and throw an exception if not).
+            httpResponse.EnsureSuccessStatusCode();
+
+            // If the response contains content we want to read it.
+            if (httpResponse.Content != null)
+            {
+                string responseContent = httpResponse.Content.ReadAsStringAsync().Result;
+
+                // Deserialize the responseContent to a OperationResponse.
+                return JsonConvert.DeserializeObject<OperationResponse>(responseContent);
+            }
+            else
+            {
+                // No content returned.
+                return null;
+            }
+        }
 
         /// <summary>Release the DHCP Lease for a specific interface (defective in most EdgeRouter firmware).</summary>
         /// <param name="interface">The specific interface to request to release the DHCP lease (e.g. eth0).</param>
@@ -538,7 +687,15 @@ namespace EdgeOS.API
             }
         }
 
+        #endregion
+
+        #region Optical Line Terminal (OLT) - General
+
         //TODO: OLT Get Connected ONU method.
+
+        #endregion
+
+        #region Optical Line Terminal (OLT) - Optical Network Unit (ONU)
 
         //TODO: OLT Generate ONU Support methods.
 
@@ -547,6 +704,10 @@ namespace EdgeOS.API
         //TODO: OLT Locate ONU method.
 
         //TODO: OLT Reset ONU method.
+
+        #endregion
+
+        #region Wizards
 
         //TODO: Wizards List All Wizards method.
 
@@ -557,6 +718,8 @@ namespace EdgeOS.API
         //TODO: Wizards Specific Wizard Remove method.
 
         //TODO: Wizards Specific Wizard Upload method.
+
+        #endregion
 
         /// <summary>Ensures proper clean up of the resources.</summary>
         public void Dispose()

@@ -61,6 +61,7 @@
     <Compile Include="Types\REST\Responses\ConfigurationSettingsDeleteResponse.cs" />
     <Compile Include="Types\REST\Responses\ConfigurationSettingsBatchResponse.cs" />
     <Compile Include="Types\REST\Responses\ConfigurationSettingsStatus.cs" />
+    <Compile Include="Types\REST\Responses\ConfigurationDownloadPrepareResponse.cs" />
     <Compile Include="Types\REST\Responses\OperationResponse.cs" />
     <Compile Include="Types\REST\Responses\OperationStatus.cs" />
     <Compile Include="Types\Subscription\Requests\ConsoleSubscription.cs" />

@@ -15,6 +15,6 @@ namespace EdgeOS.API.Types.REST.Responses
 
         /// <summary>Outputs a human friendly readable form of the fields and their relations contained in this object.</summary>
         /// <returns>A string showing the relation between all the fields in a human friendly readable format.</returns>
-        public override string ToString() { return "Success : " + Success + ", Error : " + Error; }
+        public override string ToString() { return "Success : " + Success + (Error != null ? ", Error \": " + Error + "\"": null); }
     }
 }

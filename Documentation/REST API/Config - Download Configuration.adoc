@@ -37,8 +37,8 @@ The saved temporary stored file will be deleted once the request has been made.
 |Description
 
 |`success`
-|Boolean
-|`true` or `false`
+|String
+|A boolean encapsulated in a string (e.g. `"0"` or `"1"`)
 |Whether the configuration save was successful.
 
 |`path`

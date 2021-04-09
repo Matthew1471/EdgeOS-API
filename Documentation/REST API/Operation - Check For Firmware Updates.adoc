@@ -3,6 +3,10 @@
 
 A check for firmware updates can be performed by sending an empty HTTP POST to `/api/edge/operation/refresh-fw-latest-status.json`.
 
+It does not support a HTTP GET.
+
+This method is CSRF protected so also requires a `X-CSRF-TOKEN` (see link:../README.adoc#Sensitive-Requests-CSRF-Protection[Sensitive Requests (CSRF Protection)]).
+
 == Response
 
 === Root
