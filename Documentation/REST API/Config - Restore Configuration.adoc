@@ -60,7 +60,7 @@ It does not support a HTTP GET.
 |Values
 |Description
 
-|`errors`
+|`errors` (Optional)
 |Array (String)
 |Array of `errors`
 |An array of the errors that occurred.

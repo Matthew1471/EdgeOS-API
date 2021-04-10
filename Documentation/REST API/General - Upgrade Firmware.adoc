@@ -45,8 +45,8 @@ It does not support a HTTP GET.
 
 |`qqfile`
 |String
-|Configuration file
-|The configuration to restore.
+|Firmware file
+|The firmware update file to flash.
 |===
 
 == Response
@@ -64,6 +64,11 @@ It does not support a HTTP GET.
 |Object
 |`UPGRADE` object
 |The upgrade result information.
+
+|`errors` (Optional)
+|Array (String)
+|Array of `errors`
+|An array of the errors that occurred.
 
 |`success`
 |Boolean

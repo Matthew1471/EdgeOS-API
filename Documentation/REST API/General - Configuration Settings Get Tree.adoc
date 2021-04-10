@@ -111,6 +111,16 @@ A HTTP GET to `/api/edge/getcfg.json` can be used to get a JSON formatted object
 |The type of the value (e.g. `"txt"`)
 |The type of the configurable value (in the format `type`).
 
+|type2 (Optional)
+|String
+|The type of the value (e.g. `"txt"`)
+|An additional permitted type of the configurable value (in the format `type`).
+
+|default (Optional)
+|String
+|A default value for this setting
+|The default value for this setting.
+
 |multi (Optional)
 |String
 |A boolean encapsulated in a string (e.g. `"true"` or `"false"`)
