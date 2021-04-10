@@ -67,9 +67,17 @@ namespace EdgeOS.API.Types.REST.Responses
                     ipv6net
                 };
 
-                /// <summary>The type of the configurable value (in the format type).</summary>
+                /// <summary>The type of the configurable value (in the format <see cref="ValueType"/>).</summary>
                 [JsonProperty(PropertyName = "type")]
                 public ValueType Type;
+
+                /// <summary>An additional permitted type of the configurable value (in the format <see cref="ValueType"/>).</summary>
+                [JsonProperty(PropertyName = "type2")]
+                public ValueType Type2;
+
+                /// <summary>A default value for this setting.</summary>
+                [JsonProperty(PropertyName = "default")]
+                public string Default;
 
                 /// <summary>Whether this value can be specified multiple times.</summary>
                 [JsonProperty(PropertyName = "multi")]
