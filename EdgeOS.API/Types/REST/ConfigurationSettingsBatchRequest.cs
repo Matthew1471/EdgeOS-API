@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace EdgeOS.API.Types.REST.Requests
+namespace EdgeOS.API.Types.REST
 {
     /// <summary>A class representing a batch configuration request to EdgeOS.</summary>
     public class ConfigurationSettingsBatchRequest

@@ -1,6 +1,5 @@
 ﻿using EdgeOS.API.Types.Configuration;
-using EdgeOS.API.Types.REST.Requests;
-using EdgeOS.API.Types.REST.Responses;
+using EdgeOS.API.Types.REST;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -38,6 +37,9 @@ namespace EdgeOS.API
 
             // Be a good net citizen and reveal who we are.
             _httpClient.DefaultRequestHeaders.Add("User-Agent", "C#-EdgeOS-API");
+
+            // Error if a field is missing in a C# class.
+            JsonConvert.DefaultSettings = () => new JsonSerializerSettings { MissingMemberHandling = MissingMemberHandling.Error };
         }
 
         /// <summary>Allows a local .crt certificate file to be used to validate a host.</summary>
@@ -343,7 +345,181 @@ namespace EdgeOS.API
             }
         }
 
-        //TODO: Data methods.
+        /// <summary>Get information about whether the device is running with default configuration.</summary>
+        /// <returns>The response from the device.</returns>
+        public DataDefaultConfigurationStatusResponse DataDefaultConfigurationStatus()
+        {
+            // Send it to the Data end-point.
+            HttpResponseMessage httpResponse = _httpClient.GetAsync("/api/edge/data.json?data=default_config").Result;
+
+            // Check the result is what we are expecting (and throw an exception if not).
+            httpResponse.EnsureSuccessStatusCode();
+
+            // If the response contains content we want to read it.
+            if (httpResponse.Content != null)
+            {
+                string responseContent = httpResponse.Content.ReadAsStringAsync().Result;
+
+                // Deserialize the responseContent to a DataDefaultConfigurationStatusResponse.
+                return JsonConvert.DeserializeObject<DataDefaultConfigurationStatusResponse>(responseContent);
+            }
+            else
+            {
+                // No content returned.
+                return null;
+            }
+        }
+
+        /// <summary>Get information about the device's DHCP leases.</summary>
+        /// <returns>The response from the device.</returns>
+        public DataDHCPLeasesResponse DataDHCPLeases()
+        {
+            // Send it to the Data end-point.
+            HttpResponseMessage httpResponse = _httpClient.GetAsync("/api/edge/data.json?data=dhcp_leases").Result;
+
+            // Check the result is what we are expecting (and throw an exception if not).
+            httpResponse.EnsureSuccessStatusCode();
+
+            // If the response contains content we want to read it.
+            if (httpResponse.Content != null)
+            {
+                string responseContent = httpResponse.Content.ReadAsStringAsync().Result;
+
+                // Deserialize the responseContent to a DataDHCPLeasesResponse.
+                return JsonConvert.DeserializeObject<DataDHCPLeasesResponse>(responseContent);
+            }
+            else
+            {
+                // No content returned.
+                return null;
+            }
+        }
+
+        /// <summary>Get information about the device's DHCP statistics.</summary>
+        /// <returns>The response from the device.</returns>
+        public DataDHCPStatisticsResponse DataDHCPStatistics()
+        {
+            // Send it to the Data end-point.
+            HttpResponseMessage httpResponse = _httpClient.GetAsync("/api/edge/data.json?data=dhcp_stats").Result;
+
+            // Check the result is what we are expecting (and throw an exception if not).
+            httpResponse.EnsureSuccessStatusCode();
+
+            // If the response contains content we want to read it.
+            if (httpResponse.Content != null)
+            {
+                string responseContent = httpResponse.Content.ReadAsStringAsync().Result;
+
+                // Deserialize the responseContent to a DataDHCPStatisticsResponse.
+                return JsonConvert.DeserializeObject<DataDHCPStatisticsResponse>(responseContent);
+            }
+            else
+            {
+                // No content returned.
+                return null;
+            }
+        }
+
+        /// <summary>Get information about the device's firewall statistics.</summary>
+        /// <returns>The response from the device.</returns>
+        public DataFirewallStatisticsResponse DataFirewallStatistics()
+        {
+            // Send it to the Data end-point.
+            HttpResponseMessage httpResponse = _httpClient.GetAsync("/api/edge/data.json?data=fw_stats").Result;
+
+            // Check the result is what we are expecting (and throw an exception if not).
+            httpResponse.EnsureSuccessStatusCode();
+
+            // If the response contains content we want to read it.
+            if (httpResponse.Content != null)
+            {
+                string responseContent = httpResponse.Content.ReadAsStringAsync().Result;
+
+                // Deserialize the responseContent to a DataFirewallStatisticsResponse.
+                return JsonConvert.DeserializeObject<DataFirewallStatisticsResponse>(responseContent);
+            }
+            else
+            {
+                // No content returned.
+                return null;
+            }
+        }
+
+        /// <summary>Get information about the device's Network Address Translation (NAT) statistics.</summary>
+        /// <returns>The response from the device.</returns>
+        public DataNATStatisticsResponse DataNATStatistics()
+        {
+            // Send it to the Data end-point.
+            HttpResponseMessage httpResponse = _httpClient.GetAsync("/api/edge/data.json?data=nat_stats").Result;
+
+            // Check the result is what we are expecting (and throw an exception if not).
+            httpResponse.EnsureSuccessStatusCode();
+
+            // If the response contains content we want to read it.
+            if (httpResponse.Content != null)
+            {
+                string responseContent = httpResponse.Content.ReadAsStringAsync().Result;
+
+                // Deserialize the responseContent to a DataNATStatisticsResponse.
+                return JsonConvert.DeserializeObject<DataNATStatisticsResponse>(responseContent);
+            }
+            else
+            {
+                // No content returned.
+                return null;
+            }
+        }
+
+        /// <summary>Get information about the device's routes.</summary>
+        /// <returns>The response from the device.</returns>
+        public DataRoutesResponse DataRoutes()
+        {
+            // Send it to the Data end-point.
+            HttpResponseMessage httpResponse = _httpClient.GetAsync("/api/edge/data.json?data=routes").Result;
+
+            // Check the result is what we are expecting (and throw an exception if not).
+            httpResponse.EnsureSuccessStatusCode();
+
+            // If the response contains content we want to read it.
+            if (httpResponse.Content != null)
+            {
+                string responseContent = httpResponse.Content.ReadAsStringAsync().Result;
+
+                // Deserialize the responseContent to a DataRoutesResponse.
+                return JsonConvert.DeserializeObject<DataRoutesResponse>(responseContent);
+            }
+            else
+            {
+                // No content returned.
+                return null;
+            }
+        }
+
+
+        /// <summary>Get information about the device's system information.</summary>
+        /// <returns>The response from the device.</returns>
+        public DataSystemInformationResponse DataSystemInformation()
+        {
+            // Send it to the Data end-point.
+            HttpResponseMessage httpResponse = _httpClient.GetAsync("/api/edge/data.json?data=sys_info").Result;
+
+            // Check the result is what we are expecting (and throw an exception if not).
+            httpResponse.EnsureSuccessStatusCode();
+
+            // If the response contains content we want to read it.
+            if (httpResponse.Content != null)
+            {
+                string responseContent = httpResponse.Content.ReadAsStringAsync().Result;
+
+                // Deserialize the responseContent to a DataSystemInformationResponse.
+                return JsonConvert.DeserializeObject<DataSystemInformationResponse>(responseContent);
+            }
+            else
+            {
+                // No content returned.
+                return null;
+            }
+        }
 
         /// <summary>Attempt to keep the session alive on the EdgeOS device.</summary>
         public void Heartbeat()
@@ -351,7 +527,80 @@ namespace EdgeOS.API
             _httpClient.GetAsync("/api/edge/heartbeat.json?_=" + (DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalSeconds);
         }
 
-        //TODO: Upgrade Firmware method.
+        /// <summary>Upgrade the device firmware.</summary>
+        /// <param name="url">The firmware upgrade url to update the EdgeOS device.</param>
+        /// <returns>The response from the device.</returns>
+        public UpgradeResponse UpgradeFirmware(Uri url)
+        {
+            // We build up our request.
+            HttpRequestMessage httpRequest = new HttpRequestMessage(HttpMethod.Post, "/api/edge/upgrade.json?action=url_upgrade") { Content = new StringContent("{ url: '" + url.ToString() + "'}", Encoding.UTF8, "application/json") };
+
+            // This end-point is protected with a Cross-Site Request Forgery (CSRF) token.
+            //httpRequest.Headers.Add("X-CSRF-TOKEN", CSRFToken);
+
+            // Send it to the Upgrade Firmware end-point with the appropriate CSRF header.
+            HttpResponseMessage httpResponse = _httpClient.SendAsync(httpRequest).Result;
+
+            // Check the result is what we are expecting (and throw an exception if not).
+            httpResponse.EnsureSuccessStatusCode();
+
+            // If the response contains content we want to read it.
+            if (httpResponse.Content != null)
+            {
+                string responseContent = httpResponse.Content.ReadAsStringAsync().Result;
+
+                // Deserialize the responseContent to a UpgradeResponse.
+                return JsonConvert.DeserializeObject<UpgradeResponse>(responseContent);
+            }
+            else
+            {
+                // No content returned.
+                return null;
+            }
+        }
+
+        /// <summary>Upgrade the device firmware.</summary>
+        /// <param name="filename">The firmware upgrade file to update the EdgeOS device.</param>
+        /// <returns>The response from the device.</returns>
+        public UpgradeResponse UpgradeFirmware(string filename)
+        {
+            // Build up the HTML Form.
+            using (MultipartFormDataContent content = new MultipartFormDataContent())
+            using (StreamContent streamContent = new StreamContent(new FileStream(filename, FileMode.Open, FileAccess.Read)))
+            {
+                // Set the expected firmware upgrade ContentType.
+                streamContent.Headers.ContentType = new MediaTypeHeaderValue("application/x-tar");
+
+                // Add to the MultipartFormData content with the expected form input name.
+                content.Add(streamContent, "qqfile", filename);
+
+                // We build up our request (we removed some of the unused params the web UI uses).
+                HttpRequestMessage httpRequest = new HttpRequestMessage(HttpMethod.Post, "/api/edge/upgrade.json") { Content = content };
+
+                // This end-point is protected with a Cross-Site Request Forgery (CSRF) token (we supply it as a header rather than in the querystring like the web UI).
+                httpRequest.Headers.Add("X-CSRF-TOKEN", CSRFToken);
+
+                // Send it to the Upgrade Firmware end-point with the appropriate CSRF header.
+                HttpResponseMessage httpResponse = _httpClient.SendAsync(httpRequest).Result;
+
+                // Check the result is what we are expecting (and throw an exception if not).
+                httpResponse.EnsureSuccessStatusCode();
+
+                // If the response contains content we want to read it.
+                if (httpResponse.Content != null)
+                {
+                    string responseContent = httpResponse.Content.ReadAsStringAsync().Result;
+
+                    // Deserialize the responseContent to a UpgradeResponse.
+                    return JsonConvert.DeserializeObject<UpgradeResponse>(responseContent);
+                }
+                else
+                {
+                    // No content returned.
+                    return null;
+                }
+            }
+        }
 
         //TODO: Wizard Feature method.
 
@@ -361,7 +610,7 @@ namespace EdgeOS.API
 
         #region Edge - Configuration
 
-        /// <summary>Save the device's entire configuration to a temporary file on the disk in preparation to download it (see <see cref="ConfigurationDownload"/>).</summary>
+        /// <summary>Save the device's entire configuration to a temporary file on the disk in preparation to download it (see <see cref="ConfigurationDownload()"/>).</summary>
         /// <returns>The response from the device.</returns>
         public ConfigurationDownloadPrepareResponse ConfigurationDownloadPrepare()
         {
@@ -409,15 +658,109 @@ namespace EdgeOS.API
             }
         }
 
-        //TODO: Restore Configuration method.
+        /// <summary>Get the device's entire configuration from the temporary file on disk that it was saved into (see <see cref="ConfigurationDownloadPrepare"/>) and saves it to a file.</summary>
+        /// <param name="filename">The filename to save the configuration file to. An exception will occur if it already exists.</param>
+        public void ConfigurationDownload(string filename)
+        {
+            using (FileStream fileStream = new FileStream(filename, FileMode.CreateNew, FileAccess.Write))
+            using (Stream stream = ConfigurationDownload())
+            {
+                stream.CopyTo(fileStream);
+            }
+        }
+
+        /// <summary>Restore the device configuration from a fileStream.</summary>
+        /// <param name="fileStream">The configuration fileStream to restore on the EdgeOS device.</param>
+        /// <param name="fileName">The optional filename to share with the EdgeOS device.</param>
+        /// <returns>The response from the device.</returns>
+        public ConfigurationResponse ConfigurationRestore(Stream fileStream, string fileName = null)
+        {
+            // Build up the HTML Form.
+            using (MultipartFormDataContent content = new MultipartFormDataContent())
+            using (StreamContent streamContent = new StreamContent(fileStream))
+            {
+                // Set the expected firmware upgrade ContentType.
+                streamContent.Headers.ContentType = new MediaTypeHeaderValue("application/x-tar");
+
+                // Add to the MultipartFormData content with the expected form input name.
+                content.Add(streamContent, "qqfile", fileName);
+
+                // We build up our request (we removed some of the unused params the web UI uses).
+                HttpRequestMessage httpRequest = new HttpRequestMessage(HttpMethod.Post, "/api/edge/config/restore.json") { Content = content };
+
+                // This end-point is protected with a Cross-Site Request Forgery (CSRF) token (we supply it as a header rather than in the querystring like the web UI).
+                httpRequest.Headers.Add("X-CSRF-TOKEN", CSRFToken);
+
+                // Send it to the Configuration Restore end-point with the appropriate CSRF header.
+                HttpResponseMessage httpResponse = _httpClient.SendAsync(httpRequest).Result;
+
+                // Check the result is what we are expecting (and throw an exception if not).
+                httpResponse.EnsureSuccessStatusCode();
+
+                // If the response contains content we want to read it.
+                if (httpResponse.Content != null)
+                {
+                    string responseContent = httpResponse.Content.ReadAsStringAsync().Result;
+
+                    // Deserialize the responseContent to a ConfigurationResponse.
+                    return JsonConvert.DeserializeObject<ConfigurationResponse>(responseContent);
+                }
+                else
+                {
+                    // No content returned.
+                    return null;
+                }
+            }
+        }
+
+        /// <summary>Restore the device configuration from a file.</summary>
+        /// <param name="fileName">The configuration file to restore on the EdgeOS device.</param>
+        /// <returns>The response from the device.</returns>
+        public ConfigurationResponse ConfigurationRestore(string fileName)
+        {
+            using (FileStream fileStream = new FileStream(fileName, FileMode.Open, FileAccess.Read))
+            {
+                return ConfigurationRestore(fileStream, fileName);
+            }
+        }
 
         #endregion
 
         #region Edge - Optical Network Unit (ONU)
 
-        //TODO: ONU Upgrade method.
+        /// <summary>Reboot the connected Optical Network Unit (ONU) device.</summary>
+        /// <param name="serialNumber">The serial number of the ONU you wish to reboot.</param>
+        /// <returns>The response from the device.</returns>
+        public ONURebootResponse ONUReboot(string serialNumber)
+        {
+            // We build up our request.
+            HttpRequestMessage httpRequest = new HttpRequestMessage(HttpMethod.Post, "/api/edge/onu/reboot.json") { Content = new StringContent("{ serial: '" + serialNumber + "'}", Encoding.UTF8, "application/json") };
 
-        //TODO: ONU Reboot method.
+            // This end-point is protected with a Cross-Site Request Forgery (CSRF) token.
+            //httpRequest.Headers.Add("X-CSRF-TOKEN", CSRFToken);
+
+            // Send it to the ONU Reboot end-point with the appropriate CSRF header.
+            HttpResponseMessage httpResponse = _httpClient.SendAsync(httpRequest).Result;
+
+            // Check the result is what we are expecting (and throw an exception if not).
+            httpResponse.EnsureSuccessStatusCode();
+
+            // If the response contains content we want to read it.
+            if (httpResponse.Content != null)
+            {
+                string responseContent = httpResponse.Content.ReadAsStringAsync().Result;
+
+                // Deserialize the responseContent to a ONURebootResponse.
+                return JsonConvert.DeserializeObject<ONURebootResponse>(responseContent);
+            }
+            else
+            {
+                // No content returned.
+                return null;
+            }
+        }
+
+        //TODO: ONU Upgrade method.
 
         #endregion
 
@@ -516,7 +859,72 @@ namespace EdgeOS.API
             }
         }
 
-        //TODO: Generate Support File methods.
+
+        /// <summary>Save the device's support file to a temporary file on the disk in preparation to download it (see <see cref="OperationSupportFileDownload()"/>).</summary>
+        /// <returns>The response from the device.</returns>
+        public OperationSupportFileDownloadPrepareResponse OperationSupportFileDownloadPrepare()
+        {
+            // We build up our request.
+            HttpRequestMessage httpRequest = new HttpRequestMessage(HttpMethod.Post, "/api/edge/operation/get-support-file.json");
+
+            // This end-point is protected with a Cross-Site Request Forgery (CSRF) token.
+            httpRequest.Headers.Add("X-CSRF-TOKEN", CSRFToken);
+
+            // Send it to the Operation Get Support File end-point with the appropriate CSRF header.
+            HttpResponseMessage httpResponse = _httpClient.SendAsync(httpRequest).Result;
+
+            // Check the result is what we are expecting (and throw an exception if not).
+            httpResponse.EnsureSuccessStatusCode();
+
+            // If the response contains content we want to read it.
+            if (httpResponse.Content != null)
+            {
+                string responseContent = httpResponse.Content.ReadAsStringAsync().Result;
+
+                // Deserialize the responseContent to a OperationSupportFileDownloadPrepareResponse.
+                return JsonConvert.DeserializeObject<OperationSupportFileDownloadPrepareResponse>(responseContent);
+            }
+            else
+            {
+                // No content returned.
+                return null;
+            }
+        }
+
+        /// <summary>Get the device's support file from the temporary file on disk that it was saved into (see <see cref="OperationSupportFileDownloadPrepare"/>.</summary>
+        /// <returns>The response from the device.</returns>
+        public Stream OperationSupportFileDownload()
+        {
+            // Send it to the Operation Get Support File end-point.
+            HttpResponseMessage httpResponse = _httpClient.GetAsync("/files/support-file/").Result;
+
+            // Check the result is what we are expecting (and throw an exception if not).
+            httpResponse.EnsureSuccessStatusCode();
+
+            // If the response contains content we want to read it.
+            if (httpResponse.Content != null)
+            {
+                // Return the stream.
+                return httpResponse.Content.ReadAsStreamAsync().Result;
+            }
+            else
+            {
+                // No content returned.
+                return null;
+            }
+        }
+
+        /// <summary>Get the device's support file from the temporary file on disk that it was saved into (see <see cref="OperationSupportFileDownloadPrepare"/>) and saves it to a file.</summary>
+        /// <param name="filename">The filename to save the support file to. An exception will occur if it already exists.</param>
+        public void OperationSupportFileDownload(string filename)
+        {
+            using (FileStream fileStream = new FileStream(filename, FileMode.CreateNew, FileAccess.Write))
+            using (Stream stream = OperationSupportFileDownload())
+            {
+                stream.CopyTo(fileStream);
+            }
+        }
+
 
         /// <summary>Reboot the device.</summary>
         /// <returns>The response from the device.</returns>
@@ -691,19 +1099,175 @@ namespace EdgeOS.API
 
         #region Optical Line Terminal (OLT) - General
 
-        //TODO: OLT Get Connected ONU method.
+        /// <summary>Get the connected ONU devices (MAC Addresses).</summary>
+        /// <param name="serialNumber">The serial number of the connected ONU to request the MAC addresses for.</param>
+        /// <returns>The response from the device.</returns>
+        public OperationResponse OLTConnectedONUDevices(string serialNumber)
+        {
+            // Send our request to the OLT Get ONU MACs end-point.
+            HttpResponseMessage httpResponse = _httpClient.GetAsync("/api/olt/get-onu-macs.json?serial=" + serialNumber).Result;
+
+            // Check the result is what we are expecting (and throw an exception if not).
+            httpResponse.EnsureSuccessStatusCode();
+
+            // If the response contains content we want to read it.
+            if (httpResponse.Content != null)
+            {
+                string responseContent = httpResponse.Content.ReadAsStringAsync().Result;
+
+                // Deserialize the responseContent to a OperationResponse.
+                return JsonConvert.DeserializeObject<OperationResponse>(responseContent);
+            }
+            else
+            {
+                // No content returned.
+                return null;
+            }
+        }
 
         #endregion
 
         #region Optical Line Terminal (OLT) - Optical Network Unit (ONU)
 
-        //TODO: OLT Generate ONU Support methods.
+        /// <summary>Save the connected ONU's support file to a temporary file on the disk in preparation to download it (see <see cref="OLTConnectedONUSupportFileDownload(string)"/>).</summary>
+        /// <param name="serialNumber">The serial number of the connected ONU to request a support file for.</param>
+        /// <returns>The response from the device.</returns>
+        public OperationSupportFileDownloadPrepareResponse OLTConnectedONUSupportFileDownloadPrepare(string serialNumber)
+        {
+            // Send our request to the OLT ONU Get Support File end-point.
+            HttpResponseMessage httpResponse = _httpClient.GetAsync("/api/olt/onu/get-support-file.json?serial=" + serialNumber).Result;
 
-        //TODO: OLT Get Connected WiFi Clients method.
+            // Check the result is what we are expecting (and throw an exception if not).
+            httpResponse.EnsureSuccessStatusCode();
 
-        //TODO: OLT Locate ONU method.
+            // If the response contains content we want to read it.
+            if (httpResponse.Content != null)
+            {
+                string responseContent = httpResponse.Content.ReadAsStringAsync().Result;
 
-        //TODO: OLT Reset ONU method.
+                // Deserialize the responseContent to a OperationSupportFileDownloadPrepareResponse.
+                return JsonConvert.DeserializeObject<OperationSupportFileDownloadPrepareResponse>(responseContent);
+            }
+            else
+            {
+                // No content returned.
+                return null;
+            }
+        }
+
+        /// <summary>Get the connected ONU's support file from the temporary file on disk that it was saved into (see <see cref="OLTConnectedONUSupportFileDownloadPrepare"/>.</summary>
+        /// <param name="fileName">The filename of the OLT ONU support file provided by <see cref="OLTConnectedONUSupportFileDownloadPrepare(string)"/></param>
+        /// <returns>The response from the device.</returns>
+        public Stream OLTConnectedONUSupportFileDownload(string fileName)
+        {
+            // Send our request to the OLT ONU Support File end-point.
+            HttpResponseMessage httpResponse = _httpClient.GetAsync("/api/olt/onu/support-file/?filename=" + fileName).Result;
+
+            // Check the result is what we are expecting (and throw an exception if not).
+            httpResponse.EnsureSuccessStatusCode();
+
+            // If the response contains content we want to read it.
+            if (httpResponse.Content != null)
+            {
+                // Return the stream.
+                return httpResponse.Content.ReadAsStreamAsync().Result;
+            }
+            else
+            {
+                // No content returned.
+                return null;
+            }
+        }
+
+        /// <summary>Get the connected ONU's support file from the temporary file on disk that it was saved into (see <see cref="OLTConnectedONUSupportFileDownloadPrepare(string)"/>) and saves it to a file.</summary>
+        /// <param name="inputFilename">The filename of the OLT ONU support file provided by <see cref="OLTConnectedONUSupportFileDownloadPrepare(string)"/></param>
+        /// <param name="outputFilename">The filename to save the support file to. An exception will occur if it already exists.</param>
+        public void OLTConnectedONUSupportFileDownload(string inputFilename, string outputFilename)
+        {
+            using (FileStream fileStream = new FileStream(outputFilename, FileMode.CreateNew, FileAccess.Write))
+            using (Stream stream = OLTConnectedONUSupportFileDownload(inputFilename))
+            {
+                stream.CopyTo(fileStream);
+            }
+        }
+
+        /// <summary>Get a specific connected ONU's WiFi Clients.</summary>
+        /// <param name="serialNumber">The serial number of the connected ONU to request the WiFi Clients for.</param>
+        /// <returns>The response from the device.</returns>
+        public OperationResponse OLTConnectedONUWiFiClients(string serialNumber)
+        {
+            // Send it to the OLT ONU Get WiFi Clients end-point.
+            HttpResponseMessage httpResponse = _httpClient.GetAsync("/api/olt/onu/get-wifi-clients.json?serial=" + serialNumber).Result;
+
+            // Check the result is what we are expecting (and throw an exception if not).
+            httpResponse.EnsureSuccessStatusCode();
+
+            // If the response contains content we want to read it.
+            if (httpResponse.Content != null)
+            {
+                string responseContent = httpResponse.Content.ReadAsStringAsync().Result;
+
+                // Deserialize the responseContent to a OperationResponse.
+                return JsonConvert.DeserializeObject<OperationResponse>(responseContent);
+            }
+            else
+            {
+                // No content returned.
+                return null;
+            }
+        }
+
+        /// <summary>Locate a specific connected ONU.</summary>
+        /// <param name="serialNumber">The serial number of the connected ONU to locate.</param>
+        /// <returns>The response from the device.</returns>
+        public OperationResponse OLTConnectedONULocate(string serialNumber)
+        {
+            // Send it to the OLT ONU Locate end-point.
+            HttpResponseMessage httpResponse = _httpClient.GetAsync("/api/olt/onu/locate.json?serial=" + serialNumber).Result;
+
+            // Check the result is what we are expecting (and throw an exception if not).
+            httpResponse.EnsureSuccessStatusCode();
+
+            // If the response contains content we want to read it.
+            if (httpResponse.Content != null)
+            {
+                string responseContent = httpResponse.Content.ReadAsStringAsync().Result;
+
+                // Deserialize the responseContent to a OperationResponse.
+                return JsonConvert.DeserializeObject<OperationResponse>(responseContent);
+            }
+            else
+            {
+                // No content returned.
+                return null;
+            }
+        }
+
+        /// <summary>Reset a specific connected ONU.</summary>
+        /// <param name="serialNumber">The serial number of the connected ONU to reset.</param>
+        /// <returns>The response from the device.</returns>
+        public OperationResponse OLTConnectedONUReset(string serialNumber)
+        {
+            // Send it to the OLT ONU Reset end-point.
+            HttpResponseMessage httpResponse = _httpClient.GetAsync("/api/olt/onu/reset.json?serial=" + serialNumber).Result;
+
+            // Check the result is what we are expecting (and throw an exception if not).
+            httpResponse.EnsureSuccessStatusCode();
+
+            // If the response contains content we want to read it.
+            if (httpResponse.Content != null)
+            {
+                string responseContent = httpResponse.Content.ReadAsStringAsync().Result;
+
+                // Deserialize the responseContent to a OperationResponse.
+                return JsonConvert.DeserializeObject<OperationResponse>(responseContent);
+            }
+            else
+            {
+                // No content returned.
+                return null;
+            }
+        }
 
         #endregion
 
@@ -711,7 +1275,7 @@ namespace EdgeOS.API
 
         //TODO: Wizards List All Wizards method.
 
-        //TODO: Wizards Specific Wizard Crete method.
+        //TODO: Wizards Specific Wizard Create method.
 
         //TODO: Wizards Specific Wizard Download method.
 

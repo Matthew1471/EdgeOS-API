@@ -1,10 +1,14 @@
 ﻿using Newtonsoft.Json;
 
-namespace EdgeOS.API.Types.REST.Responses
+namespace EdgeOS.API.Types.REST
 {
-    /// <summary>A class representing a delete configuration response from EdgeOS.</summary>
-    public class ConfigurationSettingsDeleteResponse
+    /// <summary>A class representing a batch configuration response from EdgeOS.</summary>
+    public class ConfigurationSettingsBatchResponse
     {
+        /// <summary>Status values for the set request.</summary>
+        [JsonProperty(PropertyName = "SET")]
+        public ConfigurationSettingsStatus Set;
+
         /// <summary>Status values for the deletion request.</summary>
         [JsonProperty(PropertyName = "DELETE")]
         public ConfigurationSettingsStatus Delete;
@@ -13,7 +17,7 @@ namespace EdgeOS.API.Types.REST.Responses
         [JsonProperty(PropertyName = "SESSION_ID")]
         public string SessionID;
 
-        /// <summary>The parent section of the deleted value after the deletion.</summary>
+        /// <summary>The requested section of the configuration after the operation is performed (defaults to the requested section for deletion/setting by default).</summary>
         [JsonProperty(PropertyName = "GET")]
         public Configuration.Configuration Get;
 

@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
 
-namespace EdgeOS.API.Types.REST.Responses
+namespace EdgeOS.API.Types.REST
 {
     /// <summary>A class representing an authentication response from EdgeOS.</summary>
     public class AuthenticateResponse

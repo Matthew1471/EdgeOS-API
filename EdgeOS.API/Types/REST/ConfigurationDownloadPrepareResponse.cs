@@ -1,13 +1,13 @@
 ﻿using Newtonsoft.Json;
 
-namespace EdgeOS.API.Types.REST.Responses
+namespace EdgeOS.API.Types.REST
 {
     /// <summary>A class representing a configuration download preparation response from EdgeOS.</summary>
     public class ConfigurationDownloadPrepareResponse
     {
         /// <summary>Status values for the configuration download preparation request.</summary>
         [JsonProperty(PropertyName = "CONFIG")]
-        public ConfigurationDownloadPrepareStatus Operation;
+        public ConfigurationDownloadPrepareStatus Configuration;
 
         /// <summary>Whether the API request was successful.</summary>
         [JsonProperty(PropertyName = "success")]

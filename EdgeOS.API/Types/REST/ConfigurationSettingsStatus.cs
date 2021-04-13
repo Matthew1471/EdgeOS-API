@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace EdgeOS.API.Types.REST.Responses
+namespace EdgeOS.API.Types.REST
 {
     /// <summary>A class representing a single status item for the configuration settings response from EdgeOS.</summary>
     public class ConfigurationSettingsStatus

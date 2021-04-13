@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
 
-namespace EdgeOS.API.Types.REST.Responses
+namespace EdgeOS.API.Types.REST
 {
     /// <summary>A class representing a configuration tree response from EdgeOS.</summary>
     public class ConfigurationSettingsGetTreeResponse
@@ -14,6 +14,7 @@ namespace EdgeOS.API.Types.REST.Responses
         [JsonProperty(PropertyName = "success")]
         public bool Success;
 
+        /// <summary>An object that contains the sections of the configuration for the request.</summary>
         public class GetConfig
         {
             /// <summary>The requested children of the configuration.</summary>
@@ -36,8 +37,10 @@ namespace EdgeOS.API.Types.REST.Responses
             [JsonProperty(PropertyName = "error")]
             public string Error;
 
+            /// <summary>An object that represents a particular configuration key or value.</summary>
             public class Definition
             {
+                /// <summary>The type of the configurable value</summary>
                 public enum ValueType {
                     /// <summary>This value has not been set.</summary>
                     Unknown,

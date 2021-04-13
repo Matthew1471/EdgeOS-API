@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace EdgeOS.API.Types.REST.Responses
+namespace EdgeOS.API.Types.REST
 {
     /// <summary>A class representing a single status item for an operation response from EdgeOS.</summary>
     public class OperationStatus
