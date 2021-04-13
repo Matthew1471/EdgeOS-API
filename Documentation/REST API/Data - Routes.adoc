@@ -21,11 +21,11 @@ A HTTP GET to `/api/edge/data.json?data=routes` obtains route information.
 
 |`output`
 |Array (Object)
-|Array of `output`
+|Array of `route`
 |The output to the data request.
 |===
 
-=== `output` Object
+=== `route` Object
 
 [cols="1,1,1,2", options="header"] 
 |===
@@ -37,12 +37,12 @@ A HTTP GET to `/api/edge/data.json?data=routes` obtains route information.
 |`pfx`
 |String
 |String
-|The prefix.
+|The route prefix.
 
 |`nh`
-|Object
-|`nh` Object
-|The next hop information.
+|Array (Object)
+|`nh` Object(s)
+|The route next hop information.
 |===
 
 === `nh` Object

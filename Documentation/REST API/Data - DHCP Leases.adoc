@@ -35,9 +35,9 @@ A HTTP GET to `/api/edge/data.json?data=dhcp_leases` can be used to get a JSON f
 |Description
 
 |`dhcp-server-leases`
-|Object
-|`dhcp-server-leases` object
-|An object that contains each of the DHCP servers and their leases.
+|Dictionary
+|`dhcp-server-leases` object(s)
+|A dictionary that contains each of the DHCP servers and their leases.
 |===
 
 === `dhcp-server-leases` Object

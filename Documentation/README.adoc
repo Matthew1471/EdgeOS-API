@@ -82,7 +82,7 @@ The REST API is served from `/var/www/python/edgeos_gui/api` on the EdgeOS devic
 
 === Edge - Optical Network Unit (ONU)
 
-* Reboot
+* link:REST%20API/ONU%20-%20Reboot.adoc[Reboot]
 * Upgrade
 
 === Edge - Operations

@@ -24,6 +24,10 @@ The `/api/edge/data.json` endpoint can query a variety of pre-defined statistics
 |`fw_stats`
 |Lists the current Firewall statistics.
 
+|GPON ONU List
+|`gpon_onu_list`
+|Lists the Gigabit Passive Optical Networks (GPON) Optical Network Units (ONU).
+
 |link:Data%20-%20NAT%20Statistics.adoc[NAT Statistics]
 |`nat_stats`
 |Lists the current Network Address Translation (NAT) statistics.

@@ -35,9 +35,9 @@ A HTTP GET to `/api/edge/data.json?data=dhcp_stats` can be used to get a JSON fo
 |Description
 
 |`dhcp-server-stats`
-|Object
-|`dhcp-server-stats` object
-|An object that contains each of the DHCP servers and their pool statistics.
+|Dictionary
+|`dhcp-server-stats` object(s)
+|A dictionary that contains each of the DHCP servers and their pool statistics.
 |===
 
 === `dhcp-server-stats` Object

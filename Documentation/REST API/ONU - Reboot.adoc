@@ -1,0 +1,45 @@
+= ONU - Reboot
+:toc: preamble
+
+The Optical Network Unit (ONU) can be rebooted by sending a HTTP POST to `/api/edge/onu/reboot.json`
+
+It does not support a HTTP GET.
+
+This method is CSRF protected so also requires a `X-CSRF-TOKEN` (see link:../README.adoc#Sensitive-Requests-CSRF-Protection[Sensitive Requests (CSRF Protection)]).
+
+== Response
+
+=== Root
+
+[cols="1,1,1,2", options="header"] 
+|===
+|Name
+|Type
+|Values
+|Description
+
+|`REBOOT_ONU`
+|String
+|REBOOT_ONU response
+|Status text for the reboot ONU request.
+
+|`SESSION_ID`
+|String
+|A session ID
+|The authorisation string for this session that confirms the user is correctly authenticated.
+
+|`success`
+|Boolean
+|`true` or `false`
+|Whether the API request was successful.
+|===
+
+== Examples
+
+=== Successful Reboot Request Response
+
+.POST */api/edge/onu/reboot.json* Response
+[source,json,subs="+quotes"]
+----
+{"REBOOT_ONU": "", "SESSION_ID": "39957ec91aec4fd0b51580a3fa95b353", "success": true}
+----

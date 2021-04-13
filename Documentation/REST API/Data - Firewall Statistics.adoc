@@ -35,9 +35,14 @@ A HTTP GET to `/api/edge/data.json?data=fw_stats` can be used to get a JSON form
 |Description
 
 |`name`
-|Array (Object)
-|Array of `firewall-ruleset-stats`
-|An array of `firewall-ruleset-stats` objects that contains each of the firewall rulesets and their rule statistics.
+|Array of Dictionary
+|`firewall-ruleset-stats` object(s)
+|An array of dictionary items of `firewall-ruleset-stats` objects that contains each of the IPv4 firewall rulesets and their rule statistics.
+
+|`ipv6-name` (Optional)
+|Array of Dictionary
+|`firewall-ruleset-stats` object(s)
+|An array of dictionary items of `firewall-ruleset-stats` objects that contains each of the IPv6 firewall rulesets and their rule statistics.
 |===
 
 === `firewall-ruleset-stats` Object
