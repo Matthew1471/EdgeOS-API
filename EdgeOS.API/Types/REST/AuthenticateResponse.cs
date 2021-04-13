@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 
 namespace EdgeOS.API.Types.REST
 {
@@ -33,14 +34,16 @@ namespace EdgeOS.API.Types.REST
         /// <summary>A value that represents the role / privilege level of a user.</summary>
         public enum PermissionLevel
         {
-            /// <summary>Not defined.</summary>
-            unknown,
+            /// <summary>Not defined or configured.</summary>
+            Unknown,
 
             /// <summary>The user can make changes to the EdgeRouter configuration.</summary>
-            admin,
+            [EnumMember(Value = "admin")]
+            Admin,
 
             /// <summary>The user can view the EdgeRouter configuration but cannot make changes.</summary>
-            @operator
+            [EnumMember(Value = "operator")]
+            Operator
         }
 
         /// <summary>Contains information about the device capabilities.</summary>
