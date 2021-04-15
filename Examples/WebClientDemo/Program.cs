@@ -68,10 +68,10 @@ namespace WebClientDemo
                 {
                     Group = new FirewallGroup()
                     {
-                        AddressGroup = new Dictionary<string, FirewallAddressGroupEntry>()
+                        AddressGroup = new Dictionary<string, AddressGroupEntry>()
                             {
                                 {
-                                    "APITestAddresses", new FirewallAddressGroupEntry()
+                                    "APITestAddresses", new AddressGroupEntry()
                                     {
                                         Address = new[] { "4.3.2.1" }
                                     }

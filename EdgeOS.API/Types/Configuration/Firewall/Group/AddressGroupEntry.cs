@@ -2,8 +2,8 @@
 
 namespace EdgeOS.API.Types.Configuration
 {
-    /// <summary>A class representing a complete EdgeOS Firewall Group Address-Group configuration tree.</summary>
-    public class FirewallAddressGroupEntry
+    /// <summary>A class representing an EdgeOS Firewall Group AddressGroup Entry configuration tree.</summary>
+    public class AddressGroupEntry
     {
         /// <summary>Address-group member</summary>
         [JsonProperty(PropertyName = "address")]

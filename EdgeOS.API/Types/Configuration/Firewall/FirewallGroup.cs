@@ -8,7 +8,7 @@ namespace EdgeOS.API.Types.Configuration
     {
         /// <summary>Firewall address-group</summary>
         [JsonProperty(PropertyName = "address-group")]
-        public Dictionary<string, FirewallAddressGroupEntry> AddressGroup;
+        public Dictionary<string, AddressGroupEntry> AddressGroup;
 
         /// <summary>Firewall address-group</summary>
         [JsonProperty(PropertyName = "ipv6-address-group")]

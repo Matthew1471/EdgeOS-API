@@ -35,7 +35,11 @@ namespace ConfigurationTreeWalker
                 webClient.Login(ConfigurationManager.AppSettings["Username"], ConfigurationManager.AppSettings["Password"]);
 
                 // If the folder exists, delete it then recreate it.
-                if (Directory.Exists("Configuration")) { Directory.Delete("Configuration", true); }
+                if (Directory.Exists("Configuration"))
+                {
+                    Console.WriteLine("Deleting old configuration; please wait.");
+                    Directory.Delete("Configuration", true);
+                }
 
                 // Start walking the classes.
                 CreateClass(webClient, null);
@@ -97,7 +101,7 @@ namespace EdgeOS.API.Types.Configuration
                 stringBuilder.AppendLine("namespace EdgeOS.API.Types.Configuration");
                 stringBuilder.AppendLine("{");
                 stringBuilder.AppendLine("    /// <summary>A class representing an EdgeOS " + GetNamingConventionString(startKey != null ? string.Join(" ", startKey) + " " : "") + "configuration tree.</summary>");
-                stringBuilder.AppendLine("    public class " + (startKey != null ? GetNamingConventionString(string.Join("-", startKey)) : "Configuration"));
+                stringBuilder.AppendLine("    public class " + GetClassNameFromStartKey(startKey));
                 stringBuilder.AppendLine("    {");
 
                 // To work out when to add new lines in the class once a previous item has been added.
@@ -125,7 +129,7 @@ namespace EdgeOS.API.Types.Configuration
                         //Console.WriteLine("Section: " + string.Join(" -> ", newArray));
 
                         // Write this section to the class.
-                        stringBuilder.AppendLine("        public " + namingConventionKey + " " + namingConventionKey + ";");
+                        stringBuilder.AppendLine("        public " + GetNamingConventionString(startKey == null ? definition.Key : startKey[startKey.Length - 1] + '-' + definition.Key) + " " + namingConventionKey + ";");
 
                         // We will recursively call this method again (but after we have finished processing all Definitions for this class).
                         furtherSectionsOrTags.Add(newArray);
@@ -184,6 +188,29 @@ namespace EdgeOS.API.Types.Configuration
                 {
                     CreateClass(webClient, furtherSectionOrTag);
                 }
+            }
+        }
+
+        private static string GetClassNameFromStartKey(string[] startKey)
+        {
+            // Is there even a startKey?
+            if (startKey != null)
+            {
+                // If there is only one startKey we can't merge 2 keys.
+                if (startKey.Length > 1)
+                {
+                    // Merge the last 2 keys together.
+                    return GetNamingConventionString(startKey[startKey.Length - 2] + '-' + startKey[startKey.Length - 1]);
+                }
+                else
+                {
+                    // If there is only one startKey we can't merge 2 keys.
+                    return GetNamingConventionString(startKey[startKey.Length - 1]);
+                }
+            }
+            else
+            {
+                return "Configuration";
             }
         }
 
@@ -274,26 +301,35 @@ namespace EdgeOS.API.Types.Configuration
             convertedString = convertedString.Replace("Arp", "ARP");
             convertedString = convertedString.Replace("Bgp", "BGP");
             convertedString = convertedString.Replace("Bfd", "BFD");
+
+            // The order of these matters.
             convertedString = convertedString.Replace("Dhcpv6Pd", "DHCPv6PD");
             convertedString = convertedString.Replace("Dhcp", "DHCP");
+
             convertedString = convertedString.Replace("Dns", "DNS");
             convertedString = convertedString.Replace("Dscp", "DSCP");
             convertedString = convertedString.Replace("Ftn", "FTN");
+            convertedString = convertedString.Replace("Icmp", "ICMP");
             convertedString = convertedString.Replace("Igmp", "IGMP");
             convertedString = convertedString.Replace("Ike", "IKE");
+
+            // The order of these matters.
             convertedString = convertedString.Replace("Ipv4", "IPv4");
             convertedString = convertedString.Replace("Ipv6", "IPv6");
             convertedString = convertedString.Replace("Ip", "IP");
-            convertedString = convertedString.Replace("Ldp", "LDP");
+
             convertedString = convertedString.Replace("L2tp", "L2TP");
             convertedString = convertedString.Replace("L2vpn", "L2VPN");
+            convertedString = convertedString.Replace("Ldp", "LDP");
             convertedString = convertedString.Replace("Lsp", "LSP");
+            convertedString = convertedString.Replace("Lldp", "LLDP");
             convertedString = convertedString.Replace("Mpls", "MPLS");
             convertedString = convertedString.Replace("Mspw", "MSPW");
             convertedString = convertedString.Replace("Mtu", "MTU");
+            convertedString = convertedString.Replace("Openvpn", "OpenVPN");
             convertedString = convertedString.Replace("Orf", "ORF");
             convertedString = convertedString.Replace("Ospf", "OSPF");
-            convertedString = convertedString.Replace("Openvpn", "OpenVPN");
+            convertedString = convertedString.Replace("P2p", "P2P");
             convertedString = convertedString.Replace("Pppoe", "PPPoE");
             convertedString = convertedString.Replace("Pptp", "PPTP");
             convertedString = convertedString.Replace("Radius", "RADIUS");
@@ -305,17 +341,17 @@ namespace EdgeOS.API.Types.Configuration
             convertedString = convertedString.Replace("Syn", "SYN");
             convertedString = convertedString.Replace("Tcp", "TCP");
             convertedString = convertedString.Replace("Tls", "TLS");
+            convertedString = convertedString.Replace("Tftp", "TFTP");
             convertedString = convertedString.Replace("Ttl", "TTL");
-            convertedString = convertedString.Replace("Ttfp", "TTFP");
             convertedString = convertedString.Replace("Ubnt", "UBNT");
             convertedString = convertedString.Replace("Udp", "UDP");
             convertedString = convertedString.Replace("Unms", "UNMS");
             convertedString = convertedString.Replace("Upnp", "UPnP");
             convertedString = convertedString.Replace("Url", "URL");
             convertedString = convertedString.Replace("Vc", "VC");
+            convertedString = convertedString.Replace("Vif", "VIF");
             convertedString = convertedString.Replace("Vpls", "VPLS");
             convertedString = convertedString.Replace("Vpn", "VPN");
-            convertedString = convertedString.Replace("Vif", "VIF");
             convertedString = convertedString.Replace("Vrrp", "VRRP");
 
             // Return the result.
