@@ -281,16 +281,27 @@ namespace EdgeOS.API
         /// <returns>The response from the device.</returns>
         public ConfigurationSettingsGetTreeResponse ConfigurationSettingsGetTree(string[] requestPath)
         {
-            // Build the querystring.
-            StringBuilder queryString = new StringBuilder();
-            for (int count = 0; count < requestPath.Length; count++)
-            {
-                if (count > 0) { queryString.Append('&'); }
-                queryString.Append("node[]=" + HttpUtility.UrlEncode(requestPath[count]));
-            }
+            HttpResponseMessage httpResponse;
 
-            // Send it to the Configuration Settings Get Tree end-point.
-            HttpResponseMessage httpResponse = _httpClient.GetAsync("/api/edge/getcfg.json" + (requestPath.Length > 0 ? "?" + queryString.ToString() : null)).Result;
+            // Check there was a requestPath (and that it contains at least one node).
+            if (requestPath != null && requestPath.Length > 0)
+            {
+                // Build the querystring.
+                StringBuilder queryString = new StringBuilder();
+                for (int count = 0; count < requestPath.Length; count++)
+                {
+                    if (count > 0) { queryString.Append('&'); }
+                    queryString.Append("node[]=" + HttpUtility.UrlEncode(requestPath[count]));
+                }
+
+                // Send it to the Configuration Settings Get Tree end-point.
+                httpResponse = _httpClient.GetAsync("/api/edge/getcfg.json?" + queryString.ToString()).Result;
+            }
+            else
+            {
+                // Send it to the Configuration Settings Get Tree end-point.
+                httpResponse = _httpClient.GetAsync("/api/edge/getcfg.json").Result;
+            }
 
             // Check the result is what we are expecting (and throw an exception if not).
             httpResponse.EnsureSuccessStatusCode();

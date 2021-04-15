@@ -11,10 +11,10 @@ namespace EdgeOS.API.Types.Configuration
 
         /// <summary>This setting is enabled.</summary>
         [EnumMember(Value = "enable")]
-        Enabled,
+        Enable,
 
         /// <summary>This setting is disabled.</summary>
         [EnumMember(Value = "disable")]
-        Disabled
+        Disable
     }
 }

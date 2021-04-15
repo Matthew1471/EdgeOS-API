@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace EdgeOS.API.Types.Configuration
 {
-    /// <summary>A class representing a complete EdgeOS Firewall Group configuration tree.</summary>
+    /// <summary>A class representing an EdgeOS Firewall Group configuration tree.</summary>
     public class FirewallGroup
     {
         /// <summary>Firewall address-group</summary>

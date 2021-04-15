@@ -50,9 +50,9 @@
     <Compile Include="SubscriptionDataEvent.cs" />
     <Compile Include="Types\Configuration\Configuration.cs" />
     <Compile Include="Types\Configuration\ConfigurationBool.cs" />
-    <Compile Include="Types\Configuration\Firewall\AddressGroup.cs" />
-    <Compile Include="Types\Configuration\Firewall\Firewall.cs" />
+    <Compile Include="Types\Configuration\Firewall.cs" />
     <Compile Include="Types\Configuration\Firewall\FirewallGroup.cs" />
+    <Compile Include="Types\Configuration\Firewall\Group\AddressGroupEntry.cs" />
     <Compile Include="Types\PingRequest.cs" />
     <Compile Include="Types\REST\AuthenticateResponse.cs" />
     <Compile Include="Types\REST\ConfigurationDownloadPrepareResponse.cs" />

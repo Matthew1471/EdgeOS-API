@@ -2,7 +2,7 @@
 
 namespace EdgeOS.API.Types.Configuration
 {
-    /// <summary>A class representing a complete EdgeOS configuration tree.</summary>
+    /// <summary>A class representing an EdgeOS configuration tree.</summary>
     public class Configuration
     {
         /// <summary>Custom attribute name</summary>
